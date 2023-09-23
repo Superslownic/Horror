@@ -1,0 +1,6 @@
+--- Sewer environment ---
+
+The package contains a modular sewer environment with 50 prefabs to create and decorate your own structure
+All models are between 100 to 2500 vertices (800 on average). Suitable for all platforms!
+Textures are up to 4k resolution!
+All materials use Unity's Build-in Shaders and all prefabs have mesh colliders. Works with all render pipelines!
