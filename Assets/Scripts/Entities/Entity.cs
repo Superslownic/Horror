@@ -29,7 +29,7 @@ namespace Game.Entities
 			{
 				Transform child = transform.GetChild(i);
 				
-				if (child.HasComponent<SkipComponentSearch>())
+				if (child.HasComponent<SkipInSearch>())
 					continue;
 					
 				if (child.HasComponent<Entity>())

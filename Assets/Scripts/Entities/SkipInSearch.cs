@@ -2,7 +2,7 @@
 
 namespace Game.Entities
 {
-	public class SkipComponentSearch : MonoBehaviour
+	public class SkipInSearch : MonoBehaviour
 	{
 	}
 }
