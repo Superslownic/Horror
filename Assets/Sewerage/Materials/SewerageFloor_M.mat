@@ -92,9 +92,9 @@ Material:
     - Tiling: 1
     - Vector1_1e75a7939e58499c950dcbdf88701d5c: 1
     - Vector1_846608e6a22840b5a0bb942d2e4d99ba: 0
-    - Vector1_940a393576d8410181df69732dc0c079: -0.15
+    - Vector1_940a393576d8410181df69732dc0c079: -0.76
     - Vector1_c020ff24cb25405286b0609a0b359414: 0
-    - Vector1_d6275c7ea3974cb3a03d422e32d59c3c: 0
+    - Vector1_d6275c7ea3974cb3a03d422e32d59c3c: -0.76
     - _AddPrecomputedVelocity: 0
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 0

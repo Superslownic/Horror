@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using Game.Utility;
+using UnityEngine;
+
+namespace Game.Entities
+{
+	public sealed class Entity : MonoBehaviour
+	{
+		public static event Action<Entity> OnInitialized;
+		public static event Action<Entity> OnDisposed;
+		
+		private Dictionary<Type, Ability> _abilities = new();
+
+		private void Awake()
+		{
+			GatherAbilities(transform);
+			OnInitialized?.Invoke(this);
+		}
+
+		private void OnDestroy()
+		{
+			OnDisposed?.Invoke(this);
+		}
+
+		private void GatherAbilities(Transform transform)
+		{
+			for (int i = 0; i < transform.childCount; i++)
+			{
+				Transform child = transform.GetChild(i);
+				
+				if (child.HasComponent<SkipComponentSearch>())
+					continue;
+					
+				if (child.HasComponent<Entity>())
+					continue;
+
+				if (child.TryGetComponent(out Ability ability))
+				{
+					ability.Initialize(this);
+					_abilities.Add(ability.Type, ability);
+				}
+				
+				GatherAbilities(child);
+			}
+		}
+	}
+}

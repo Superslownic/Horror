@@ -97,7 +97,7 @@ Material:
     - Vector1_57df3994227d4a709e2c8b9ce508fece: -1
     - Vector1_846608e6a22840b5a0bb942d2e4d99ba: 0
     - Vector1_940a393576d8410181df69732dc0c079: 0
-    - Vector1_afb92a2608974325b1e8fcd8f89c8da0: 0
+    - Vector1_afb92a2608974325b1e8fcd8f89c8da0: -0.74
     - Vector1_c020ff24cb25405286b0609a0b359414: 0
     - Vector1_d6275c7ea3974cb3a03d422e32d59c3c: 0
     - _AddPrecomputedVelocity: 0
@@ -116,7 +116,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
-    - _DoubleSidedNormalMode: 2
+    - _DoubleSidedNormalMode: 1
     - _DstBlend: 10
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
@@ -171,7 +171,7 @@ Material:
     - Color_d4dbd54059e74ff482d1cd002ad14c4f: {r: 1, g: 1, b: 1, a: 0}
     - Color_feb55d6c66f6432d879586fc6092489c: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0.53676474, g: 0.53676474, b: 0.53676474, a: 1}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7230129827010920893
