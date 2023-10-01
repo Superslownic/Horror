@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public class UnityEventObserver : IObserver
 	{

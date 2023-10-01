@@ -1,4 +1,4 @@
-﻿namespace Game.Reactive
+﻿namespace Scripts.Reactive
 {
 	public interface IObservable<T>
 	{

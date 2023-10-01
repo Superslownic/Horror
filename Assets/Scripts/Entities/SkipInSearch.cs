@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Entities
+namespace Scripts.Entities
 {
 	public class SkipInSearch : MonoBehaviour
 	{

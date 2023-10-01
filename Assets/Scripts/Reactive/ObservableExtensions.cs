@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public static class ObservableExtensions
 	{

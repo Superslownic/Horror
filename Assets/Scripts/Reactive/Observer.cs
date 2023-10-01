@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public abstract class Observer<T> : IObserver<T>
 	{

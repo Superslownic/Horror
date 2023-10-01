@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public interface IObserver<in T> : IDisposable
 	{

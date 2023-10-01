@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public class CompositeDisposable : IGroupedDisposable, IDisposable
 	{

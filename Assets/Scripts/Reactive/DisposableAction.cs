@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public class DisposableAction : IObservable
 	{

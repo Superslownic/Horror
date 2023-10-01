@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Utility;
+using Scripts.Utility;
 using UnityEngine;
 
-namespace Game.Entities
+namespace Scripts.Entities
 {
 	public sealed class Entity : MonoBehaviour
 	{

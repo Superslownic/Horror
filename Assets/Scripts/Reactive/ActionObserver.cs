@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Reactive
+namespace Scripts.Reactive
 {
 	public class ActionObserver : Observer
 	{

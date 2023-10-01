@@ -1,31 +1,62 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.Entities
+namespace Scripts.Entities
 {
 	public abstract class Ability : MonoBehaviour
 	{
-		public static event Action<Ability> OnInitialized;
-		public static event Action<Ability> OnDisposed;
+		public static event Action<Ability> Initialized;
+		public static event Action<Ability> Disposed;
 		
 		public Type Type { get; private set; }
 		public Entity Entity { get; private set; }
+		public bool IsActive { get; private set; }
 
 		public void Initialize(Entity entity)
 		{
 			Entity = entity;
 			Type = GetType();
-			Initialized();
-			OnInitialized?.Invoke(this);
+			OnInitialize();
+			Initialized?.Invoke(this);
+		}
+
+		public void SetActive(bool value)
+		{
+			if(IsActive == value)
+			{
+				return;
+			}
+			
+			if (value)
+			{
+				IsActive = true;
+				OnActivate();
+			}
+			else
+			{
+				IsActive = false;
+				OnDeactivate();
+			}
+		}
+		
+		private void Update()
+		{
+			if (IsActive)
+			{
+				OnUpdate();
+			}
 		}
 
 		private void OnDestroy()
 		{
-			Disposed();
-			OnDisposed?.Invoke(this);
+			OnDispose();
+			Disposed?.Invoke(this);
 		}
-
-		protected abstract void Initialized();
-		protected abstract void Disposed();
+		
+		protected virtual void OnInitialize() { }
+		protected virtual void OnActivate() { }
+		protected virtual void OnUpdate() { }
+		protected virtual void OnDeactivate() { }
+		protected virtual void OnDispose() { }
 	}
 }
