@@ -13,10 +13,10 @@ namespace Scripts.Installers
 		
 		public override void InstallBindings()
 		{
-			Container.BindInstance(_gameConfig);
-			Container.BindInterfacesAndSelfTo<ObjectFactory>();
-			Container.BindInterfacesAndSelfTo<InputManager>();
-			Container.BindInterfacesAndSelfTo<GameStateMachine>().NonLazy();
+			Container.BindInstance(_gameConfig).AsSingle();
+			Container.BindInterfacesAndSelfTo<ObjectFactory>().AsSingle();
+			Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
+			Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle().NonLazy();
 		}
 	}
 }

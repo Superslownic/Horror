@@ -15,5 +15,11 @@ namespace Scripts.Utility
 				? result
 				: component.gameObject.AddComponent<T>();
 		}
+		
+		public static bool TryGetComponentInChildren<T>(this Component component, out T result) where T : Component
+		{
+			result = component.GetComponentInChildren<T>();
+			return result != null;
+		}
 	}
 }

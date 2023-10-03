@@ -43,7 +43,7 @@ namespace Scripts
                 {
                     ""name"": ""Keyboard"",
                     ""id"": ""0b341342-98bd-42fe-8101-f8dd4e7367bb"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -98,7 +98,7 @@ namespace Scripts
                 {
                     ""name"": ""Gamepad"",
                     ""id"": ""30722828-5fbb-4136-b67f-d9fa80bfd7cb"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
