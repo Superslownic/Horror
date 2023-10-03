@@ -15,5 +15,10 @@ namespace Scripts.Input
 		{
 			return _inputActions.Default.Move.ReadValue<Vector2>();
 		}
+
+		public Vector2 GetRotationValue()
+		{
+			return _inputActions.Default.Rotation.ReadValue<Vector2>();
+		}
 	}
 }

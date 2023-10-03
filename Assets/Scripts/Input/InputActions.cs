@@ -37,6 +37,15 @@ namespace Scripts
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotation"",
+                    ""type"": ""Value"",
+                    ""id"": ""d4cb6c65-9bff-4b2d-9aab-b2090253b440"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -149,6 +158,116 @@ namespace Scripts
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""id"": ""77c866c1-71f7-4dc3-89ae-33a3c71f9ba6"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""76642150-0bde-46f2-a9ad-e930effcf24b"",
+                    ""path"": ""<Mouse>/delta/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7397209d-f5b4-4753-b581-41b5fbb22094"",
+                    ""path"": ""<Mouse>/delta/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""74dbaba6-7c2d-405c-9b74-2526c0ddf20a"",
+                    ""path"": ""<Mouse>/delta/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7304d232-a1c0-49f8-894f-b108381f43bf"",
+                    ""path"": ""<Mouse>/delta/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""4c1fc26f-2b53-4da7-bc9b-a236db2f92d3"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f133eff6-accf-4a3c-928d-46b0348a688d"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3b5c5f15-4ae4-48c5-b4dd-f300faf22b04"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a3b07d80-d4af-434d-9979-234683421fd3"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""273af1ba-9207-45e8-8925-9e02a4186662"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -158,6 +277,7 @@ namespace Scripts
             // Default
             m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
             m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
+            m_Default_Rotation = m_Default.FindAction("Rotation", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -218,11 +338,13 @@ namespace Scripts
         private readonly InputActionMap m_Default;
         private IDefaultActions m_DefaultActionsCallbackInterface;
         private readonly InputAction m_Default_Move;
+        private readonly InputAction m_Default_Rotation;
         public struct DefaultActions
         {
             private @InputActions m_Wrapper;
             public DefaultActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Default_Move;
+            public InputAction @Rotation => m_Wrapper.m_Default_Rotation;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -235,6 +357,9 @@ namespace Scripts
                     @Move.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
+                    @Rotation.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
+                    @Rotation.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
+                    @Rotation.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
                 }
                 m_Wrapper.m_DefaultActionsCallbackInterface = instance;
                 if (instance != null)
@@ -242,6 +367,9 @@ namespace Scripts
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
+                    @Rotation.started += instance.OnRotation;
+                    @Rotation.performed += instance.OnRotation;
+                    @Rotation.canceled += instance.OnRotation;
                 }
             }
         }
@@ -249,6 +377,7 @@ namespace Scripts
         public interface IDefaultActions
         {
             void OnMove(InputAction.CallbackContext context);
+            void OnRotation(InputAction.CallbackContext context);
         }
     }
 }

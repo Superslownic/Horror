@@ -18,9 +18,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			bool isGrounded = GetGroundNormal(out Vector3 groundNormal);
-
-			if (isGrounded)
+			if (IsGrounded(out Vector3 groundNormal))
 			{
 				Vector2 moveInput = _inputManager.GetMoveValue();
 			
@@ -29,23 +27,20 @@ namespace Scripts.Core.Player
 				
 				Vector3 inputMotion = (forwardDirection + sideDirection) * _gameConfig.Player.Movement.Speed;
 				Vector3 clampedMotion = Vector3.ClampMagnitude(inputMotion, _gameConfig.Player.Movement.Speed);
+
+				bool isMoving = moveInput.sqrMagnitude > 0;
+
+				Vector3 resultMotion = isMoving ? clampedMotion : Vector3.zero;
+				float resultDelta = isMoving ? _gameConfig.Player.Movement.Acceleration : _gameConfig.Player.Movement.Deceleration;
 				
-				if(moveInput.sqrMagnitude > 0)
-				{
-					_velocity = Vector3.MoveTowards(_velocity, clampedMotion, _gameConfig.Player.Movement.Acceleration * Time.deltaTime);
-				}
-				else
-				{
-					_velocity = Vector3.MoveTowards(_velocity, Vector3.zero, _gameConfig.Player.Movement.Deceleration * Time.deltaTime);
-				}
-				
+				_velocity = Vector3.MoveTowards(_velocity, resultMotion, resultDelta * Time.deltaTime);
 				_characterController.Move(_velocity * Time.deltaTime);
 			}
 			
 			_characterController.Move(Vector3.down * (_gameConfig.Player.Movement.Gravity * Time.deltaTime));
 		}
 
-		private bool GetGroundNormal(out Vector3 result)
+		private bool IsGrounded(out Vector3 result)
 		{
 			Vector3 origin = transform.position + _characterController.center;
 			float radius = _characterController.radius;
