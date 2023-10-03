@@ -5,12 +5,12 @@ namespace Scripts.Entities
 	public abstract class DeactivatableAbility : Ability
 	{
 		public HashSet<object> Deactivators { get; } = new();
-		
+
 		public void AddDeactivator(object deactivator)
 		{
 			if (Deactivators.Add(deactivator))
 			{
-				SetActive(Deactivators.Count == 0);
+				UpdateActivation();
 			}
 		}
 
@@ -18,8 +18,13 @@ namespace Scripts.Entities
 		{
 			if (Deactivators.Remove(deactivator))
 			{
-				SetActive(Deactivators.Count == 0);
+				UpdateActivation();
 			}
+		}
+
+		protected override void UpdateActivation()
+		{
+			SetActive(Deactivators.Count == 0);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Scripts.Reactive;
 using Scripts.Utility;
 using UnityEngine;
 
@@ -7,20 +8,20 @@ namespace Scripts.Entities
 {
 	public sealed class Entity : MonoBehaviour
 	{
-		public static event Action<Entity> OnInitialized;
-		public static event Action<Entity> OnDisposed;
+		public static DisposableAction<Entity> OnInitialized { get; } = new();
+		public static DisposableAction<Entity> OnDisposed { get; } = new();
 		
 		private Dictionary<Type, Ability> _abilities = new();
 
 		private void Awake()
 		{
 			GatherAbilities(transform);
-			OnInitialized?.Invoke(this);
+			OnInitialized.Invoke(this);
 		}
 
 		private void OnDestroy()
 		{
-			OnDisposed?.Invoke(this);
+			OnDisposed.Invoke(this);
 		}
 
 		private void GatherAbilities(Transform transform)
@@ -29,9 +30,6 @@ namespace Scripts.Entities
 			{
 				Transform child = transform.GetChild(i);
 				
-				if (child.HasComponent<SkipInSearch>())
-					continue;
-					
 				if (child.HasComponent<Entity>())
 					continue;
 

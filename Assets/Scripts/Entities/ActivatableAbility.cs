@@ -5,12 +5,17 @@ namespace Scripts.Entities
 	public abstract class ActivatableAbility : Ability
 	{
 		public HashSet<object> Activators { get; } = new();
-		
+
+		protected override void OnInitialize()
+		{
+			UpdateActivation();
+		}
+
 		public void AddActivator(object activator)
 		{
 			if (Activators.Add(activator))
 			{
-				SetActive(Activators.Count > 0);
+				UpdateActivation();
 			}
 		}
 
@@ -18,8 +23,13 @@ namespace Scripts.Entities
 		{
 			if (Activators.Remove(activator))
 			{
-				SetActive(Activators.Count > 0);
+				UpdateActivation();
 			}
+		}
+		
+		protected override void UpdateActivation()
+		{
+			SetActive(Activators.Count > 0);
 		}
 	}
 }
