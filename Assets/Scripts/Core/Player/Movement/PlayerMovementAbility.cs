@@ -25,7 +25,7 @@ namespace Scripts.Core.Player.Movement
 				Vector3 forwardDirection = Vector3.ProjectOnPlane(_lookAnchor.forward, groundNormal) * moveInput.y;
 				Vector3 sideDirection = Vector3.ProjectOnPlane(_lookAnchor.right, groundNormal) * moveInput.x;
 				
-				Vector3 inputMotion = (forwardDirection + sideDirection) * _gameConfig.Player.Movement.Speed;
+				Vector3 inputMotion = (forwardDirection + sideDirection).normalized * _gameConfig.Player.Movement.Speed;
 				Vector3 clampedMotion = Vector3.ClampMagnitude(inputMotion, _gameConfig.Player.Movement.Speed);
 
 				bool isMoving = moveInput.sqrMagnitude > 0;

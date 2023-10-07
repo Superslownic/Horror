@@ -26,13 +26,13 @@ namespace Scripts.Core.Player.Look
 			
 			//gamepad
 			{
-				float resultDelta = isRotating ? _gameConfig.Player.Look.Acceleration : _gameConfig.Player.Look.Deceleration;
-				_velocity = Vector3.MoveTowards(_velocity, resultMotion, resultDelta * Time.deltaTime);
+				//float resultDelta = isRotating ? _gameConfig.Player.Look.Acceleration : _gameConfig.Player.Look.Deceleration;
+				//_velocity = Vector3.MoveTowards(_velocity, resultMotion, resultDelta * Time.deltaTime);
 			}
 			
 			//mouse
 			{
-				//_velocity = resultMotion;
+				_velocity = resultMotion;
 			}
 
 			Quaternion horizontalRotation = Quaternion.Euler(0, _velocity.x * _gameConfig.Player.Look.Sensitivity, 0);
