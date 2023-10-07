@@ -19,10 +19,10 @@ MonoBehaviour:
         m_Bits: 1
       <Gravity>k__BackingField: 10
       <GroundCheckThreshold>k__BackingField: 0.1
-      <Speed>k__BackingField: 5
+      <Speed>k__BackingField: 3
       <Acceleration>k__BackingField: 20
       <Deceleration>k__BackingField: 20
     <Look>k__BackingField:
-      <Sensitivity>k__BackingField: 2
+      <Sensitivity>k__BackingField: 4
       <Acceleration>k__BackingField: 5
       <Deceleration>k__BackingField: 5
