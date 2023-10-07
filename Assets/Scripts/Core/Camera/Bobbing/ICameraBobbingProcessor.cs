@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Core.Player
+namespace Scripts.Core.Camera
 {
 	public interface ICameraBobbingProcessor
 	{

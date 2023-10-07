@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.Core.Player
+namespace Scripts.Core.Camera
 {
 	[Serializable]
 	public class VerticalRotationProcessor : SinCosProcessor

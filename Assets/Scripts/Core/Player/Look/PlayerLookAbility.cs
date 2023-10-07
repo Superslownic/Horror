@@ -23,20 +23,29 @@ namespace Scripts.Core.Player.Look
 			bool isRotating = rotationInput.sqrMagnitude > 0;
 			
 			Vector2 resultMotion = isRotating ? rotationInput : Vector2.zero;
-			
-			//gamepad
+
+			float sensitivity = 0;
+
+			switch (_inputManager.GetCurrentInputType())
 			{
-				//float resultDelta = isRotating ? _gameConfig.Player.Look.Acceleration : _gameConfig.Player.Look.Deceleration;
-				//_velocity = Vector3.MoveTowards(_velocity, resultMotion, resultDelta * Time.deltaTime);
-			}
-			
-			//mouse
-			{
-				_velocity = resultMotion;
+				case InputType.Gamepad:
+				{
+					sensitivity = _gameConfig.Player.Look.Gamepad.Sensitivity;
+					float resultDelta = isRotating ? _gameConfig.Player.Look.Gamepad.Acceleration : _gameConfig.Player.Look.Gamepad.Deceleration;
+					_velocity = Vector3.MoveTowards(_velocity, resultMotion, resultDelta * Time.deltaTime);
+					break;
+				}
+				
+				case InputType.Keyboard:
+				{
+					sensitivity = _gameConfig.Player.Look.Keyboard.Sensitivity;
+					_velocity = resultMotion;
+					break;
+				}
 			}
 
-			Quaternion horizontalRotation = Quaternion.Euler(0, _velocity.x * _gameConfig.Player.Look.Sensitivity, 0);
-			Quaternion verticalRotation = Quaternion.Euler(-_velocity.y * _gameConfig.Player.Look.Sensitivity, 0, 0);
+			Quaternion horizontalRotation = Quaternion.Euler(0, _velocity.x * sensitivity, 0);
+			Quaternion verticalRotation = Quaternion.Euler(-_velocity.y * sensitivity, 0, 0);
 			
 			_horizontalRotationTransform.rotation *= horizontalRotation;
 			_verticalRotationTransform.rotation *= verticalRotation;
