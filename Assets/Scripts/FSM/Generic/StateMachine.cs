@@ -1,28 +1,79 @@
 ﻿using System;
-using Scripts.Entities;
+using System.Collections.Generic;
 
 namespace Scripts.FSM.Generic
 {
-	public abstract class StateMachine : Ability
+	public class StateMachine : State
 	{
-		private CompositeState _compositeState = new();
+		public State CurrentState { get; private set; }
 		
-		protected override void OnInitialize()
+		private readonly Dictionary<State, IList<Transition>> _transitions = new();
+
+		private State _startState;
+
+		public override void Enter()
 		{
-			State startingState = Setup();
-			_compositeState.Enter(startingState);
+			Enter(_startState);
 		}
 
-		protected override void OnUpdate()
+		public override void Update()
 		{
-			_compositeState.OnUpdate();
+			CurrentState?.Update();
+			
+			if (FindValidTransition(out State state))
+			{
+				Enter(state);
+			}
 		}
 
-		protected abstract State Setup();
-
-		protected void AddTransition(State origin, State destination, Func<bool> condition)
+		public override void Exit()
 		{
-			_compositeState.AddTransition(origin, destination, condition);
+			CurrentState?.Exit();
+			CurrentState = null;
+		}
+
+		public void SetStartState(State state)
+		{
+			_startState = state;
+		}
+
+		public void AddTransition(State origin, State destination, Func<bool> condition)
+		{
+			if (!_transitions.ContainsKey(origin))
+				_transitions.Add(origin, new List<Transition>());
+
+			_transitions[origin].Add(new Transition(destination, condition));
+		}
+
+		private void Enter(State state)
+		{
+			if (CurrentState != null && CurrentState == state)
+				return;
+
+			CurrentState?.Exit();
+			CurrentState = state;
+			CurrentState?.Enter();
+		}
+
+		private bool FindValidTransition(out State result)
+		{
+			if (CurrentState == null || !_transitions.ContainsKey(CurrentState))
+			{
+				result = default;
+				return false;
+			}
+			
+			foreach (Transition transition in _transitions[CurrentState])
+			{
+				if (transition.Condition.Invoke())
+				{
+					result = transition.Destination;
+					return true;
+				}
+			}
+			
+			result = default;
+			return false;
 		}
 	}
 }
