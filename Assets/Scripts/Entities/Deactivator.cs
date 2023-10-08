@@ -1,10 +1,18 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Scripts.Entities
 {
-	public abstract class DeactivatableAbility : Ability
+	public class Deactivator : MonoBehaviour
 	{
 		public HashSet<object> Deactivators { get; } = new();
+
+		private Ability _ability;
+
+		private void Awake()
+		{
+			_ability = GetComponent<Ability>();
+		}
 
 		public void AddDeactivator(object deactivator)
 		{
@@ -22,9 +30,9 @@ namespace Scripts.Entities
 			}
 		}
 
-		protected override void UpdateActivation()
+		private void UpdateActivation()
 		{
-			SetActive(Deactivators.Count == 0);
+			_ability.SetActive(Deactivators.Count == 0);
 		}
 	}
 }

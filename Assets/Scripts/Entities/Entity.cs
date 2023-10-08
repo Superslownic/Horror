@@ -36,6 +36,22 @@ namespace Scripts.Entities
 				if (child.TryGetComponent(out Ability ability))
 				{
 					ability.Initialize(this);
+					
+					switch (ability)
+					{
+						case IActivatableAbility:
+							ability.gameObject.AddComponent<Activator>();
+							break;
+						
+						case IDeactivatableAbility:
+							ability.gameObject.AddComponent<Deactivator>();
+							break;
+						
+						default:
+							ability.SetActive(true);
+							break;
+					}
+					
 					_abilities.Add(ability.Type, ability);
 				}
 				

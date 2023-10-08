@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Core.Camera
 {
-	public class CameraBobbingAbility : DeactivatableAbility
+	public class CameraBobbingAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private PlayerMovementAbility _movementAbility;

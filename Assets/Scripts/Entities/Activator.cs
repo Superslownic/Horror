@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Scripts.Entities
 {
-	public abstract class ActivatableAbility : Ability
+	public class Activator : MonoBehaviour
 	{
 		public HashSet<object> Activators { get; } = new();
 
-		protected override void OnInitialize()
+		private Ability _ability;
+
+		private void Awake()
 		{
+			_ability = GetComponent<Ability>();
 			UpdateActivation();
 		}
 
@@ -27,9 +31,9 @@ namespace Scripts.Entities
 			}
 		}
 		
-		protected override void UpdateActivation()
+		private void UpdateActivation()
 		{
-			SetActive(Activators.Count > 0);
+			_ability.SetActive(Activators.Count > 0);
 		}
 	}
 }

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Scripts.Core.Player.Movement
 {
-	public class PlayerMovementAbility : DeactivatableAbility
+	public class PlayerMovementAbility : Ability
 	{
 		[SerializeField] private Transform _lookAnchor;
 		[SerializeField] private CharacterController _characterController;

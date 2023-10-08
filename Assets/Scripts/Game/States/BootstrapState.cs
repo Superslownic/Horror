@@ -1,7 +1,8 @@
-﻿using Scripts.Input;
+﻿using Scripts.FSM.Typed;
+using Scripts.Input;
 using Zenject;
 
-namespace Scripts.FSM
+namespace Scripts.Game.States
 {
 	public class BootstrapState : IDefaultState
 	{

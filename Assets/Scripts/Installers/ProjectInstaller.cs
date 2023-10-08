@@ -1,6 +1,6 @@
 ﻿using Scripts.Config;
 using Scripts.Factory;
-using Scripts.FSM;
+using Scripts.Game.States;
 using Scripts.Input;
 using UnityEngine;
 using Zenject;

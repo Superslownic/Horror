@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Scripts.Core.Player.Look
 {
-	public class PlayerLookAbility : DeactivatableAbility
+	public class PlayerLookAbility : Ability
 	{
 		[SerializeField] private Transform _horizontalRotationTransform;
 		[SerializeField] private Transform _verticalRotationTransform;

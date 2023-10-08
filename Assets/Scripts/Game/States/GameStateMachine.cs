@@ -1,7 +1,8 @@
 ﻿using Scripts.Factory;
+using Scripts.FSM.Typed;
 using Zenject;
 
-namespace Scripts.FSM
+namespace Scripts.Game.States
 {
 	public class GameStateMachine : StateMachine
 	{

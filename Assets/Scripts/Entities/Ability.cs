@@ -17,7 +17,6 @@ namespace Scripts.Entities
 		{
 			Entity = entity;
 			Type = GetType();
-			UpdateActivation();
 			OnInitialize();
 			Initialized.Invoke(this);
 		}
@@ -54,8 +53,6 @@ namespace Scripts.Entities
 			OnDispose();
 			Disposed.Invoke(this);
 		}
-		
-		protected abstract void UpdateActivation();
 		
 		protected virtual void OnInitialize() { }
 		protected virtual void OnActivate() { }

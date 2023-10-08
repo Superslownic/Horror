@@ -1,4 +1,4 @@
-﻿namespace Scripts.FSM
+﻿namespace Scripts.FSM.Typed
 {
 	public interface IState
 	{

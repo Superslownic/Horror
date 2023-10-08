@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Core.Camera
 {
-	public class CameraSmoothAbility : DeactivatableAbility
+	public class CameraSmoothAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private Transform _target;
