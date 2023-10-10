@@ -1,5 +1,4 @@
 ﻿using Scripts.Reactive;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Scripts.Input
@@ -7,14 +6,18 @@ namespace Scripts.Input
 	public class InputManager
 	{
 		public DisposableAction OnInputTypeChanged { get; } = new();
-		
+		public InputType CurrentInputType { get; private set; }
+		public InputAction Move => _inputActions.Default.Move;
+		public InputAction Look => _inputActions.Default.Look;
+		public InputAction Crouch => _inputActions.Default.Crouch;
+		public InputAction Shift => _inputActions.Default.Shift;
+
 		private InputActions _inputActions = new();
-		private InputType _currentInputType;
 
 		public void Initialize()
 		{
-			_inputActions.Enable();
 			InputSystem.onActionChange += HandleActionChange;
+			_inputActions.Enable();
 		}
 
 		private void HandleActionChange(object obj, InputActionChange inputActionChange)
@@ -31,27 +34,12 @@ namespace Scripts.Input
 					_ => InputType.Keyboard
 				};
 
-				if (_currentInputType != inputType)
+				if (CurrentInputType != inputType)
 				{
-					_currentInputType = inputType;
+					CurrentInputType = inputType;
 					OnInputTypeChanged.Invoke();
 				}
 			}
-		}
-
-		public Vector2 GetMoveValue()
-		{
-			return _inputActions.Default.Move.ReadValue<Vector2>();
-		}
-
-		public Vector2 GetRotationValue()
-		{
-			return _inputActions.Default.Rotation.ReadValue<Vector2>();
-		}
-
-		public InputType GetCurrentInputType()
-		{
-			return _currentInputType;
 		}
 	}
 }

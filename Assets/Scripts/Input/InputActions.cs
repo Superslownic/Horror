@@ -39,10 +39,28 @@ namespace Scripts
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Rotation"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""d4cb6c65-9bff-4b2d-9aab-b2090253b440"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""18851389-f07a-4fa6-81b1-f886c125c406"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Button"",
+                    ""id"": ""329ab6e9-2e62-406a-876b-8f1894302171"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -166,7 +184,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -177,7 +195,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -188,7 +206,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -199,7 +217,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -210,7 +228,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -221,7 +239,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -232,7 +250,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -243,7 +261,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -254,7 +272,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -265,9 +283,53 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8ba5dac-f94a-491e-95ee-999cd929b08f"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8f95176-d404-4ec2-b44f-4ef6a807c471"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e321c63d-2ac7-429e-81e7-1b67a96daf08"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e83293b4-bc95-426a-803d-e9087fe1fb30"",
+                    ""path"": ""<XInputController>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -277,7 +339,9 @@ namespace Scripts
             // Default
             m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
             m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
-            m_Default_Rotation = m_Default.FindAction("Rotation", throwIfNotFound: true);
+            m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
+            m_Default_Crouch = m_Default.FindAction("Crouch", throwIfNotFound: true);
+            m_Default_Shift = m_Default.FindAction("Shift", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -338,13 +402,17 @@ namespace Scripts
         private readonly InputActionMap m_Default;
         private IDefaultActions m_DefaultActionsCallbackInterface;
         private readonly InputAction m_Default_Move;
-        private readonly InputAction m_Default_Rotation;
+        private readonly InputAction m_Default_Look;
+        private readonly InputAction m_Default_Crouch;
+        private readonly InputAction m_Default_Shift;
         public struct DefaultActions
         {
             private @InputActions m_Wrapper;
             public DefaultActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Default_Move;
-            public InputAction @Rotation => m_Wrapper.m_Default_Rotation;
+            public InputAction @Look => m_Wrapper.m_Default_Look;
+            public InputAction @Crouch => m_Wrapper.m_Default_Crouch;
+            public InputAction @Shift => m_Wrapper.m_Default_Shift;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -357,9 +425,15 @@ namespace Scripts
                     @Move.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMove;
-                    @Rotation.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
-                    @Rotation.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
-                    @Rotation.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRotation;
+                    @Look.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnLook;
+                    @Crouch.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
+                    @Crouch.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
+                    @Crouch.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
+                    @Shift.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
+                    @Shift.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
+                    @Shift.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
                 }
                 m_Wrapper.m_DefaultActionsCallbackInterface = instance;
                 if (instance != null)
@@ -367,9 +441,15 @@ namespace Scripts
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
-                    @Rotation.started += instance.OnRotation;
-                    @Rotation.performed += instance.OnRotation;
-                    @Rotation.canceled += instance.OnRotation;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
+                    @Crouch.started += instance.OnCrouch;
+                    @Crouch.performed += instance.OnCrouch;
+                    @Crouch.canceled += instance.OnCrouch;
+                    @Shift.started += instance.OnShift;
+                    @Shift.performed += instance.OnShift;
+                    @Shift.canceled += instance.OnShift;
                 }
             }
         }
@@ -377,7 +457,9 @@ namespace Scripts
         public interface IDefaultActions
         {
             void OnMove(InputAction.CallbackContext context);
-            void OnRotation(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
+            void OnCrouch(InputAction.CallbackContext context);
+            void OnShift(InputAction.CallbackContext context);
         }
     }
 }

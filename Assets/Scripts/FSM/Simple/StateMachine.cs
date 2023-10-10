@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Scripts.FSM.Typed
+namespace Scripts.FSM.Simple
 {
 	public class StateMachine
 	{

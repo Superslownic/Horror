@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Scripts.Factory
 {
-	public class ObjectFactory : IObjectFactory
+	public class ObjectFactory
 	{
 		[Inject] private readonly DiContainer _diContainer;
 

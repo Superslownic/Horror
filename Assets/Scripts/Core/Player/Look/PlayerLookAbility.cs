@@ -18,7 +18,7 @@ namespace Scripts.Core.Player.Look
 
 		protected override void OnUpdate()
 		{
-			Vector2 rotationInput = _inputManager.GetRotationValue();
+			Vector2 rotationInput = _inputManager.Look.ReadValue<Vector2>();
 			
 			bool isRotating = rotationInput.sqrMagnitude > 0;
 			
@@ -26,7 +26,7 @@ namespace Scripts.Core.Player.Look
 
 			float sensitivity = 0;
 
-			switch (_inputManager.GetCurrentInputType())
+			switch (_inputManager.CurrentInputType)
 			{
 				case InputType.Gamepad:
 				{

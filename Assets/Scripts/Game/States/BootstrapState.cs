@@ -1,4 +1,4 @@
-﻿using Scripts.FSM.Typed;
+﻿using Scripts.FSM.Simple;
 using Scripts.Input;
 using Zenject;
 

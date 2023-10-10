@@ -28,7 +28,7 @@ namespace Scripts.Core.Player.Movement
 			
 			if (IsGrounded)
 			{
-				Vector2 moveInput = _inputManager.GetMoveValue();
+				Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
 
 				Vector3 forwardDirection = Vector3.ProjectOnPlane(_lookAnchor.forward, groundNormal).normalized * moveInput.y;
 				Vector3 sideDirection = Vector3.ProjectOnPlane(_lookAnchor.right, groundNormal).normalized * moveInput.x;

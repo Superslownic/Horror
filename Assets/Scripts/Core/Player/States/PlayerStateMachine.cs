@@ -1,149 +1,80 @@
 ﻿using Scripts.Factory;
-using Scripts.FSM.Generic;
+using Scripts.FSM.Composite;
+using Scripts.Input;
 using Zenject;
 
 namespace Scripts.Core.Player.States
 {
 	public class PlayerStateMachine : StateMachineAbility
 	{
-		[Inject] private readonly IObjectFactory _objectFactory;
+		[Inject] private readonly ObjectFactory _objectFactory;
+		[Inject] private readonly InputManager _inputManager;
 		
 		protected override void Setup()
 		{
 			State standing = SetupStandingState();
 			State crouching = SetupCrouchingState();
+
+			Root = new SuperState("Root", standing);
 			
-			AddTransition(standing, crouching, () => false);
-			AddTransition(crouching, standing, () => false);
+			Root.AddState(standing, transitions: new Transition[]
+			{
+				new (crouching, when: () => _inputManager.Crouch.WasPressedThisFrame())
+			});
 			
-			SetStartState(standing);
+			Root.AddState(crouching, transitions: new Transition[]
+			{
+				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Shift.WasPressedThisFrame())
+			});
 		}
 
 		private State SetupStandingState()
 		{
-			StateMachine standing = new();
+			State idle = _objectFactory.CreateInjectedInstance<PlayerStandingIdleState>("Idle");
+			State walk = _objectFactory.CreateInjectedInstance<PlayerStandingWalkState>("Walk");
+			State run = _objectFactory.CreateInjectedInstance<PlayerStandingRunState>("Run");
 			
-			State idle = _objectFactory.CreateInjectedInstance<PlayerStandingIdleState>();
-			State walk = _objectFactory.CreateInjectedInstance<PlayerStandingWalkState>();
-			State run = _objectFactory.CreateInjectedInstance<PlayerStandingRunState>();
+			SuperState standing = new(name: "Standing", initialState: idle);
 			
-			standing.AddTransition(idle, walk, () => false);
-			standing.AddTransition(idle, run, () => false);
-			standing.AddTransition(walk, idle, () => false);
-			standing.AddTransition(walk, run, () => false);
+			standing.AddState(idle, transitions: new Transition[]
+			{
+				new (destination: run, when: () => _inputManager.Move.IsPressed() && _inputManager.Shift.WasPressedThisFrame()),
+				new (destination: walk, when: () => _inputManager.Move.IsPressed())
+			});
 			
-			standing.SetStartState(idle);
-
-			standing.Name = "Standing";
+			standing.AddState(walk, transitions: new Transition[]
+			{
+				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
+				new (destination: run, when: () => _inputManager.Shift.WasPressedThisFrame())
+			});
+			
+			standing.AddState(run, transitions: new Transition[]
+			{
+				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
+				new (destination: walk, when: () => _inputManager.Shift.WasPressedThisFrame())
+			});
 
 			return standing;
 		}
 		
 		private State SetupCrouchingState()
 		{
-			StateMachine crouching = new();
+			State idle = _objectFactory.CreateInjectedInstance<PlayerCrouchingIdleState>("Idle");
+			State walk = _objectFactory.CreateInjectedInstance<PlayerCrouchingWalkState>("Walk");
 			
-			State idle = _objectFactory.CreateInjectedInstance<PlayerCrouchingIdleState>();
-			State walk = _objectFactory.CreateInjectedInstance<PlayerCrouchingWalkState>();
+			SuperState crouching = new(name: "Crouching", initialState: idle);
 			
-			crouching.AddTransition(idle, walk, () => false);
-			crouching.AddTransition(walk, idle, () => false);
+			crouching.AddState(idle, transitions: new Transition[]
+			{
+				new (destination: walk, when: () => _inputManager.Move.IsPressed())
+			});
 			
-			crouching.SetStartState(idle);
-			
-			crouching.Name = "Crouching";
+			crouching.AddState(state: walk, transitions: new Transition[]
+			{
+				new (destination: idle, when: () => !_inputManager.Move.IsPressed())
+			});
 
 			return crouching;
-		}
-	}
-	
-	public class PlayerStandingIdleState : State
-	{
-		public override string Name { get; set; } = "Idle";
-
-		public override void Enter()
-		{
-			
-		}
-
-		public override void Update()
-		{
-		}
-
-		public override void Exit()
-		{
-		}
-	}
-
-	public class PlayerStandingWalkState : State
-	{
-		public override string Name { get; set; } = "Walk";
-		
-		public override void Enter()
-		{
-			
-		}
-
-		public override void Update()
-		{
-		}
-
-		public override void Exit()
-		{
-		}
-	}
-	
-	public class PlayerStandingRunState : State
-	{
-		public override string Name { get; set; } = "Run";
-		
-		public override void Enter()
-		{
-			
-		}
-
-		public override void Update()
-		{
-		}
-
-		public override void Exit()
-		{
-		}
-	}
-	
-	public class PlayerCrouchingIdleState : State
-	{
-		public override string Name { get; set; } = "Idle";
-		
-		public override void Enter()
-		{
-			
-		}
-
-		public override void Update()
-		{
-		}
-
-		public override void Exit()
-		{
-		}
-	}
-	
-	public class PlayerCrouchingWalkState : State
-	{
-		public override string Name { get; set; } = "Walk";
-		
-		public override void Enter()
-		{
-			
-		}
-
-		public override void Update()
-		{
-		}
-
-		public override void Exit()
-		{
 		}
 	}
 }

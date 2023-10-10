@@ -23,14 +23,6 @@ MonoBehaviour:
       <Acceleration>k__BackingField: 20
       <Deceleration>k__BackingField: 20
     <Look>k__BackingField:
-      <Sensitivity>k__BackingField:
-        _dictionary:
-          keyData: 0000000001000000
-          valueData:
-          - 0.1
-          - 4
-      <Acceleration>k__BackingField: 5
-      <Deceleration>k__BackingField: 5
       <Gamepad>k__BackingField:
         <Sensitivity>k__BackingField: 4
         <Acceleration>k__BackingField: 5
