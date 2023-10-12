@@ -12,8 +12,8 @@ namespace Scripts.Core.Player.States
 		
 		protected override void Setup()
 		{
-			State standing = SetupStandingState();
-			State crouching = SetupCrouchingState();
+			State standing = SetupStandingSuperState();
+			State crouching = SetupCrouchingSuperState();
 
 			Root = new SuperState("Root", standing);
 			
@@ -28,7 +28,7 @@ namespace Scripts.Core.Player.States
 			});
 		}
 
-		private State SetupStandingState()
+		private State SetupStandingSuperState()
 		{
 			State idle = _objectFactory.CreateInjectedInstance<PlayerStandingIdleState>("Idle");
 			State walk = _objectFactory.CreateInjectedInstance<PlayerStandingWalkState>("Walk");
@@ -57,7 +57,7 @@ namespace Scripts.Core.Player.States
 			return standing;
 		}
 		
-		private State SetupCrouchingState()
+		private State SetupCrouchingSuperState()
 		{
 			State idle = _objectFactory.CreateInjectedInstance<PlayerCrouchingIdleState>("Idle");
 			State walk = _objectFactory.CreateInjectedInstance<PlayerCrouchingWalkState>("Walk");

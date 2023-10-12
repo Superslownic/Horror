@@ -9,10 +9,17 @@ namespace Scripts.Core.Camera
 		[SerializeField] private Transform _target;
 		[SerializeField] private float _speed;
 
+		private Vector3 _position;
+
+		protected override void OnInitialize()
+		{
+			_position = _anchor.position;
+		}
+
 		protected override void OnUpdate()
 		{
-			_anchor.position = Vector3.Lerp(_anchor.position, _target.position, _speed * Time.deltaTime);
-			_anchor.rotation = _target.rotation;
+			_position = Vector3.Lerp(_position, _target.position, _speed * Time.deltaTime);
+			_anchor.position = _position;
 		}
 	}
 }

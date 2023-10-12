@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts.Reactive;
+using Scripts.Reflection;
 using Scripts.Utility;
 using UnityEngine;
 
@@ -22,6 +23,11 @@ namespace Scripts.Entities
 		private void OnDestroy()
 		{
 			OnDisposed.Invoke(this);
+		}
+
+		public T GetAbility<T>() where T : Ability
+		{
+			return (T)_abilities[TypeCache<T>.Value];
 		}
 
 		private void GatherAbilities(Transform transform)
