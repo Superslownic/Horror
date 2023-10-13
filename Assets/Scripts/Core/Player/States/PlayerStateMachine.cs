@@ -30,9 +30,9 @@ namespace Scripts.Core.Player.States
 
 		private State SetupStandingSuperState()
 		{
-			State idle = _objectFactory.CreateInjectedInstance<PlayerStandingIdleState>("Idle");
-			State walk = _objectFactory.CreateInjectedInstance<PlayerStandingWalkState>("Walk");
-			State run = _objectFactory.CreateInjectedInstance<PlayerStandingRunState>("Run");
+			State idle = _objectFactory.CreateInjectedInstance<PlayerStandingIdleState>("Idle", Entity);
+			State walk = _objectFactory.CreateInjectedInstance<PlayerStandingWalkState>("Walk", Entity);
+			State run = _objectFactory.CreateInjectedInstance<PlayerStandingRunState>("Run", Entity);
 			
 			SuperState standing = new(name: "Standing", initialState: idle);
 			
@@ -59,8 +59,8 @@ namespace Scripts.Core.Player.States
 		
 		private State SetupCrouchingSuperState()
 		{
-			State idle = _objectFactory.CreateInjectedInstance<PlayerCrouchingIdleState>("Idle");
-			State walk = _objectFactory.CreateInjectedInstance<PlayerCrouchingWalkState>("Walk");
+			State idle = _objectFactory.CreateInjectedInstance<PlayerCrouchingIdleState>("Idle", Entity);
+			State walk = _objectFactory.CreateInjectedInstance<PlayerCrouchingWalkState>("Walk", Entity);
 			
 			SuperState crouching = new(name: "Crouching", initialState: idle);
 			

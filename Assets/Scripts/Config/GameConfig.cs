@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Scripts.Config.Camera;
+using Scripts.Config.Player;
+using UnityEngine;
 
 namespace Scripts.Config
 {
@@ -6,5 +8,6 @@ namespace Scripts.Config
 	public class GameConfig : ScriptableObject
 	{
 		[field: SerializeField] public PlayerConfig Player { get; private set; }
+		[field: SerializeField] public CameraConfig Camera { get; private set; }
 	}
 }

@@ -301,7 +301,7 @@ namespace Scripts
                 {
                     ""name"": """",
                     ""id"": ""e8f95176-d404-4ec2-b44f-4ef6a807c471"",
-                    ""path"": ""<XInputController>/buttonEast"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -323,7 +323,7 @@ namespace Scripts
                 {
                     ""name"": """",
                     ""id"": ""e83293b4-bc95-426a-803d-e9087fe1fb30"",
-                    ""path"": ""<XInputController>/leftStickPress"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

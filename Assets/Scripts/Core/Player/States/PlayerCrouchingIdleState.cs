@@ -1,19 +1,25 @@
-﻿using Scripts.Core.Player.Movement;
+﻿using Scripts.Config;
+using Scripts.Core.Camera;
+using Scripts.Core.Player.Movement;
 using Scripts.Entities;
 using Scripts.FSM.Composite;
-using UnityEngine;
+using Zenject;
 
 namespace Scripts.Core.Player.States
 {
 	public class PlayerCrouchingIdleState : State
 	{
+		[Inject] private readonly Entity _playerEntity;
+		[Inject] private readonly GameConfig _gameConfig;
+		
 		public PlayerCrouchingIdleState(string name) : base(name)
 		{
 		}
 
 		public override void Enter()
 		{
-			Object.FindObjectOfType<Entity>().GetAbility<PlayerCrouchAbility>().Crouch();
+			_playerEntity.GetAbility<PlayerCrouchAbility>().Crouch();
+			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.CrouchingValues);
 		}
 
 		public override void Update()
@@ -22,7 +28,7 @@ namespace Scripts.Core.Player.States
 
 		public override void Exit()
 		{
-			Object.FindObjectOfType<Entity>().GetAbility<PlayerCrouchAbility>().Stand();
+			_playerEntity.GetAbility<PlayerCrouchAbility>().Stand();
 		}
 	}
 }

@@ -22,10 +22,71 @@ MonoBehaviour:
       <Speed>k__BackingField: 3
       <Acceleration>k__BackingField: 20
       <Deceleration>k__BackingField: 20
+      <CrouchSpeed>k__BackingField: 0
     <Look>k__BackingField:
       <Gamepad>k__BackingField:
-        <Sensitivity>k__BackingField: 4
+        <Sensitivity>k__BackingField: 2
         <Acceleration>k__BackingField: 5
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
+  <Camera>k__BackingField:
+    <Lean>k__BackingField:
+      <Threshold>k__BackingField: 0.01
+      <Angle>k__BackingField: 3
+      <Force>k__BackingField: 5
+      <Curve>k__BackingField:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    <Smooth>k__BackingField:
+      <Force>k__BackingField: 10
+    <Bobbing>k__BackingField:
+      <Threshold>k__BackingField: 0.01
+      <FrequencyInterpolationSpeed>k__BackingField: 5
+      <AmplitudeInterpolationSpeed>k__BackingField: 5
+      <ChangeDuration>k__BackingField: 0.5
+      <WalkingValues>k__BackingField:
+        <PositionFrequency>k__BackingField: {x: 10, y: 10}
+        <PositionAmplitude>k__BackingField: {x: 0.06, y: 0.07}
+        <RotationFrequency>k__BackingField: {x: 5, y: 20}
+        <RotationAmplitude>k__BackingField: {x: 1, y: 1}
+      <RunningValues>k__BackingField:
+        <PositionFrequency>k__BackingField: {x: 10, y: 10}
+        <PositionAmplitude>k__BackingField: {x: 0.06, y: 0.07}
+        <RotationFrequency>k__BackingField: {x: 5, y: 20}
+        <RotationAmplitude>k__BackingField: {x: 1, y: 1}
+      <CrouchingValues>k__BackingField:
+        <PositionFrequency>k__BackingField: {x: 5, y: 5}
+        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.035}
+        <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
+        <RotationAmplitude>k__BackingField: {x: 0.5, y: 0.5}

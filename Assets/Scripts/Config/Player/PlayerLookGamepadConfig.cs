@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.Config
+namespace Scripts.Config.Player
 {
 	[Serializable]
 	public class PlayerLookGamepadConfig

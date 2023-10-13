@@ -1,5 +1,7 @@
-﻿using Scripts.Entities;
+﻿using Scripts.Config;
+using Scripts.Entities;
 using UnityEngine;
+using Zenject;
 
 namespace Scripts.Core.Camera
 {
@@ -7,7 +9,8 @@ namespace Scripts.Core.Camera
 	{
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private Transform _target;
-		[SerializeField] private float _speed;
+
+		[Inject] private readonly GameConfig _gameConfig;
 
 		private Vector3 _position;
 
@@ -18,7 +21,7 @@ namespace Scripts.Core.Camera
 
 		protected override void OnUpdate()
 		{
-			_position = Vector3.Lerp(_position, _target.position, _speed * Time.deltaTime);
+			_position = Vector3.Lerp(_position, _target.position, _gameConfig.Camera.Smooth.Force * Time.deltaTime);
 			_anchor.position = _position;
 		}
 	}
