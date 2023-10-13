@@ -1,5 +1,6 @@
 ﻿using Scripts.Config;
 using Scripts.Core.Camera;
+using Scripts.Core.Player.Movement;
 using Scripts.Entities;
 using Scripts.FSM.Composite;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.WalkingValues);
+			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.WalkingValues);
 		}
 
 		public override void Update()

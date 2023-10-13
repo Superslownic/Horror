@@ -1,4 +1,6 @@
-﻿using Scripts.Config;
+﻿using DG.Tweening;
+using Scripts.Config;
+using Scripts.Config.Player;
 using Scripts.Entities;
 using Scripts.Input;
 using UnityEngine;
@@ -20,7 +22,31 @@ namespace Scripts.Core.Player.Movement
 		public Vector3 NormalizedActualVelocity { get; private set; }
 		public bool IsGrounded { get; private set; }
 		
+		private PlayerMovementValues _config;
 		private Vector3 _previousPosition;
+		private float _speed;
+		private Tween _tween;
+
+		protected override void OnInitialize()
+		{
+			SetConfig(_gameConfig.Player.Movement.WalkingValues);
+			ResetValues();
+		}
+
+		public void SetConfig(PlayerMovementValues config)
+		{
+			_config = config;
+			_tween?.Kill();
+			_tween = DOTween.Sequence()
+				.Join(DOTween
+					.To(() => _speed, value => _speed = value, _config.Speed,
+						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic));
+		}
+
+		public void ResetValues()
+		{
+			_speed = _config.Speed;
+		}
 
 		protected override void OnUpdate()
 		{
@@ -33,8 +59,8 @@ namespace Scripts.Core.Player.Movement
 				Vector3 forwardDirection = Vector3.ProjectOnPlane(_lookAnchor.forward, groundNormal).normalized * moveInput.y;
 				Vector3 sideDirection = Vector3.ProjectOnPlane(_lookAnchor.right, groundNormal).normalized * moveInput.x;
 
-				Vector3 inputMotion = (forwardDirection + sideDirection) * _gameConfig.Player.Movement.Speed;
-				Vector3 clampedMotion = Vector3.ClampMagnitude(inputMotion, _gameConfig.Player.Movement.Speed);
+				Vector3 inputMotion = (forwardDirection + sideDirection) * _speed;
+				Vector3 clampedMotion = Vector3.ClampMagnitude(inputMotion, _config.Speed);
 
 				bool isMoving = moveInput.sqrMagnitude > 0;
 
@@ -42,15 +68,15 @@ namespace Scripts.Core.Player.Movement
 				float resultDelta = isMoving ? _gameConfig.Player.Movement.Acceleration : _gameConfig.Player.Movement.Deceleration;
 				
 				InputVelocity = Vector3.MoveTowards(InputVelocity, resultMotion, resultDelta * Time.deltaTime);
-				NormalizedInputVelocity = InputVelocity / _gameConfig.Player.Movement.Speed;
+				NormalizedInputVelocity = InputVelocity / _config.Speed;
 				_characterController.Move(InputVelocity * Time.deltaTime);
 			}
 			
 			_characterController.Move(Vector3.down * (_gameConfig.Player.Movement.Gravity * Time.deltaTime));
 
 			Vector3 rawActualVelocity = (Entity.transform.position - _previousPosition) / Time.deltaTime;
-			ActualVelocity = Vector3.ClampMagnitude(rawActualVelocity, _gameConfig.Player.Movement.Speed);
-			NormalizedActualVelocity = ActualVelocity / _gameConfig.Player.Movement.Speed;
+			ActualVelocity = Vector3.ClampMagnitude(rawActualVelocity, _config.Speed);
+			NormalizedActualVelocity = ActualVelocity / _config.Speed;
 			_previousPosition = Entity.transform.position;
 		}
 

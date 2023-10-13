@@ -1,10 +1,8 @@
 ﻿using DG.Tweening;
-using DG.Tweening.Core;
 using Scripts.Config;
 using Scripts.Config.Camera;
 using Scripts.Core.Player.Movement;
 using Scripts.Entities;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -17,13 +15,14 @@ namespace Scripts.Core.Camera
 
 		[Inject] private readonly GameConfig _gameConfig;
 
-		[ShowInInspector, ReadOnly] private CameraBobbingValues _config;
-		[ShowInInspector, ReadOnly] private Vector2 _positionFrequency;
-		[ShowInInspector, ReadOnly] private Vector2 _positionAmplitude;
-		[ShowInInspector, ReadOnly] private Vector2 _rotationFrequency;
-		[ShowInInspector, ReadOnly] private Vector2 _rotationAmplitude;
-		[ShowInInspector, ReadOnly] private Vector2 _positionTime;
-		[ShowInInspector, ReadOnly] private Vector2 _rotationTime;
+		private CameraBobbingValues _config;
+		private Vector2 _positionFrequency;
+		private Vector2 _positionAmplitude;
+		private Vector2 _rotationFrequency;
+		private Vector2 _rotationAmplitude;
+		private Vector2 _positionTime;
+		private Vector2 _rotationTime;
+		private Tween _tween;
 
 		protected override void OnInitialize()
 		{
@@ -31,13 +30,23 @@ namespace Scripts.Core.Camera
 			ResetValues();
 		}
 
-		public void SetConfig(CameraBobbingValues cameraBobbingValuesConfig)
+		public void SetConfig(CameraBobbingValues config)
 		{
-			_config = cameraBobbingValuesConfig;
-			ChangeParameter(() => _positionFrequency, value => _positionFrequency = value, _config.PositionFrequency);
-			ChangeParameter(() => _positionAmplitude, value => _positionAmplitude = value, _config.PositionAmplitude);
-			ChangeParameter(() => _rotationFrequency, value => _rotationFrequency = value, _config.RotationFrequency);
-			ChangeParameter(() => _rotationAmplitude, value => _rotationAmplitude = value, _config.RotationAmplitude);
+			_config = config;
+			_tween?.Kill();
+			_tween = DOTween.Sequence()
+				.Join(DOTween
+					.To(() => _positionFrequency, value => _positionFrequency = value, _config.PositionFrequency,
+						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+				.Join(DOTween
+					.To(() => _positionAmplitude, value => _positionAmplitude = value, _config.PositionAmplitude,
+						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+				.Join(DOTween
+					.To(() => _rotationFrequency, value => _rotationFrequency = value, _config.RotationFrequency,
+						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+				.Join(DOTween
+					.To(() => _rotationAmplitude, value => _rotationAmplitude = value, _config.RotationAmplitude,
+						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic));
 		}
 
 		public void ResetValues()
@@ -78,11 +87,6 @@ namespace Scripts.Core.Camera
 			
 			_anchor.localPosition = position;
 			_anchor.localEulerAngles = rotation;
-		}
-
-		private void ChangeParameter(DOGetter<Vector2> getter, DOSetter<Vector2> setter, Vector2 endValue)
-		{
-			DOTween.To(getter, setter, endValue, _gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic);
 		}
 	}
 }
