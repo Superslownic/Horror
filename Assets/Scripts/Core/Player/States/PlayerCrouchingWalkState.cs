@@ -20,7 +20,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerEntity.GetAbility<PlayerCrouchAbility>().Crouch();
 			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.CrouchingValues);
-			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.CrouchValues);
+			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.CrouchingValues);
 		}
 
 		public override void Update()

@@ -18,7 +18,7 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.WalkingValues);
+			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.IdleValues);
 			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.WalkingValues);
 		}
 

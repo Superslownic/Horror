@@ -25,7 +25,7 @@ MonoBehaviour:
         <Speed>k__BackingField: 2.5
       <RunningValues>k__BackingField:
         <Speed>k__BackingField: 7
-      <CrouchValues>k__BackingField:
+      <CrouchingValues>k__BackingField:
         <Speed>k__BackingField: 1.5
     <Look>k__BackingField:
       <Gamepad>k__BackingField:
@@ -77,18 +77,29 @@ MonoBehaviour:
     <Bobbing>k__BackingField:
       <Threshold>k__BackingField: 0.01
       <ChangeDuration>k__BackingField: 0.5
+      <IdleValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 0
+        <PositionFrequency>k__BackingField: {x: 2, y: 2}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0.01}
+        <RotationFrequency>k__BackingField: {x: 1, y: 2}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0.1}
       <WalkingValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
         <PositionFrequency>k__BackingField: {x: 10, y: 10}
         <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
         <RotationFrequency>k__BackingField: {x: 5, y: 20}
         <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
       <RunningValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
         <PositionFrequency>k__BackingField: {x: 15, y: 15}
-        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.1}
+        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.05}
         <RotationFrequency>k__BackingField: {x: 7.5, y: 30}
         <RotationAmplitude>k__BackingField: {x: 1.5, y: 1}
       <CrouchingValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
         <PositionFrequency>k__BackingField: {x: 5, y: 5}
         <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
         <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
         <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
+    <BreatheIncreaseDuration>k__BackingField: 0
+    <BreatheDecreaseDuration>k__BackingField: 0

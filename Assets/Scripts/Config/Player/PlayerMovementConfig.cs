@@ -13,6 +13,6 @@ namespace Scripts.Config.Player
 		[field: SerializeField] public float Deceleration { get; private set; }
 		[field: SerializeField] public PlayerMovementValues WalkingValues { get; private set; }
 		[field: SerializeField] public PlayerMovementValues RunningValues { get; private set; }
-		[field: SerializeField] public PlayerMovementValues CrouchValues { get; private set; }
+		[field: SerializeField] public PlayerMovementValues CrouchingValues { get; private set; }
 	}
 }

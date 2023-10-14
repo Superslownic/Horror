@@ -19,8 +19,8 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerEntity.GetAbility<PlayerCrouchAbility>().Crouch();
-			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.CrouchingValues);
-			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.CrouchValues);
+			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.IdleValues);
+			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.CrouchingValues);
 		}
 
 		public override void Update()

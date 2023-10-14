@@ -26,7 +26,7 @@ namespace Scripts.Core.Camera
 
 		protected override void OnInitialize()
 		{
-			SetConfig(_gameConfig.Camera.Bobbing.WalkingValues);
+			SetConfig(_gameConfig.Camera.Bobbing.IdleValues);
 			ResetValues();
 		}
 
@@ -64,12 +64,12 @@ namespace Scripts.Core.Camera
 				return;
 			}
 			
-			if (_movementAbility.ActualVelocity.magnitude <= _gameConfig.Camera.Bobbing.Threshold)
+			if (_config.DependsOnVelocity && _movementAbility.ActualVelocity.magnitude <= _gameConfig.Camera.Bobbing.Threshold)
 			{
 				return;
 			}
 
-			float strength = _movementAbility.NormalizedActualVelocity.magnitude;
+			float strength = _config.DependsOnVelocity ? _movementAbility.NormalizedActualVelocity.magnitude : 1;
 			
 			_positionTime.x += Time.deltaTime * strength * _positionFrequency.x;
 			_positionTime.y += Time.deltaTime * strength * _positionFrequency.y;

@@ -6,9 +6,10 @@ namespace Scripts.Config.Camera
 	[Serializable]
 	public class CameraBobbingValues
 	{
-		[field: SerializeField] public Vector2 PositionFrequency { get; private set; }
-		[field: SerializeField] public Vector2 PositionAmplitude { get; private set; }
-		[field: SerializeField] public Vector2 RotationFrequency { get; private set; }
-		[field: SerializeField] public Vector2 RotationAmplitude { get; private set; }
+		[field: SerializeField] public bool DependsOnVelocity { get; set; }
+		[field: SerializeField] public Vector2 PositionFrequency { get; set; }
+		[field: SerializeField] public Vector2 PositionAmplitude { get; set; }
+		[field: SerializeField] public Vector2 RotationFrequency { get; set; }
+		[field: SerializeField] public Vector2 RotationAmplitude { get; set; }
 	}
 }
