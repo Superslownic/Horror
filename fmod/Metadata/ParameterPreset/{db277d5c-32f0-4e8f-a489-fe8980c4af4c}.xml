@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{db277d5c-32f0-4e8f-a489-fe8980c4af4c}">
+		<property name="name">
+			<value>BreathVolume</value>
+		</property>
+		<relationship name="folder">
+			<destination>{fc461eb1-1108-44ec-9aa1-08367d7384da}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{13098508-e9c1-4a4c-a47c-fcc2c3ddfe1f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{13098508-e9c1-4a4c-a47c-fcc2c3ddfe1f}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.5</value>
+		</property>
+		<property name="seekSpeedDescending">
+			<value>0.5</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>

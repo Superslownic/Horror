@@ -18,12 +18,14 @@ namespace Scripts.Core.Player.States
 		
 		public override void Enter()
 		{
+			_playerEntity.GetAbility<PlayerBreathSoundAbility>().StopRunning();
 			_playerEntity.GetAbility<CameraBobbingAbility>().SetConfig(_gameConfig.Camera.Bobbing.WalkingValues);
 			_playerEntity.GetAbility<PlayerMovementAbility>().SetConfig(_gameConfig.Player.Movement.WalkingValues);
 		}
 
 		public override void Update()
 		{
+			_playerEntity.GetAbility<CameraBreathAbility>().Decrease();
 		}
 
 		public override void Exit()

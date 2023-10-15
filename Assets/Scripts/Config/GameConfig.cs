@@ -9,5 +9,6 @@ namespace Scripts.Config
 	{
 		[field: SerializeField] public PlayerConfig Player { get; private set; }
 		[field: SerializeField] public CameraConfig Camera { get; private set; }
+		[field: SerializeField] public AudioConfig Audio { get; private set; }
 	}
 }

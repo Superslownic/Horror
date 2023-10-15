@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{16bdbb48-cdd4-4d21-9462-055b163ea867}">
+		<property name="assetPath">
+			<value>inhale_heavy1.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.52603174603174607</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f77d4c79-c868-4356-955a-2694a097da95}</destination>
+		</relationship>
+	</object>
+</objects>

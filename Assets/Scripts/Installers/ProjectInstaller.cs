@@ -1,4 +1,5 @@
-﻿using Scripts.Config;
+﻿using Scripts.Audio;
+using Scripts.Config;
 using Scripts.Factory;
 using Scripts.Game.States;
 using Scripts.Input;
@@ -16,6 +17,7 @@ namespace Scripts.Installers
 			Container.BindInstance(_gameConfig).AsSingle();
 			Container.BindInterfacesAndSelfTo<ObjectFactory>().AsSingle();
 			Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
+			Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle();
 			Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle().NonLazy();
 		}
 	}

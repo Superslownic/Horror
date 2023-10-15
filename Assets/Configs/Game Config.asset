@@ -34,6 +34,8 @@ MonoBehaviour:
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
+    <BreathIncreaseDuration>k__BackingField: 5
+    <BreathDecreaseDuration>k__BackingField: 10
   <Camera>k__BackingField:
     <Lean>k__BackingField:
       <Threshold>k__BackingField: 0.01
@@ -77,12 +79,25 @@ MonoBehaviour:
     <Bobbing>k__BackingField:
       <Threshold>k__BackingField: 0.01
       <ChangeDuration>k__BackingField: 0.5
+      <BreatheChangeDuration>k__BackingField: 8
       <IdleValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 0
-        <PositionFrequency>k__BackingField: {x: 2, y: 2}
+        <PositionFrequency>k__BackingField: {x: 0, y: 2}
         <PositionAmplitude>k__BackingField: {x: 0, y: 0.01}
-        <RotationFrequency>k__BackingField: {x: 1, y: 2}
+        <RotationFrequency>k__BackingField: {x: 0, y: 2}
         <RotationAmplitude>k__BackingField: {x: 0, y: 0.1}
+      <IdleMinValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 0
+        <PositionFrequency>k__BackingField: {x: 0, y: 0}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0}
+        <RotationFrequency>k__BackingField: {x: 0, y: 2}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0.5}
+      <IdleMaxValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 0
+        <PositionFrequency>k__BackingField: {x: 0, y: 0}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0}
+        <RotationFrequency>k__BackingField: {x: 0, y: 10}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 1.5}
       <WalkingValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
         <PositionFrequency>k__BackingField: {x: 10, y: 10}
@@ -91,15 +106,31 @@ MonoBehaviour:
         <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
       <RunningValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
-        <PositionFrequency>k__BackingField: {x: 15, y: 15}
+        <PositionFrequency>k__BackingField: {x: 20, y: 20}
         <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.05}
-        <RotationFrequency>k__BackingField: {x: 7.5, y: 30}
-        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1}
+        <RotationFrequency>k__BackingField: {x: 10, y: 40}
+        <RotationAmplitude>k__BackingField: {x: 2, y: 0.5}
       <CrouchingValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
         <PositionFrequency>k__BackingField: {x: 5, y: 5}
         <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
         <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
         <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
-    <BreatheIncreaseDuration>k__BackingField: 0
-    <BreatheDecreaseDuration>k__BackingField: 0
+    <BreatheIncreaseDuration>k__BackingField: 5
+    <BreatheDecreaseDuration>k__BackingField: 10
+  <Audio>k__BackingField:
+    <Events>k__BackingField:
+      <BreathRun>k__BackingField:
+        Guid:
+          Data1: -1323171104
+          Data2: 1206581400
+          Data3: -1387475838
+          Data4: 1505424429
+        Path: event:/breath_run
+      <BreathStop>k__BackingField:
+        Guid:
+          Data1: -843480737
+          Data2: 1309480051
+          Data3: -1923410810
+          Data4: 418935148
+        Path: event:/breath_stop

@@ -253,7 +253,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1617970742}
+  - {fileID: 1210030227}
   m_Father: {fileID: 1373309988}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -798,9 +798,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2101278534}
   - {fileID: 1389909416}
   - {fileID: 853417079}
+  - {fileID: 2101278534}
+  - {fileID: 1655350681}
   m_Father: {fileID: 2075033506}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -900,6 +901,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &341856242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341856243}
+  - component: {fileID: 341856244}
+  m_Layer: 0
+  m_Name: BreathSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &341856243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341856242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2075033506}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &341856244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341856242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e436bc2fefc44a89e4ab4970abcaa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &365827301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1967,7 +2012,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 265949368}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &853417080
 MonoBehaviour:
@@ -2070,7 +2115,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2075033506}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &858255767
 MonoBehaviour:
@@ -2554,8 +2599,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1799864211}
-  m_Father: {fileID: 1617970742}
+  - {fileID: 1617970742}
+  m_Father: {fileID: 67324291}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1224863689 stripped
@@ -2807,7 +2852,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 265949368}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1389909417
 MonoBehaviour:
@@ -3127,8 +3172,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1210030227}
-  m_Father: {fileID: 67324291}
+  - {fileID: 1799864211}
+  m_Father: {fileID: 1210030227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1619214722
@@ -3141,8 +3186,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1619214726}
   - component: {fileID: 1619214725}
-  - component: {fileID: 1619214724}
   - component: {fileID: 1619214723}
+  - component: {fileID: 1619214727}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -3275,14 +3320,6 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!81 &1619214724
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619214722}
-  m_Enabled: 1
 --- !u!20 &1619214725
 Camera:
   m_ObjectHideFlags: 0
@@ -3341,6 +3378,19 @@ Transform:
   m_Father: {fileID: 1799864211}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1619214727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619214722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 1619214722}
 --- !u!1001 &1631097588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3484,6 +3534,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dddfd04c9ace495798865c2637f216ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1655350680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1655350681}
+  - component: {fileID: 1655350682}
+  m_Layer: 0
+  m_Name: Breath
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1655350681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655350680}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 265949368}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1655350682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655350680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15babe8dcd8849deb9fc06dff456cf9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraBobbingAbility: {fileID: 2101278535}
 --- !u!4 &1662512580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4567485262158198, guid: df31c83b27360844d9c8bb3549762491,
@@ -3872,7 +3967,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1619214726}
-  m_Father: {fileID: 1210030227}
+  m_Father: {fileID: 1617970742}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1829035444
@@ -4030,6 +4125,7 @@ Transform:
   - {fileID: 1794528467}
   - {fileID: 998476125}
   - {fileID: 1829035445}
+  - {fileID: 341856243}
   - {fileID: 858255766}
   m_Father: {fileID: 1639685490}
   m_RootOrder: 0
@@ -4064,7 +4160,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 265949368}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2101278535
 MonoBehaviour:
@@ -4080,35 +4176,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anchor: {fileID: 1799864211}
   _movementAbility: {fileID: 998476126}
-  _threshold: 0.01
-  _processors:
-  - rid: 5691942067260096526
-  - rid: 5691942067260096527
-  - rid: 5691942067260096528
-  - rid: 5691942067260096529
-  references:
-    version: 2
-    RefIds:
-    - rid: 5691942067260096526
-      type: {class: VerticalPositionProcessor, ns: Scripts.Core.Camera, asm: Assembly-CSharp}
-      data:
-        _frequency: 10
-        _amplitude: 0.07
-    - rid: 5691942067260096527
-      type: {class: HorizontalPositionProcessor, ns: Scripts.Core.Camera, asm: Assembly-CSharp}
-      data:
-        _frequency: 10
-        _amplitude: 0.06
-    - rid: 5691942067260096528
-      type: {class: VerticalRotationProcessor, ns: Scripts.Core.Camera, asm: Assembly-CSharp}
-      data:
-        _frequency: 20
-        _amplitude: 1
-    - rid: 5691942067260096529
-      type: {class: HorizontalRotationProcessor, ns: Scripts.Core.Camera, asm: Assembly-CSharp}
-      data:
-        _frequency: 5
-        _amplitude: 1
 --- !u!4 &2103203379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4972082123149326, guid: e55dfd2948f66194eb81471696b7fd01,

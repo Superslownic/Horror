@@ -8,5 +8,7 @@ namespace Scripts.Config.Player
 	{
 		[field: SerializeField] public PlayerMovementConfig Movement { get; private set; }
 		[field: SerializeField] public PlayerLookConfig Look { get; private set; }
+		[field: SerializeField] public float BreathIncreaseDuration { get; private set; }
+		[field: SerializeField] public float BreathDecreaseDuration { get; private set; }
 	}
 }
