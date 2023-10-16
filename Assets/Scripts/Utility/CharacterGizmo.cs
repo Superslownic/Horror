@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Scripts.Core.Player
+namespace Scripts.Utility
 {
 	[RequireComponent(typeof(CharacterController))]
 	public class CharacterGizmo : MonoBehaviour

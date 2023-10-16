@@ -1,17 +1,16 @@
 ﻿using DG.Tweening;
 using Scripts.Config;
 using Scripts.Config.Camera;
-using Scripts.Core.Player.Movement;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
 
-namespace Scripts.Core.Camera
+namespace Scripts.Core.Player
 {
-	public class CameraBobbingAbility : Ability
+	public class BobbingAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
-		[SerializeField] private PlayerMovementAbility _movementAbility;
+		[SerializeField] private MovementAbility _movementAbility;
 
 		[Inject] private readonly GameConfig _gameConfig;
 

@@ -6,9 +6,9 @@ using Scripts.Input;
 using UnityEngine;
 using Zenject;
 
-namespace Scripts.Core.Player.Movement
+namespace Scripts.Core.Player
 {
-	public class PlayerMovementAbility : Ability
+	public class MovementAbility : Ability
 	{
 		[SerializeField] private Transform _lookAnchor;
 		[SerializeField] private CharacterController _characterController;
@@ -29,7 +29,7 @@ namespace Scripts.Core.Player.Movement
 
 		protected override void OnInitialize()
 		{
-			SetConfig(_gameConfig.Player.Movement.WalkingValues);
+			SetConfig(_gameConfig.Player.Movement.Walking);
 			ResetValues();
 		}
 

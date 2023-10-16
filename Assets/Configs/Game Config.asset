@@ -21,11 +21,11 @@ MonoBehaviour:
       <GroundCheckThreshold>k__BackingField: 0.1
       <Acceleration>k__BackingField: 20
       <Deceleration>k__BackingField: 20
-      <WalkingValues>k__BackingField:
+      <Walking>k__BackingField:
         <Speed>k__BackingField: 2.5
-      <RunningValues>k__BackingField:
+      <Running>k__BackingField:
         <Speed>k__BackingField: 7
-      <CrouchingValues>k__BackingField:
+      <Crouching>k__BackingField:
         <Speed>k__BackingField: 1.5
     <Look>k__BackingField:
       <Gamepad>k__BackingField:
@@ -34,8 +34,9 @@ MonoBehaviour:
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
-    <BreathIncreaseDuration>k__BackingField: 5
-    <BreathDecreaseDuration>k__BackingField: 10
+    <BreathDelay>k__BackingField: 2
+    <BreathIncreaseDuration>k__BackingField: 1
+    <BreathDecreaseDuration>k__BackingField: 3
   <Camera>k__BackingField:
     <Lean>k__BackingField:
       <Threshold>k__BackingField: 0.01
@@ -96,7 +97,7 @@ MonoBehaviour:
         <DependsOnVelocity>k__BackingField: 0
         <PositionFrequency>k__BackingField: {x: 0, y: 0}
         <PositionAmplitude>k__BackingField: {x: 0, y: 0}
-        <RotationFrequency>k__BackingField: {x: 0, y: 10}
+        <RotationFrequency>k__BackingField: {x: 0, y: 11}
         <RotationAmplitude>k__BackingField: {x: 0, y: 1.5}
       <WalkingValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
@@ -116,21 +117,15 @@ MonoBehaviour:
         <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
         <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
         <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
-    <BreatheIncreaseDuration>k__BackingField: 5
-    <BreatheDecreaseDuration>k__BackingField: 10
   <Audio>k__BackingField:
     <Events>k__BackingField:
-      <BreathRun>k__BackingField:
+      <Breath>k__BackingField:
         Guid:
-          Data1: -1323171104
-          Data2: 1206581400
-          Data3: -1387475838
-          Data4: 1505424429
-        Path: event:/breath_run
-      <BreathStop>k__BackingField:
-        Guid:
-          Data1: -843480737
-          Data2: 1309480051
-          Data3: -1923410810
-          Data4: 418935148
-        Path: event:/breath_stop
+          Data1: -1169583928
+          Data2: 1154337312
+          Data3: 1082393525
+          Data4: 479574934
+        Path: event:/Breath2
+    <Parameters>k__BackingField:
+      <BreathVolume>k__BackingField: BreathVolume
+      <BreathTime>k__BackingField: BreathTime

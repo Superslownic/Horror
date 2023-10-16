@@ -4,9 +4,9 @@ using Scripts.Input;
 using UnityEngine;
 using Zenject;
 
-namespace Scripts.Core.Player.Look
+namespace Scripts.Core.Player
 {
-	public class PlayerLookAbility : Ability
+	public class LookAbility : Ability
 	{
 		[SerializeField] private Transform _horizontalRotationTransform;
 		[SerializeField] private Transform _verticalRotationTransform;

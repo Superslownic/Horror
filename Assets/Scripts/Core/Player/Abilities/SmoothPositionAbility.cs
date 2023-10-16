@@ -3,9 +3,9 @@ using Scripts.Entities;
 using UnityEngine;
 using Zenject;
 
-namespace Scripts.Core.Camera
+namespace Scripts.Core.Player
 {
-	public class CameraSmoothAbility : Ability
+	public class SmoothPositionAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private Transform _target;

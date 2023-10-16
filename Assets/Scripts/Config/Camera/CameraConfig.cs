@@ -9,7 +9,5 @@ namespace Scripts.Config.Camera
 		[field: SerializeField] public CameraLeanConfig Lean { get; private set; }
 		[field: SerializeField] public CameraSmoothConfig Smooth { get; private set; }
 		[field: SerializeField] public CameraBobbingConfig Bobbing { get; private set; }
-		[field: SerializeField] public float BreatheIncreaseDuration { get; private set; }
-		[field: SerializeField] public float BreatheDecreaseDuration { get; private set; }
 	}
 }

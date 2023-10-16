@@ -1,16 +1,15 @@
 ﻿using Scripts.Config;
-using Scripts.Core.Player.Movement;
 using Scripts.Entities;
 using Scripts.Input;
 using UnityEngine;
 using Zenject;
 
-namespace Scripts.Core.Camera.Lean
+namespace Scripts.Core.Player
 {
-	public class CameraLeanAbility : Ability
+	public class LeanAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
-		[SerializeField] private PlayerMovementAbility _movementAbility;
+		[SerializeField] private MovementAbility _movementAbility;
 		
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;

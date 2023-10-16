@@ -3,9 +3,9 @@ using Scripts.Entities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Scripts.Core.Player.Movement
+namespace Scripts.Core.Player
 {
-	public class PlayerCrouchAbility : Ability
+	public class CrouchAbility : Ability
 	{
 		[SerializeField] private CharacterController _characterController;
 		[SerializeField] private Transform _cameraMainAnchor;

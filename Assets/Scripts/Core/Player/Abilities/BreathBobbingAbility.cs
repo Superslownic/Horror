@@ -1,19 +1,15 @@
 ﻿using DG.Tweening;
-using FMOD.Studio;
-using FMODUnity;
-using Scripts.Audio;
 using Scripts.Config;
 using Scripts.Config.Camera;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
-using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-namespace Scripts.Core.Camera
+namespace Scripts.Core.Player
 {
-	public class CameraBreathAbility : Ability
+	public class BreathBobbingAbility : Ability
 	{
-		[SerializeField] private CameraBobbingAbility _cameraBobbingAbility;
+		[SerializeField] private BobbingAbility bobbingAbility;
 
 		[Inject] private readonly GameConfig _gameConfig;
 		
@@ -30,7 +26,7 @@ namespace Scripts.Core.Camera
 				DependsOnVelocity = false
 			};
 			
-			_cameraBobbingAbility.SetConfig(values).OnComplete(ChangeToMinValues);
+			bobbingAbility.SetConfig(values).OnComplete(ChangeToMinValues);
 		}
 
 		public void Increase()
@@ -47,7 +43,7 @@ namespace Scripts.Core.Camera
 
 		private void ChangeToMinValues()
 		{
-			_cameraBobbingAbility.SetConfig(_gameConfig.Camera.Bobbing.IdleMinValues,
+			bobbingAbility.SetConfig(_gameConfig.Camera.Bobbing.IdleMinValues,
 				_gameConfig.Camera.Bobbing.BreatheChangeDuration);
 		}
 	}
