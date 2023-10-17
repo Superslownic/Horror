@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class PlayerMovementConfig
+	public class MovementConfig
 	{
 		[field: SerializeField] public LayerMask FloorLayer { get; private set; }
 		[field: SerializeField] public float Gravity { get; private set; }

@@ -2,7 +2,7 @@
 using FMOD.Studio;
 using Scripts.Audio;
 using Scripts.Config;
-using Scripts.Config.Camera;
+using Scripts.Config.Player;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
@@ -35,19 +35,19 @@ namespace Scripts.Core.Player
 		{
 			_isPlaying = false;
 			
-			CameraBobbingValues values = new CameraBobbingValues
+			BobbingValues values = new BobbingValues
 			{
-				PositionAmplitude = Vector2.Lerp(_gameConfig.Camera.Bobbing.IdleMinValues.PositionAmplitude, _gameConfig.Camera.Bobbing.IdleMaxValues.PositionAmplitude, _volume),
-				PositionFrequency = Vector2.Lerp(_gameConfig.Camera.Bobbing.IdleMinValues.PositionFrequency, _gameConfig.Camera.Bobbing.IdleMaxValues.PositionFrequency, _volume),
-				RotationAmplitude = Vector2.Lerp(_gameConfig.Camera.Bobbing.IdleMinValues.RotationAmplitude, _gameConfig.Camera.Bobbing.IdleMaxValues.RotationAmplitude, _volume),
-				RotationFrequency = Vector2.Lerp(_gameConfig.Camera.Bobbing.IdleMinValues.RotationFrequency, _gameConfig.Camera.Bobbing.IdleMaxValues.RotationFrequency, _volume),
+				PositionAmplitude = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.PositionAmplitude, _gameConfig.Player.Bobbing.IdleMaxValues.PositionAmplitude, _volume),
+				PositionFrequency = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.PositionFrequency, _gameConfig.Player.Bobbing.IdleMaxValues.PositionFrequency, _volume),
+				RotationAmplitude = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.RotationAmplitude, _gameConfig.Player.Bobbing.IdleMaxValues.RotationAmplitude, _volume),
+				RotationFrequency = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.RotationFrequency, _gameConfig.Player.Bobbing.IdleMaxValues.RotationFrequency, _volume),
 				DependsOnVelocity = false
 			};
 			
 			bobbingAbility.SetConfig(values).OnComplete(() =>
 			{
-				bobbingAbility.SetConfig(_gameConfig.Camera.Bobbing.IdleMinValues,
-					_gameConfig.Camera.Bobbing.BreatheChangeDuration);
+				bobbingAbility.SetConfig(_gameConfig.Player.Bobbing.IdleMinValues,
+					_gameConfig.Player.Bobbing.BreatheChangeDuration);
 			});
 		}
 
@@ -55,7 +55,7 @@ namespace Scripts.Core.Player
 		{
 			if (_isPlaying)
 			{
-				if (_delay < _gameConfig.Player.BreathDelay)
+				if (_delay < _gameConfig.Player.Breath.Delay)
 				{
 					_delay += Time.deltaTime;
 				}
@@ -68,7 +68,7 @@ namespace Scripts.Core.Player
 						_eventInstance.start();
 					}
 					
-					_volume += 1 / _gameConfig.Player.BreathIncreaseDuration * Time.deltaTime;
+					_volume += 1 / _gameConfig.Player.Breath.IncreaseDuration * Time.deltaTime;
 				}
 			}
 			else
@@ -78,15 +78,15 @@ namespace Scripts.Core.Player
 					_delay -= Time.deltaTime;
 				}
 				
-				_volume -= 1 / _gameConfig.Player.BreathDecreaseDuration * Time.deltaTime;
+				_volume -= 1 / _gameConfig.Player.Breath.DecreaseDuration * Time.deltaTime;
 			}
 			
-			_delay = Mathf.Clamp(_delay, 0, _gameConfig.Player.BreathDelay);
-			_volume = Mathf.Clamp(_volume, 0, _gameConfig.Player.BreathIncreaseDuration);
+			_delay = Mathf.Clamp(_delay, 0, _gameConfig.Player.Breath.Delay);
+			_volume = Mathf.Clamp(_volume, 0, _gameConfig.Player.Breath.IncreaseDuration);
 			
 			if (_eventInstance.isValid())
 			{
-				_eventInstance.setParameterByName(_gameConfig.Audio.Parameters.BreathVolume, _volume / _gameConfig.Player.BreathIncreaseDuration);
+				_eventInstance.setParameterByName(_gameConfig.Audio.Parameters.BreathVolume, _volume / _gameConfig.Player.Breath.IncreaseDuration);
 			}
 		}
 	}

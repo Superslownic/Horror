@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.Config.Camera
+namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class CameraLeanConfig
+	public class LeanConfig
 	{
 		[field: SerializeField] public float Threshold { get; private set; }
 		[field: SerializeField] public float Angle { get; private set; }

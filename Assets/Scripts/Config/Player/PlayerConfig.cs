@@ -6,10 +6,11 @@ namespace Scripts.Config.Player
 	[Serializable]
 	public class PlayerConfig
 	{
-		[field: SerializeField] public PlayerMovementConfig Movement { get; private set; }
-		[field: SerializeField] public PlayerLookConfig Look { get; private set; }
-		[field: SerializeField] public float BreathDelay { get; private set; }
-		[field: SerializeField] public float BreathIncreaseDuration { get; private set; }
-		[field: SerializeField] public float BreathDecreaseDuration { get; private set; }
+		[field: SerializeField] public MovementConfig Movement { get; private set; }
+		[field: SerializeField] public LookConfig Look { get; private set; }
+		[field: SerializeField] public LeanConfig Lean { get; private set; }
+		[field: SerializeField] public SmoothConfig SmoothPosition { get; private set; }
+		[field: SerializeField] public BobbingConfig Bobbing { get; private set; }
+		[field: SerializeField] public BreathConfig Breath { get; private set; }
 	}
 }

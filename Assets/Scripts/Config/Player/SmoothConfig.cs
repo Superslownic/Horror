@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.Config.Camera
+namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class CameraSmoothConfig
+	public class SmoothConfig
 	{
 		[field: SerializeField] public float Force { get; private set; }
 	}

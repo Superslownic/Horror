@@ -876,7 +876,7 @@
 	</object>
 	<object class="TransitionMarker" id="{0355b844-28f0-4a24-80c2-621bc76d788a}">
 		<property name="position">
-			<value>2.1334896836380768</value>
+			<value>2.1500000000000004</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{98525cb2-6c77-4ddb-b54c-dfac6fd673b7}</destination>
@@ -1167,7 +1167,7 @@
 	<object class="MixerBusEffectChain" id="{88662b0b-3b0a-457a-821d-fa7ff8c1c070}">
 		<relationship name="effects">
 			<destination>{e3af9c7a-a751-432a-b13b-f9b0a8cb70a5}</destination>
-			<destination>{5c3400b4-9ae0-48fd-af6a-0b4f398a69b9}</destination>
+			<destination>{9984d4d2-754c-47ad-aea3-3a443b280e33}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fe352851-ec4c-4e41-b2dc-c88c159bb3a4}" />
@@ -1468,12 +1468,15 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{e3af9c7a-a751-432a-b13b-f9b0a8cb70a5}" />
-	<object class="TremoloEffect" id="{5c3400b4-9ae0-48fd-af6a-0b4f398a69b9}">
-		<property name="frequency">
-			<value>1.80000007</value>
+	<object class="SFXReverbEffect" id="{9984d4d2-754c-47ad-aea3-3a443b280e33}">
+		<property name="decayTime">
+			<value>4000</value>
 		</property>
-		<property name="duty">
-			<value>0.594999969</value>
+		<property name="highCut">
+			<value>2800</value>
+		</property>
+		<property name="wetLevel">
+			<value>-10</value>
 		</property>
 	</object>
 	<object class="AutomationCurve" id="{43ce13f3-acb0-4c09-9309-37301d17b084}">

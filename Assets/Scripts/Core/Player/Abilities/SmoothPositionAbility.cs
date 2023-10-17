@@ -21,7 +21,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			_position = Vector3.Lerp(_position, _target.position, _gameConfig.Camera.Smooth.Force * Time.deltaTime);
+			_position = Vector3.Lerp(_position, _target.position, _gameConfig.Player.SmoothPosition.Force * Time.deltaTime);
 			_anchor.position = _position;
 		}
 	}

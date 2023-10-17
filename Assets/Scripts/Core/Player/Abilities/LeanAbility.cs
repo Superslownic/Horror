@@ -21,17 +21,17 @@ namespace Scripts.Core.Player
 				return;
 			}
 			
-			if (_movementAbility.ActualVelocity.magnitude > _gameConfig.Camera.Lean.Threshold)
+			if (_movementAbility.ActualVelocity.magnitude > _gameConfig.Player.Lean.Threshold)
 			{
 				float input = _inputManager.Move.ReadValue<Vector2>().x;
-				float targetAngle = -input * _movementAbility.NormalizedActualVelocity.magnitude * _gameConfig.Camera.Lean.Angle;
+				float targetAngle = -input * _movementAbility.NormalizedActualVelocity.magnitude * _gameConfig.Player.Lean.Angle;
 				Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
 
 				_anchor.localRotation = Quaternion.Lerp
 				(
 					_anchor.localRotation,
 					targetRotation,
-					_gameConfig.Camera.Lean.Curve.Evaluate(_anchor.localEulerAngles.z / _gameConfig.Camera.Lean.Angle) * _gameConfig.Camera.Lean.Force * Time.deltaTime
+					_gameConfig.Player.Lean.Curve.Evaluate(_anchor.localEulerAngles.z / _gameConfig.Player.Lean.Angle) * _gameConfig.Player.Lean.Force * Time.deltaTime
 				);
 			}
 			else
@@ -40,7 +40,7 @@ namespace Scripts.Core.Player
 				(
 					_anchor.localRotation,
 					Quaternion.identity,
-					_gameConfig.Camera.Lean.Curve.Evaluate(_anchor.localEulerAngles.z / _gameConfig.Camera.Lean.Angle) * _gameConfig.Camera.Lean.Force * Time.deltaTime
+					_gameConfig.Player.Lean.Curve.Evaluate(_anchor.localEulerAngles.z / _gameConfig.Player.Lean.Angle) * _gameConfig.Player.Lean.Force * Time.deltaTime
 				);
 			}
 		}

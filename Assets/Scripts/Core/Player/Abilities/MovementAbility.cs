@@ -40,7 +40,7 @@ namespace Scripts.Core.Player
 			_tween = DOTween.Sequence()
 				.Join(DOTween
 					.To(() => _speed, value => _speed = value, _config.Speed,
-						_gameConfig.Camera.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic));
+						_gameConfig.Player.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic));
 		}
 
 		public void ResetValues()

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{ba4990c8-ca20-44cd-b503-844096bb951c}">
 		<property name="name">
-			<value>Breath2</value>
+			<value>Breath</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -98,9 +98,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{a08e5980-b23a-4fa8-9510-1c5eadd64a91}">
-		<property name="volume">
-			<value>-21</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{5b33d793-48b1-42ce-8777-51bbb9be0a33}</destination>
 		</relationship>
@@ -238,9 +235,6 @@
 		<property name="triggerProbabilityEnabled">
 			<value>true</value>
 		</property>
-		<property name="triggerProbability">
-			<value>69.5</value>
-		</property>
 		<relationship name="timeline">
 			<destination>{3bb8e3c2-681f-437a-a159-9feeebf352fd}</destination>
 		</relationship>
@@ -285,7 +279,6 @@
 	<object class="MixerBusEffectChain" id="{5b33d793-48b1-42ce-8777-51bbb9be0a33}">
 		<relationship name="effects">
 			<destination>{d7ba4af7-3aba-4dbd-ad86-2e17517461e4}</destination>
-			<destination>{fbd533a7-8f4d-46ab-a507-7c59bd68426e}</destination>
 			<destination>{b45eb586-7548-4e24-b398-e644a4a7bc1c}</destination>
 		</relationship>
 	</object>
@@ -328,6 +321,7 @@
 	<object class="MixerBusEffectChain" id="{217bae2d-f067-481a-9b22-27d131d14de8}">
 		<relationship name="effects">
 			<destination>{b11e4faf-14af-4b4d-9ff5-a61cecc736ce}</destination>
+			<destination>{e3e3294d-f6c0-48d0-93d1-5f74000d843d}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f50f7262-7ea5-4cf2-b569-bd9c0553d8a3}" />
@@ -354,20 +348,6 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{d7ba4af7-3aba-4dbd-ad86-2e17517461e4}" />
-	<object class="TremoloEffect" id="{fbd533a7-8f4d-46ab-a507-7c59bd68426e}">
-		<property name="frequency">
-			<value>6.5</value>
-		</property>
-		<property name="depth">
-			<value>0.579999983</value>
-		</property>
-		<property name="shape">
-			<value>0.0649999976</value>
-		</property>
-		<property name="duty">
-			<value>0.935000002</value>
-		</property>
-	</object>
 	<object class="ThreeEQEffect" id="{b45eb586-7548-4e24-b398-e644a4a7bc1c}">
 		<property name="midGain">
 			<value>-1</value>
@@ -396,12 +376,26 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{b11e4faf-14af-4b4d-9ff5-a61cecc736ce}" />
+	<object class="TremoloEffect" id="{e3e3294d-f6c0-48d0-93d1-5f74000d843d}">
+		<property name="frequency">
+			<value>1.20000005</value>
+		</property>
+		<property name="depth">
+			<value>0.875</value>
+		</property>
+		<property name="shape">
+			<value>0.00999999978</value>
+		</property>
+		<property name="duty">
+			<value>0.924999952</value>
+		</property>
+	</object>
 	<object class="AutomationPoint" id="{24afc9c9-91e8-4794-88fc-81eb258fde38}">
 		<property name="position">
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>-20</value>
+			<value>-10</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{46c4b699-f5ae-4246-b4a7-cdfcbc42a1d4}">
@@ -409,7 +403,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>-10</value>
+			<value>0</value>
 		</property>
 	</object>
 </objects>

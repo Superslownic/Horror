@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Scripts.Config.Camera
+namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class CameraBobbingValues
+	public class BobbingValues
 	{
 		[field: SerializeField] public bool DependsOnVelocity { get; set; }
 		[field: SerializeField] public Vector2 PositionFrequency { get; set; }

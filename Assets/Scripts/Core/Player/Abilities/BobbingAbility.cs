@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
 using Scripts.Config;
-using Scripts.Config.Camera;
+using Scripts.Config.Player;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
@@ -14,7 +14,7 @@ namespace Scripts.Core.Player
 
 		[Inject] private readonly GameConfig _gameConfig;
 
-		private CameraBobbingValues _config;
+		private BobbingValues _config;
 		private Vector2 _positionFrequency;
 		private Vector2 _positionAmplitude;
 		private Vector2 _rotationFrequency;
@@ -25,16 +25,16 @@ namespace Scripts.Core.Player
 
 		protected override void OnInitialize()
 		{
-			SetConfig(_gameConfig.Camera.Bobbing.IdleValues);
+			SetConfig(_gameConfig.Player.Bobbing.IdleMinValues);
 			ResetValues();
 		}
 
-		public Tween SetConfig(CameraBobbingValues config)
+		public Tween SetConfig(BobbingValues config)
 		{
-			return SetConfig(config, _gameConfig.Camera.Bobbing.ChangeDuration);
+			return SetConfig(config, _gameConfig.Player.Bobbing.ChangeDuration);
 		}
 
-		public Tween SetConfig(CameraBobbingValues config, float time)
+		public Tween SetConfig(BobbingValues config, float time)
 		{
 			_config = config;
 			_tween?.Kill();
@@ -68,7 +68,7 @@ namespace Scripts.Core.Player
 				return;
 			}
 			
-			if (_config.DependsOnVelocity && _movementAbility.ActualVelocity.magnitude <= _gameConfig.Camera.Bobbing.Threshold)
+			if (_config.DependsOnVelocity && _movementAbility.ActualVelocity.magnitude <= _gameConfig.Player.Bobbing.Threshold)
 			{
 				return;
 			}

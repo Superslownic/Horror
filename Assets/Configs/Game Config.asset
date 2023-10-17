@@ -34,6 +34,83 @@ MonoBehaviour:
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
+    <Lean>k__BackingField:
+      <Threshold>k__BackingField: 0.01
+      <Angle>k__BackingField: 3
+      <Force>k__BackingField: 5
+      <Curve>k__BackingField:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.5
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 1
+          value: 0.5
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 136
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+    <SmoothPosition>k__BackingField:
+      <Force>k__BackingField: 10
+    <Bobbing>k__BackingField:
+      <Threshold>k__BackingField: 0.01
+      <ChangeDuration>k__BackingField: 0.5
+      <BreatheChangeDuration>k__BackingField: 8
+      <IdleMinValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 0
+        <PositionFrequency>k__BackingField: {x: 0, y: 0}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0}
+        <RotationFrequency>k__BackingField: {x: 0, y: 2}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0.5}
+      <IdleMaxValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 0
+        <PositionFrequency>k__BackingField: {x: 0, y: 0}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0}
+        <RotationFrequency>k__BackingField: {x: 0, y: 11}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 1.5}
+      <WalkingValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
+        <PositionFrequency>k__BackingField: {x: 10, y: 10}
+        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
+        <RotationFrequency>k__BackingField: {x: 5, y: 20}
+        <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
+      <RunningValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
+        <PositionFrequency>k__BackingField: {x: 20, y: 20}
+        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.05}
+        <RotationFrequency>k__BackingField: {x: 10, y: 40}
+        <RotationAmplitude>k__BackingField: {x: 2, y: 0.5}
+      <CrouchingValues>k__BackingField:
+        <DependsOnVelocity>k__BackingField: 1
+        <PositionFrequency>k__BackingField: {x: 5, y: 5}
+        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
+        <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
+        <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
+    <Breath>k__BackingField:
+      <Delay>k__BackingField: 2
+      <IncreaseDuration>k__BackingField: 1
+      <DecreaseDuration>k__BackingField: 3
     <BreathDelay>k__BackingField: 2
     <BreathIncreaseDuration>k__BackingField: 1
     <BreathDecreaseDuration>k__BackingField: 3
@@ -81,12 +158,6 @@ MonoBehaviour:
       <Threshold>k__BackingField: 0.01
       <ChangeDuration>k__BackingField: 0.5
       <BreatheChangeDuration>k__BackingField: 8
-      <IdleValues>k__BackingField:
-        <DependsOnVelocity>k__BackingField: 0
-        <PositionFrequency>k__BackingField: {x: 0, y: 2}
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0.01}
-        <RotationFrequency>k__BackingField: {x: 0, y: 2}
-        <RotationAmplitude>k__BackingField: {x: 0, y: 0.1}
       <IdleMinValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 0
         <PositionFrequency>k__BackingField: {x: 0, y: 0}
@@ -125,7 +196,7 @@ MonoBehaviour:
           Data2: 1154337312
           Data3: 1082393525
           Data4: 479574934
-        Path: event:/Breath2
+        Path: event:/Breath
     <Parameters>k__BackingField:
       <BreathVolume>k__BackingField: BreathVolume
       <BreathTime>k__BackingField: BreathTime

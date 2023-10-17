@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class PlayerLookConfig
+	public class LookConfig
 	{
 		[field: SerializeField] public PlayerLookGamepadConfig Gamepad { get; private set; }
 		[field: SerializeField] public PlayerLookKeyboardConfig Keyboard { get; private set; }
