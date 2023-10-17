@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{2f09f9ab-43f5-4e55-ac83-932d2b1433da}">
 		<property name="assetPath">
-			<value>mic_wind.ogg</value>
+			<value>Wind/mic_wind.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

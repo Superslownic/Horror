@@ -17,6 +17,7 @@ namespace Scripts.Installers
 			Container.BindInstance(_gameConfig).AsSingle();
 			Container.BindInterfacesAndSelfTo<ObjectFactory>().AsSingle();
 			Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();
+			Container.BindMemoryPool<Sound, Sound.Pool>().WithInitialSize(10);
 			Container.BindInterfacesAndSelfTo<AudioManager>().AsSingle();
 			Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle().NonLazy();
 		}

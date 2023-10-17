@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using FMOD.Studio;
 using Scripts.Audio;
 using Scripts.Config;
 using Scripts.Config.Player;
@@ -16,14 +15,14 @@ namespace Scripts.Core.Player
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
 		
-		private EventInstance _eventInstance;
+		private Sound _sound;
 		private float _volume;
 		private float _delay;
 		private bool _isPlaying;
 
 		protected override void OnInitialize()
 		{
-			_eventInstance = _audioManager.CreateInstance(_gameConfig.Audio.Events.Breath);
+			_sound = _audioManager.Create(_gameConfig.Audio.Events.Breath);
 		}
 
 		public void StartRunning()
@@ -61,11 +60,9 @@ namespace Scripts.Core.Player
 				}
 				else
 				{
-					_eventInstance.getPlaybackState(out PLAYBACK_STATE state);
-					
-					if (state != PLAYBACK_STATE.PLAYING)
+					if (_sound.PlaybackState != PlaybackState.Playing)
 					{
-						_eventInstance.start();
+						_sound.Play();
 					}
 					
 					_volume += 1 / _gameConfig.Player.Breath.IncreaseDuration * Time.deltaTime;
@@ -83,11 +80,8 @@ namespace Scripts.Core.Player
 			
 			_delay = Mathf.Clamp(_delay, 0, _gameConfig.Player.Breath.Delay);
 			_volume = Mathf.Clamp(_volume, 0, _gameConfig.Player.Breath.IncreaseDuration);
-			
-			if (_eventInstance.isValid())
-			{
-				_eventInstance.setParameterByName(_gameConfig.Audio.Parameters.BreathVolume, _volume / _gameConfig.Player.Breath.IncreaseDuration);
-			}
+
+			_sound?.SetParameter(_gameConfig.Audio.Parameters.BreathVolume, _volume / _gameConfig.Player.Breath.IncreaseDuration);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{6b7492a6-8ceb-4599-b428-ad0bbf4769b6}">
 		<property name="assetPath">
-			<value>heartbeat_single3.ogg</value>
+			<value>Heartbeat/heartbeat_single3.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

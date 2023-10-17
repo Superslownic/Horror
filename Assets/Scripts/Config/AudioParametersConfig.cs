@@ -7,6 +7,5 @@ namespace Scripts.Config
 	public class AudioParametersConfig
 	{
 		[field: SerializeField] public string BreathVolume { get; private set; }
-		[field: SerializeField] public string BreathTime { get; private set; }
 	}
 }
