@@ -36,7 +36,7 @@ MonoBehaviour:
         <Sensitivity>k__BackingField: 0.1
     <Lean>k__BackingField:
       <Threshold>k__BackingField: 0.01
-      <Angle>k__BackingField: 3
+      <Angle>k__BackingField: 2
       <Force>k__BackingField: 5
       <Curve>k__BackingField:
         serializedVersion: 2
@@ -74,39 +74,39 @@ MonoBehaviour:
     <SmoothPosition>k__BackingField:
       <Force>k__BackingField: 10
     <Bobbing>k__BackingField:
-      <Threshold>k__BackingField: 0.01
+      <Threshold>k__BackingField: 0
       <ChangeDuration>k__BackingField: 0.5
       <BreatheChangeDuration>k__BackingField: 8
       <IdleMinValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 0
         <PositionFrequency>k__BackingField: {x: 0, y: 0}
         <PositionAmplitude>k__BackingField: {x: 0, y: 0}
-        <RotationFrequency>k__BackingField: {x: 0, y: 2}
-        <RotationAmplitude>k__BackingField: {x: 0, y: 0.5}
+        <RotationFrequency>k__BackingField: {x: 0, y: 0.25}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0.15}
       <IdleMaxValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 0
         <PositionFrequency>k__BackingField: {x: 0, y: 0}
         <PositionAmplitude>k__BackingField: {x: 0, y: 0}
-        <RotationFrequency>k__BackingField: {x: 0, y: 11}
-        <RotationAmplitude>k__BackingField: {x: 0, y: 1.5}
+        <RotationFrequency>k__BackingField: {x: 0, y: 1}
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0.3}
       <WalkingValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
-        <PositionFrequency>k__BackingField: {x: 10, y: 10}
-        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
-        <RotationFrequency>k__BackingField: {x: 5, y: 20}
-        <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
+        <PositionFrequency>k__BackingField: {x: 0.65, y: 1.3}
+        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.054}
+        <RotationFrequency>k__BackingField: {x: 0.65, y: 0}
+        <RotationAmplitude>k__BackingField: {x: 0.03, y: 0}
       <RunningValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
-        <PositionFrequency>k__BackingField: {x: 20, y: 20}
-        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.05}
-        <RotationFrequency>k__BackingField: {x: 10, y: 40}
-        <RotationAmplitude>k__BackingField: {x: 2, y: 0.5}
+        <PositionFrequency>k__BackingField: {x: 1.5, y: 3}
+        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.07}
+        <RotationFrequency>k__BackingField: {x: 1.5, y: 0}
+        <RotationAmplitude>k__BackingField: {x: 1, y: 0}
       <CrouchingValues>k__BackingField:
         <DependsOnVelocity>k__BackingField: 1
-        <PositionFrequency>k__BackingField: {x: 5, y: 5}
-        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04}
-        <RotationFrequency>k__BackingField: {x: 2.5, y: 10}
-        <RotationAmplitude>k__BackingField: {x: 0.7, y: 0.7}
+        <PositionFrequency>k__BackingField: {x: 0.65, y: 1.3}
+        <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.03}
+        <RotationFrequency>k__BackingField: {x: 0.65, y: 0}
+        <RotationAmplitude>k__BackingField: {x: 0.1, y: 0}
     <Breath>k__BackingField:
       <Delay>k__BackingField: 2
       <IncreaseDuration>k__BackingField: 1

@@ -2,13 +2,16 @@
 using Scripts.Config;
 using Scripts.Config.Player;
 using Scripts.Entities;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using Zenject;
 
 namespace Scripts.Core.Player
 {
 	public class BobbingAbility : Ability
 	{
+		[SerializeField] private UnityEvent _event;
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private MovementAbility _movementAbility;
 
@@ -19,9 +22,13 @@ namespace Scripts.Core.Player
 		private Vector2 _positionAmplitude;
 		private Vector2 _rotationFrequency;
 		private Vector2 _rotationAmplitude;
-		private Vector2 _positionTime;
+		[ShowInInspector] private Vector2 _positionTime;
 		private Vector2 _rotationTime;
 		private Tween _tween;
+		private int _counter;
+
+		[ShowInInspector] private float Sin => Mathf.Sin(_positionTime.y * (Mathf.PI * 2));
+		[ShowInInspector] private float Cos => Mathf.Cos((_positionTime.y + 0.5f) * (Mathf.PI * 2));
 
 		protected override void OnInitialize()
 		{
@@ -73,21 +80,28 @@ namespace Scripts.Core.Player
 				return;
 			}
 
-			float strength = _config.DependsOnVelocity ? _movementAbility.NormalizedActualVelocity.magnitude : 1;
+			float strength = _config.DependsOnVelocity ? _movementAbility.NormalizedActualVelocity.magnitude : 1 + 0.5f;
+			strength = Mathf.Clamp01(strength);
 			
 			_positionTime.x += Time.deltaTime * strength * _positionFrequency.x;
 			_positionTime.y += Time.deltaTime * strength * _positionFrequency.y;
-			
+
 			_rotationTime.x += Time.deltaTime * strength * _rotationFrequency.x;
 			_rotationTime.y += Time.deltaTime * strength * _rotationFrequency.y;
 			
+			if (_counter != Mathf.RoundToInt(_positionTime.y - 0.2f))
+			{
+				_counter = Mathf.RoundToInt(_positionTime.y - 0.2f);
+				_event.Invoke();
+			}
+			
 			Vector3 position = _anchor.localPosition;
-			position.x = Mathf.Cos(_positionTime.x * 0.5f) * _positionAmplitude.x;
-			position.y = Mathf.Cos(_positionTime.y) * _positionAmplitude.y;
+			position.x = Mathf.Cos((_positionTime.x + 0.5f) * (Mathf.PI * 2)) * _positionAmplitude.x;
+			position.y = Mathf.Cos((_positionTime.y + 0.5f) * (Mathf.PI * 2)) * _positionAmplitude.y;
 			
 			Vector3 rotation = _anchor.localEulerAngles;
-			rotation.y = Mathf.Sin(_rotationTime.x) * _rotationAmplitude.x;
-			rotation.x = Mathf.Sin(_rotationTime.y * 0.5f) * _rotationAmplitude.y;
+			rotation.y = Mathf.Cos((_rotationTime.x + 0.5f) * (Mathf.PI * 2)) * _rotationAmplitude.x;
+			rotation.x = Mathf.Cos((_rotationTime.y + 0.5f) * (Mathf.PI * 2)) * _rotationAmplitude.y;
 			
 			_anchor.localPosition = position;
 			_anchor.localEulerAngles = rotation;
