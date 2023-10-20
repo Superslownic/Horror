@@ -92,7 +92,7 @@ namespace Scripts.Core.Player
 			if (_counter != Mathf.RoundToInt(_positionTime.y - 0.2f))
 			{
 				_counter = Mathf.RoundToInt(_positionTime.y - 0.2f);
-				_event.Invoke();
+				//_event.Invoke();
 			}
 			
 			Vector3 position = _anchor.localPosition;
