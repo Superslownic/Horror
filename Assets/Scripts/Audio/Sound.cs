@@ -39,6 +39,11 @@ namespace Scripts.Audio
 			EventInstance.stop(STOP_MODE.ALLOWFADEOUT);
 		}
 
+		public void SetVolume(float value)
+		{
+			EventInstance.setVolume(value);
+		}
+
 		public void SetParameter(string name, float value)
 		{
 			EventInstance.setParameterByName(name, value);

@@ -21,6 +21,7 @@ MonoBehaviour:
       <GroundCheckThreshold>k__BackingField: 0.1
       <Acceleration>k__BackingField: 20
       <Deceleration>k__BackingField: 20
+      <ChangeValuesDuration>k__BackingField: 0.5
       <Walking>k__BackingField:
         <Speed>k__BackingField: 2.5
       <Running>k__BackingField:
@@ -29,7 +30,7 @@ MonoBehaviour:
         <Speed>k__BackingField: 1.5
     <Look>k__BackingField:
       <Gamepad>k__BackingField:
-        <Sensitivity>k__BackingField: 2
+        <Sensitivity>k__BackingField: 3
         <Acceleration>k__BackingField: 5
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
@@ -73,19 +74,8 @@ MonoBehaviour:
         m_RotationOrder: 4
     <SmoothPosition>k__BackingField:
       <Force>k__BackingField: 10
-    <Bobbing>k__BackingField:
-      <ChangeDuration>k__BackingField: 0.5
-      <BreatheChangeDuration>k__BackingField: 8
-      <IdleMinValues>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 0, y: 0.15, z: 0}
-        <RotationFrequency>k__BackingField: 0
-      <IdleMaxValues>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 0, y: 0.4, z: 0}
-        <RotationFrequency>k__BackingField: 0
+    <Footsteps>k__BackingField:
+      <ChangeValuesDuration>k__BackingField: 0.5
       <WalkingValues>k__BackingField:
         <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04, z: 0}
         <PositionFrequency>k__BackingField: 1.5
@@ -114,5 +104,12 @@ MonoBehaviour:
           Data3: 1082393525
           Data4: 479574934
         Path: event:/Effects/Breath
+      <Footstep>k__BackingField:
+        Guid:
+          Data1: -911426729
+          Data2: 1076134650
+          Data3: 146783877
+          Data4: -948634491
+        Path: event:/Effects/Footsteps/Walk
     <Parameters>k__BackingField:
       <BreathVolume>k__BackingField: BreathVolume

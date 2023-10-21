@@ -17,7 +17,7 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerEntity.GetAbility<BreathAbility>().StopRunning();
-			_playerEntity.GetAbility<FootstepsAbility>().Activate(_gameConfig.Player.Bobbing.WalkingValues);
+			_playerEntity.GetAbility<FootstepsAbility>().Activate(_gameConfig.Player.Footsteps.WalkingValues);
 			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
 		}
 

@@ -10,7 +10,7 @@ namespace Scripts.Config.Player
 		[field: SerializeField] public LookConfig Look { get; private set; }
 		[field: SerializeField] public LeanConfig Lean { get; private set; }
 		[field: SerializeField] public SmoothConfig SmoothPosition { get; private set; }
-		[field: SerializeField] public BobbingConfig Bobbing { get; private set; }
+		[field: SerializeField] public FootstepsConfig Footsteps { get; private set; }
 		[field: SerializeField] public BreathConfig Breath { get; private set; }
 	}
 }

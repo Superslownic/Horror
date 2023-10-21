@@ -1,25 +1,26 @@
 ﻿using DG.Tweening;
+using Scripts.Audio;
 using Scripts.Config;
 using Scripts.Config.Player;
 using Scripts.Core.Player.Shake;
 using Scripts.Entities;
 using UnityEngine;
-using UnityEngine.Events;
 using Zenject;
 
 namespace Scripts.Core.Player
 {
 	public class FootstepsAbility : Ability
 	{
-		[SerializeField] private UnityEvent _event;
 		[SerializeField] private ShakeAbility _shakeAbility;
 		[SerializeField] private MovementAbility _movementAbility;
 
 		[Inject] private readonly GameConfig _gameConfig;
+		[Inject] private readonly AudioManager _audioManager;
 
 		private Shaker _shaker;
 		private BobbingShakeProcessor _processor;
-		private BobbingValues _values;
+		private BobbingValues _bobbingValues;
+		private Sound _footstepSound;
 		private Tween _tween;
 		private int _counter;
 
@@ -33,22 +34,30 @@ namespace Scripts.Core.Player
 			};
 			_shakeAbility.AddShaker(_shaker);
 			_shaker.Start();
+			_footstepSound = _audioManager.Create(_gameConfig.Audio.Events.Footstep);
 		}
 
 		protected override void OnUpdate()
 		{
+			if (_counter != Mathf.RoundToInt(_processor.PositionTime))
+			{
+				_counter = Mathf.RoundToInt(_processor.PositionTime);
+				_footstepSound.SetVolume(_movementAbility.NormalizedActualVelocity.magnitude);
+				_footstepSound.Play();
+			}
+			
 			_processor.Magnitude = _movementAbility.NormalizedActualVelocity.magnitude;
 		}
 
 		public void Activate(BobbingValues values)
 		{
-			_values = values;
+			_bobbingValues = values;
 			UpdateValues();
 		}
 
 		public void Deactivate()
 		{
-			_values = BobbingValues.Default;
+			_bobbingValues = BobbingValues.Default;
 			UpdateValues();
 		}
 
@@ -57,17 +66,17 @@ namespace Scripts.Core.Player
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
 				.Join(DOTween
-					.To(() => _processor.PositionFrequency, value => _processor.PositionFrequency = value, _values.PositionFrequency,
-						_gameConfig.Player.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+					.To(() => _processor.PositionFrequency, value => _processor.PositionFrequency = value, _bobbingValues.PositionFrequency,
+						_gameConfig.Player.Footsteps.ChangeValuesDuration).SetEase(Ease.InOutCubic))
 				.Join(DOTween
-					.To(() => _processor.PositionAmplitude, value => _processor.PositionAmplitude = value, _values.PositionAmplitude,
-						_gameConfig.Player.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+					.To(() => _processor.PositionAmplitude, value => _processor.PositionAmplitude = value, _bobbingValues.PositionAmplitude,
+						_gameConfig.Player.Footsteps.ChangeValuesDuration).SetEase(Ease.InOutCubic))
 				.Join(DOTween
-					.To(() => _processor.RotationFrequency, value => _processor.RotationFrequency = value, _values.RotationFrequency,
-						_gameConfig.Player.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic))
+					.To(() => _processor.RotationFrequency, value => _processor.RotationFrequency = value, _bobbingValues.RotationFrequency,
+						_gameConfig.Player.Footsteps.ChangeValuesDuration).SetEase(Ease.InOutCubic))
 				.Join(DOTween
-					.To(() => _processor.RotationAmplitude, value => _processor.RotationAmplitude = value, _values.RotationAmplitude,
-						_gameConfig.Player.Bobbing.ChangeDuration).SetEase(Ease.InOutCubic));
+					.To(() => _processor.RotationAmplitude, value => _processor.RotationAmplitude = value, _bobbingValues.RotationAmplitude,
+						_gameConfig.Player.Footsteps.ChangeValuesDuration).SetEase(Ease.InOutCubic));
 		}
 	}
 }

@@ -5,7 +5,7 @@
 			<value>Walk</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{44a41361-689d-4b24-b5f8-50199d9c7ea1}</destination>
@@ -106,6 +106,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{f6ba4d97-b7ae-4c9a-b433-27e609d375c3}">
+		<property name="volume">
+			<value>-6</value>
+		</property>
 		<property name="name">
 			<value>Audio 2</value>
 		</property>
@@ -122,7 +125,6 @@
 	<object class="MixerBusEffectChain" id="{6cd4bb81-98c6-4690-bb3b-bd4b25f7977c}">
 		<relationship name="effects">
 			<destination>{6a317109-19f9-4b01-afd6-efa180fb150b}</destination>
-			<destination>{0d024582-6b48-4bb9-a5d6-f8025a84a4ae}</destination>
 			<destination>{298023f0-6896-47b7-9556-34a7b16288a8}</destination>
 		</relationship>
 	</object>
@@ -178,7 +180,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{50e8085c-9b38-49a1-91b4-8d309e915580}" />
 	<object class="MixerBusFader" id="{6a317109-19f9-4b01-afd6-efa180fb150b}" />
-	<object class="SpatialiserEffect" id="{0d024582-6b48-4bb9-a5d6-f8025a84a4ae}" />
 	<object class="SFXReverbEffect" id="{298023f0-6896-47b7-9556-34a7b16288a8}">
 		<property name="decayTime">
 			<value>4000</value>
@@ -192,7 +193,7 @@
 	</object>
 	<object class="AutomationPoint" id="{25b24a66-ed7b-41a5-8df1-fd6512cdca87}">
 		<property name="position">
-			<value>0.02</value>
+			<value>0.025000000000000001</value>
 		</property>
 		<property name="value">
 			<value>1</value>
