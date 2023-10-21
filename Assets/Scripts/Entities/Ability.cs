@@ -48,6 +48,14 @@ namespace Scripts.Entities
 			}
 		}
 
+		private void LateUpdate()
+		{
+			if (IsActive)
+			{
+				OnLateUpdate();
+			}
+		}
+
 		private void OnDestroy()
 		{
 			OnDispose();
@@ -57,6 +65,7 @@ namespace Scripts.Entities
 		protected virtual void OnInitialize() { }
 		protected virtual void OnActivate() { }
 		protected virtual void OnUpdate() { }
+		protected virtual void OnLateUpdate() { }
 		protected virtual void OnDeactivate() { }
 		protected virtual void OnDispose() { }
 	}

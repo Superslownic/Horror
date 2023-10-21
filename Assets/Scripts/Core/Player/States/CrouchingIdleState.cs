@@ -18,6 +18,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerEntity.GetAbility<CrouchAbility>().Crouch();
 			_playerEntity.GetAbility<BreathAbility>().StopRunning();
+			_playerEntity.GetAbility<FootstepsAbility>().Deactivate();
 			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Crouching);
 		}
 

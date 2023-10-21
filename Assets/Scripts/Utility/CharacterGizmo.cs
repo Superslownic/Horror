@@ -21,6 +21,7 @@ namespace Scripts.Utility
 			}
 		}
 
+#if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
 			Vector3 position = transform.TransformPoint(CharacterController.center);
@@ -48,5 +49,6 @@ namespace Scripts.Utility
 				Handles.DrawWireDisc(Vector3.down * pointOffset, Vector3.up, radius);
 			}
 		}
+		#endif
 	}
 }

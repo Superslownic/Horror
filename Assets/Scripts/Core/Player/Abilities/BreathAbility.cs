@@ -10,7 +10,7 @@ namespace Scripts.Core.Player
 {
 	public class BreathAbility : Ability
 	{
-		[SerializeField] private BobbingAbility bobbingAbility;
+		[SerializeField] private FootstepsAbility bobbingAbility;
 		
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
@@ -32,7 +32,7 @@ namespace Scripts.Core.Player
 
 		public void StopRunning()
 		{
-			_isPlaying = false;
+			/*_isPlaying = false;
 			
 			BobbingValues values = new BobbingValues
 			{
@@ -43,11 +43,11 @@ namespace Scripts.Core.Player
 				DependsOnVelocity = false
 			};
 			
-			bobbingAbility.SetConfig(values).OnComplete(() =>
+			bobbingAbility.SetValues(values).OnComplete(() =>
 			{
-				bobbingAbility.SetConfig(_gameConfig.Player.Bobbing.IdleMinValues,
+				bobbingAbility.SetValues(_gameConfig.Player.Bobbing.IdleMinValues,
 					_gameConfig.Player.Bobbing.BreatheChangeDuration);
-			});
+			});*/
 		}
 
 		protected override void OnUpdate()

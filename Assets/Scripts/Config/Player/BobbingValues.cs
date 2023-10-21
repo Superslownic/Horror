@@ -4,12 +4,13 @@ using UnityEngine;
 namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class BobbingValues
+	public struct BobbingValues
 	{
-		[field: SerializeField] public bool DependsOnVelocity { get; set; }
-		[field: SerializeField] public Vector2 PositionFrequency { get; set; }
-		[field: SerializeField] public Vector2 PositionAmplitude { get; set; }
-		[field: SerializeField] public Vector2 RotationFrequency { get; set; }
-		[field: SerializeField] public Vector2 RotationAmplitude { get; set; }
+		[field: SerializeField] public Vector3 PositionAmplitude { get; set; }
+		[field: SerializeField] public float PositionFrequency { get; set; }
+		[field: SerializeField] public Vector3 RotationAmplitude { get; set; }
+		[field: SerializeField] public float RotationFrequency { get; set; }
+
+		public static readonly BobbingValues Default = new();
 	}
 }
