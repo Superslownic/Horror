@@ -18,7 +18,8 @@ namespace Scripts.Core.Player.States
 		{
 			_playerEntity.GetAbility<CrouchAbility>().Crouch();
 			_playerEntity.GetAbility<BreathAbility>().StopRunning();
-			_playerEntity.GetAbility<FootstepsAbility>().Activate(_gameConfig.Player.Footsteps.CrouchingValues);
+			_playerEntity.GetAbility<FootstepsAbility>().ToCrouch();
+			_playerEntity.GetAbility<WobbleAbility>().ToCrouchWalk();
 			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Crouching);
 		}
 
@@ -28,7 +29,6 @@ namespace Scripts.Core.Player.States
 
 		public override void Exit()
 		{
-			_playerEntity.GetAbility<CrouchAbility>().Stand();
 		}
 	}
 }

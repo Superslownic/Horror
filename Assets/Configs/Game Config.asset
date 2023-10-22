@@ -27,7 +27,7 @@ MonoBehaviour:
       <Running>k__BackingField:
         <Speed>k__BackingField: 7
       <Crouching>k__BackingField:
-        <Speed>k__BackingField: 1.5
+        <Speed>k__BackingField: 1
     <Look>k__BackingField:
       <Gamepad>k__BackingField:
         <Sensitivity>k__BackingField: 3
@@ -35,6 +35,28 @@ MonoBehaviour:
         <Deceleration>k__BackingField: 5
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
+    <Crouch>k__BackingField:
+      <Duration>k__BackingField: 0.5
+      <TargetHeight>k__BackingField: 0.9
+      <TargetCameraHeight>k__BackingField: 0.8
+      <CrouchShaker>k__BackingField:
+        <Type>k__BackingField: 0
+        <StartDuration>k__BackingField: 0.25
+        <StartEase>k__BackingField: 34
+        <MidDuration>k__BackingField: 0
+        <StopDuration>k__BackingField: 0.25
+        <StopEase>k__BackingField: 35
+        <Processor>k__BackingField:
+          rid: 5691942408123580499
+      <StandShaker>k__BackingField:
+        <Type>k__BackingField: 0
+        <StartDuration>k__BackingField: 0.25
+        <StartEase>k__BackingField: 34
+        <MidDuration>k__BackingField: 0
+        <StopDuration>k__BackingField: 0.25
+        <StopEase>k__BackingField: 35
+        <Processor>k__BackingField:
+          rid: 5691942408123580500
     <Lean>k__BackingField:
       <Threshold>k__BackingField: 0.01
       <Angle>k__BackingField: 2
@@ -95,6 +117,33 @@ MonoBehaviour:
       <Delay>k__BackingField: 2
       <IncreaseDuration>k__BackingField: 1
       <DecreaseDuration>k__BackingField: 3
+    <Wobble>k__BackingField:
+      <ChangeValuesDuration>k__BackingField: 0.5
+      <StandingIdleValues>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
+        <RotationFrequency>k__BackingField: 0.4
+      <StandingWalkValues>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.7, y: 1.7, z: 1.7}
+        <RotationFrequency>k__BackingField: 1
+      <StandingRunValues>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0.1, y: 0.1, z: 0.1}
+        <PositionFrequency>k__BackingField: 2
+        <RotationAmplitude>k__BackingField: {x: 2, y: 2, z: 2}
+        <RotationFrequency>k__BackingField: 2
+      <CrouchIdleValues>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.2, y: 1.2, z: 1.2}
+        <RotationFrequency>k__BackingField: 0.4
+      <CrouchWalkValues>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
+        <RotationFrequency>k__BackingField: 0.6
   <Audio>k__BackingField:
     <Events>k__BackingField:
       <Breath>k__BackingField:
@@ -106,10 +155,28 @@ MonoBehaviour:
         Path: event:/Effects/Breath
       <Footstep>k__BackingField:
         Guid:
-          Data1: -911426729
-          Data2: 1076134650
-          Data3: 146783877
-          Data4: -948634491
-        Path: event:/Effects/Footsteps/Walk
+          Data1: -221453861
+          Data2: 1172087771
+          Data3: 1511398844
+          Data4: 1983435207
+        Path: event:/Effects/Footsteps
     <Parameters>k__BackingField:
       <BreathVolume>k__BackingField: BreathVolume
+      <FootstepType>k__BackingField: FootstepType
+  references:
+    version: 2
+    RefIds:
+    - rid: 5691942408123580499
+      type: {class: RandomShakeProcessor, ns: Scripts.Core.Player.Shake, asm: Assembly-CSharp}
+      data:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0.3, z: 0}
+        <PositionFrequency>k__BackingField: 0.05
+        <RotationAmplitude>k__BackingField: {x: 3, y: 3, z: 5}
+        <RotationFrequency>k__BackingField: 0.5
+    - rid: 5691942408123580500
+      type: {class: RandomShakeProcessor, ns: Scripts.Core.Player.Shake, asm: Assembly-CSharp}
+      data:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0.3, z: 0}
+        <PositionFrequency>k__BackingField: 0.05
+        <RotationAmplitude>k__BackingField: {x: 3, y: 3, z: 5}
+        <RotationFrequency>k__BackingField: 0.5

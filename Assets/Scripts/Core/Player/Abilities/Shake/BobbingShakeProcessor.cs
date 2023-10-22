@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.Core.Player.Shake
@@ -13,7 +14,7 @@ namespace Scripts.Core.Player.Shake
 
 		public float Magnitude { get; set; }
 		
-		public float PositionTime { get; private set; }
+		[ShowInInspector] public float PositionTime { get; private set; }
 		public float RotationTime { get; private set; }
 		
 		public void Update(out Vector3 position, out Vector3 rotation)

@@ -19,10 +19,10 @@ namespace Scripts.Core.Player
 
 		private Shaker _shaker;
 		private BobbingShakeProcessor _processor;
-		private BobbingValues _bobbingValues;
+		private BobbingShakeProcessorValues _bobbingValues;
 		private Sound _footstepSound;
 		private Tween _tween;
-		private int _counter;
+		private int _stepNumber;
 
 		protected override void OnInitialize()
 		{
@@ -39,30 +39,45 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			if (_counter != Mathf.RoundToInt(_processor.PositionTime))
+			float magnitude = _movementAbility.NormalizedActualVelocity.magnitude;
+			
+			_processor.Magnitude = magnitude;
+
+			int stepNumber = Mathf.CeilToInt(_processor.PositionTime);
+			
+			if (magnitude > 0 && _stepNumber != stepNumber)
 			{
-				_counter = Mathf.RoundToInt(_processor.PositionTime);
-				_footstepSound.SetVolume(_movementAbility.NormalizedActualVelocity.magnitude);
+				_stepNumber = stepNumber;
 				_footstepSound.Play();
 			}
-			
-			_processor.Magnitude = _movementAbility.NormalizedActualVelocity.magnitude;
 		}
 
-		public void Activate(BobbingValues values)
+		public void ToIdle()
+		{
+			ChangeValues(BobbingShakeProcessorValues.Default);
+		}
+
+		public void ToWalk()
+		{
+			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 0);
+			ChangeValues(_gameConfig.Player.Footsteps.WalkingValues);
+		}
+		
+		public void ToRun()
+		{
+			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 1);
+			ChangeValues(_gameConfig.Player.Footsteps.RunningValues);
+		}
+
+		public void ToCrouch()
+		{
+			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 2);
+			ChangeValues(_gameConfig.Player.Footsteps.CrouchingValues);
+		}
+
+		private void ChangeValues(BobbingShakeProcessorValues values)
 		{
 			_bobbingValues = values;
-			UpdateValues();
-		}
-
-		public void Deactivate()
-		{
-			_bobbingValues = BobbingValues.Default;
-			UpdateValues();
-		}
-
-		private void UpdateValues()
-		{
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
 				.Join(DOTween

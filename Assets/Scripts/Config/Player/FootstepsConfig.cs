@@ -7,8 +7,8 @@ namespace Scripts.Config.Player
 	public class FootstepsConfig
 	{
 		[field: SerializeField] public float ChangeValuesDuration { get; private set; }
-		[field: SerializeField] public BobbingValues WalkingValues { get; private set; }
-		[field: SerializeField] public BobbingValues RunningValues { get; private set; }
-		[field: SerializeField] public BobbingValues CrouchingValues { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorValues WalkingValues { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorValues RunningValues { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorValues CrouchingValues { get; private set; }
 	}
 }

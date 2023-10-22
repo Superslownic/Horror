@@ -16,8 +16,10 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
+			_playerEntity.GetAbility<CrouchAbility>().Stand();
 			_playerEntity.GetAbility<BreathAbility>().StopRunning();
-			_playerEntity.GetAbility<FootstepsAbility>().Deactivate();
+			_playerEntity.GetAbility<FootstepsAbility>().ToIdle();
+			_playerEntity.GetAbility<WobbleAbility>().ToStandingIdle();
 			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
 		}
 

@@ -2,6 +2,7 @@
 using Scripts.Audio;
 using Scripts.Config;
 using Scripts.Config.Player;
+using Scripts.Core.Player.Shake;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
@@ -10,7 +11,7 @@ namespace Scripts.Core.Player
 {
 	public class BreathAbility : Ability
 	{
-		[SerializeField] private FootstepsAbility bobbingAbility;
+		[SerializeField] private ShakeAbility _shakeAbility;
 		
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;

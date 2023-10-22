@@ -7,10 +7,10 @@ namespace Scripts.Core.Player.Shake
 	[Serializable]
 	public class RandomShakeProcessor : IShakeProcessor
 	{
-		[field: SerializeField] public Vector3 PositionAmplitude { get; private set; }
-		[field: SerializeField] public float PositionFrequency { get; private set; }
-		[field: SerializeField] public Vector3 RotationAmplitude { get; private set; }
-		[field: SerializeField] public float RotationFrequency { get; private set; }
+		[field: SerializeField] public Vector3 PositionAmplitude { get; set; }
+		[field: SerializeField] public float PositionFrequency { get; set; }
+		[field: SerializeField] public Vector3 RotationAmplitude { get; set; }
+		[field: SerializeField] public float RotationFrequency { get; set; }
 
 		private bool _isInitialized;
 		private Vector3 _positionNoiseOffset;

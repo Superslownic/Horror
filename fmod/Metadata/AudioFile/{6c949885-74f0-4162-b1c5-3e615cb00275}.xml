@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{6c949885-74f0-4162-b1c5-3e615cb00275}">
+		<property name="assetPath">
+			<value>Footsteps/Concrete/footstep_concrete_scuffing_13.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.50671201814058953</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f77d4c79-c868-4356-955a-2694a097da95}</destination>
+		</relationship>
+	</object>
+</objects>
