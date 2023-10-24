@@ -245,7 +245,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{ff383c06-14aa-4ef6-bea6-42de3e7794c7}">
 		<property name="volume">
-			<value>-18.5</value>
+			<value>-28</value>
 		</property>
 		<property name="name">
 			<value>Crouch</value>

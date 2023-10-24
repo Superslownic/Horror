@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace Scripts.Utility
@@ -8,7 +9,12 @@ namespace Scripts.Utility
 		[SerializeField] private TextMeshProUGUI fpsText;
 		
 		private float deltaTime = 0;
-		
+
+		private void Start()
+		{
+			//Screen.SetResolution(1920, 1080, true);
+		}
+
 		private void Update()
 		{
 			deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
