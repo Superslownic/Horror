@@ -9,6 +9,14 @@ namespace Scripts.Core.Player.Shake
 		[SerializeField] private Transform _target;
 		[SerializeField] private List<Shaker> _shakers;
 
+		protected override void OnInitialize()
+		{
+			foreach (Shaker shaker in _shakers)
+			{
+				shaker.Start();
+			}
+		}
+
 		protected override void OnLateUpdate()
 		{
 			Vector3 resultPosition = Vector3.zero;

@@ -1,8 +1,5 @@
-﻿using DG.Tweening;
-using Scripts.Audio;
+﻿using Scripts.Audio;
 using Scripts.Config;
-using Scripts.Config.Player;
-using Scripts.Core.Player.Shake;
 using Scripts.Entities;
 using UnityEngine;
 using Zenject;
@@ -11,8 +8,6 @@ namespace Scripts.Core.Player
 {
 	public class BreathAbility : Ability
 	{
-		[SerializeField] private ShakeAbility _shakeAbility;
-		
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
 		
@@ -33,22 +28,7 @@ namespace Scripts.Core.Player
 
 		public void StopRunning()
 		{
-			/*_isPlaying = false;
-			
-			BobbingValues values = new BobbingValues
-			{
-				PositionAmplitude = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.PositionAmplitude, _gameConfig.Player.Bobbing.IdleMaxValues.PositionAmplitude, _volume),
-				PositionFrequency = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.PositionFrequency, _gameConfig.Player.Bobbing.IdleMaxValues.PositionFrequency, _volume),
-				RotationAmplitude = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.RotationAmplitude, _gameConfig.Player.Bobbing.IdleMaxValues.RotationAmplitude, _volume),
-				RotationFrequency = Vector2.Lerp(_gameConfig.Player.Bobbing.IdleMinValues.RotationFrequency, _gameConfig.Player.Bobbing.IdleMaxValues.RotationFrequency, _volume),
-				DependsOnVelocity = false
-			};
-			
-			bobbingAbility.SetValues(values).OnComplete(() =>
-			{
-				bobbingAbility.SetValues(_gameConfig.Player.Bobbing.IdleMinValues,
-					_gameConfig.Player.Bobbing.BreatheChangeDuration);
-			});*/
+			_isPlaying = false;
 		}
 
 		protected override void OnUpdate()

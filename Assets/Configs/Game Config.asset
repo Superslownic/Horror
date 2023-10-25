@@ -39,65 +39,24 @@ MonoBehaviour:
       <Duration>k__BackingField: 0.5
       <TargetHeight>k__BackingField: 0.9
       <TargetCameraHeight>k__BackingField: 0.8
-      <CrouchShaker>k__BackingField:
-        <Config>k__BackingField:
-          <Type>k__BackingField: 0
-          <StartDuration>k__BackingField: 0
-          <StartEase>k__BackingField: 0
-          <MidDuration>k__BackingField: 0
-          <StopDuration>k__BackingField: 0
-          <StopEase>k__BackingField: 0
-        <Processor>k__BackingField:
-          rid: 5691942408123580499
-      <StandShaker>k__BackingField:
-        <Config>k__BackingField:
-          <Type>k__BackingField: 0
-          <StartDuration>k__BackingField: 0
-          <StartEase>k__BackingField: 0
-          <MidDuration>k__BackingField: 0
-          <StopDuration>k__BackingField: 0
-          <StopEase>k__BackingField: 0
-        <Processor>k__BackingField:
-          rid: 5691942408123580500
+      <ShakeConfig>k__BackingField:
+        <Type>k__BackingField: 1
+        <StartDuration>k__BackingField: 0.25
+        <StartEase>k__BackingField: 9
+        <MidDuration>k__BackingField: 0
+        <StopDuration>k__BackingField: 0.25
+        <StopEase>k__BackingField: 10
+      <PerformShakeProcessorConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
+        <PositionFrequency>k__BackingField: 1
+        <RotationAmplitude>k__BackingField: {x: 10, y: 10, z: 10}
+        <RotationFrequency>k__BackingField: 1
     <Lean>k__BackingField:
-      <Threshold>k__BackingField: 0.01
-      <Angle>k__BackingField: 2
-      <Force>k__BackingField: 5
-      <Curve>k__BackingField:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.5
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 136
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.5
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 136
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.5
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 136
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
+      <Angle>k__BackingField: 3
+      <Force>k__BackingField: 3
     <SmoothPosition>k__BackingField:
-      <Force>k__BackingField: 10
+      <Force>k__BackingField: 20
+      <RotationForce>k__BackingField: 3
     <Footsteps>k__BackingField:
       <ChangeValuesDuration>k__BackingField: 0.5
       <ShakerConfig>k__BackingField:
@@ -179,28 +138,3 @@ MonoBehaviour:
     <Parameters>k__BackingField:
       <BreathVolume>k__BackingField: BreathVolume
       <FootstepType>k__BackingField: FootstepType
-  references:
-    version: 2
-    RefIds:
-    - rid: 5691942408123580499
-      type: {class: RandomShakeProcessor, ns: Scripts.Core.Player.Shake, asm: Assembly-CSharp}
-      data:
-        <PositionAmplitude>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField:
-          <Value>k__BackingField: 0
-        <RotationAmplitude>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0, z: 0}
-        <RotationFrequency>k__BackingField:
-          <Value>k__BackingField: 0
-    - rid: 5691942408123580500
-      type: {class: RandomShakeProcessor, ns: Scripts.Core.Player.Shake, asm: Assembly-CSharp}
-      data:
-        <PositionAmplitude>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField:
-          <Value>k__BackingField: 0
-        <RotationAmplitude>k__BackingField:
-          <Value>k__BackingField: {x: 0, y: 0, z: 0}
-        <RotationFrequency>k__BackingField:
-          <Value>k__BackingField: 0
