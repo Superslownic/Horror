@@ -4,13 +4,13 @@ using UnityEngine;
 namespace Scripts.Config.Player
 {
 	[Serializable]
-	public struct BobbingShakeProcessorValues
+	public struct RandomShakeProcessorConfig
 	{
 		[field: SerializeField] public Vector3 PositionAmplitude { get; set; }
 		[field: SerializeField] public float PositionFrequency { get; set; }
 		[field: SerializeField] public Vector3 RotationAmplitude { get; set; }
 		[field: SerializeField] public float RotationFrequency { get; set; }
 
-		public static readonly BobbingShakeProcessorValues Default = new();
+		public static readonly RandomShakeProcessorConfig Default = new();
 	}
 }

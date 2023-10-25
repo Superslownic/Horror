@@ -1,4 +1,5 @@
 ﻿using System;
+using Scripts.Core.Player.Shake;
 using UnityEngine;
 
 namespace Scripts.Config.Player
@@ -7,8 +8,9 @@ namespace Scripts.Config.Player
 	public class FootstepsConfig
 	{
 		[field: SerializeField] public float ChangeValuesDuration { get; private set; }
-		[field: SerializeField] public BobbingShakeProcessorValues WalkingValues { get; private set; }
-		[field: SerializeField] public BobbingShakeProcessorValues RunningValues { get; private set; }
-		[field: SerializeField] public BobbingShakeProcessorValues CrouchingValues { get; private set; }
+		[field: SerializeField] public ShakerConfig ShakerConfig { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorConfig WalkShakeConfig { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorConfig RunShakeConfig { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorConfig CrouchShakeConfig { get; private set; }
 	}
 }

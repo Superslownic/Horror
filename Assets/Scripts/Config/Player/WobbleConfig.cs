@@ -1,4 +1,5 @@
 ﻿using System;
+using Scripts.Core.Player.Shake;
 using UnityEngine;
 
 namespace Scripts.Config.Player
@@ -7,10 +8,11 @@ namespace Scripts.Config.Player
 	public class WobbleConfig
 	{
 		[field: SerializeField] public float ChangeValuesDuration { get; private set; }
-		[field: SerializeField] public RandomShakeProcessorValues StandingIdleValues { get; private set; }
-		[field: SerializeField] public RandomShakeProcessorValues StandingWalkValues { get; private set; }
-		[field: SerializeField] public RandomShakeProcessorValues StandingRunValues { get; private set; }
-		[field: SerializeField] public RandomShakeProcessorValues CrouchIdleValues { get; private set; }
-		[field: SerializeField] public RandomShakeProcessorValues CrouchWalkValues { get; private set; }
+		[field: SerializeField] public ShakerConfig ShakerConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig StandIdleShakeConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig StandWalkShakeConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig StandRunShakeConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig CrouchIdleShakeConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig CrouchWalkShakeConfig { get; private set; }
 	}
 }

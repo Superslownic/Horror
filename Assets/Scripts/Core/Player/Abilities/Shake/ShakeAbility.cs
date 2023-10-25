@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Scripts.Entities;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.Core.Player.Shake
@@ -25,7 +24,7 @@ namespace Scripts.Core.Player.Shake
 				resultPosition += position;
 				resultRotation += rotation;
 
-				if (shaker.Type == ShakeProcessorType.Finite && shaker.State == ShakeProcessorState.Stopped)
+				if (shaker.State == ShakeProcessorState.Stopped)
 				{
 					_shakers.Remove(shaker);
 					continue;
@@ -38,9 +37,33 @@ namespace Scripts.Core.Player.Shake
 			_target.localRotation = Quaternion.Euler(resultRotation);
 		}
 
-		public void AddShaker(Shaker shaker)
+		public void StartShaker(Shaker shaker)
 		{
+			if (shaker == null)
+			{
+				Debug.LogError("Shaker is null");
+				return;
+			}
+			
 			_shakers.Add(shaker);
+			shaker.Start();
+		}
+
+		public void StopShaker(Shaker shaker)
+		{
+			if (shaker == null)
+			{
+				Debug.LogError("Shaker is null");
+				return;
+			}
+
+			if (!_shakers.Contains(shaker))
+			{
+				Debug.LogError("Shaker not found");
+				return;
+			}
+			
+			shaker.Stop();
 		}
 	}
 }

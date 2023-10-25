@@ -1,5 +1,5 @@
 ﻿using System;
-using Sirenix.OdinInspector;
+using Scripts.Config.Player;
 using UnityEngine;
 
 namespace Scripts.Core.Player.Shake
@@ -7,14 +7,14 @@ namespace Scripts.Core.Player.Shake
 	[Serializable]
 	public class BobbingShakeProcessor : IShakeProcessor
 	{
-		[field: SerializeField] public Vector3 PositionAmplitude { get; set; }
-		[field: SerializeField] public float PositionFrequency { get; set; }
-		[field: SerializeField] public Vector3 RotationAmplitude { get; set; }
-		[field: SerializeField] public float RotationFrequency { get; set; }
+		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
+		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();
+		[field: SerializeField] public ReplaceableVector3 RotationAmplitude { get; set; } = new();
+		[field: SerializeField] public ReplaceableFloat RotationFrequency { get; set; } = new();
 
 		public float Magnitude { get; set; }
 		
-		[ShowInInspector] public float PositionTime { get; private set; }
+		public float PositionTime { get; private set; }
 		public float RotationTime { get; private set; }
 		
 		public void Update(out Vector3 position, out Vector3 rotation)
@@ -22,25 +22,21 @@ namespace Scripts.Core.Player.Shake
 			position = Vector3.zero;
 			rotation = Vector3.zero;
 
-			PositionTime += Time.deltaTime * Magnitude * PositionFrequency;
-			RotationTime += Time.deltaTime * Magnitude * RotationFrequency;
+			PositionTime += Time.deltaTime * Magnitude * PositionFrequency.Value;
+			RotationTime += Time.deltaTime * Magnitude * RotationFrequency.Value;
 			
-			position.x = Mathf.Cos((PositionTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.x;
-			position.y = Mathf.Cos((PositionTime + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.y;
+			position.x = Mathf.Cos((PositionTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.Value.x;
+			position.y = Mathf.Cos((PositionTime + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.Value.y;
 			
-			rotation.y = Mathf.Cos((RotationTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.x;
-			rotation.x = Mathf.Cos((RotationTime + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.y;
+			rotation.y = Mathf.Cos((RotationTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.Value.x;
+			rotation.x = Mathf.Cos((RotationTime + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.Value.y;
 		}
 
-		public IShakeProcessor Clone()
+		public void Reset()
 		{
-			return new BobbingShakeProcessor
-			{
-				PositionAmplitude = PositionAmplitude,
-				PositionFrequency = PositionFrequency,
-				RotationAmplitude = RotationAmplitude,
-				RotationFrequency = RotationFrequency
-			};
+			Magnitude = 0;
+			PositionTime = 0;
+			RotationTime = 0;
 		}
 	}
 }

@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 515723535}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &63784668
 Transform:
   m_ObjectHideFlags: 19
@@ -1006,6 +1007,7 @@ MonoBehaviour:
   m_Script: {fileID: 515723535}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &298491914
 Transform:
   m_ObjectHideFlags: 19
@@ -1050,6 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 515723535}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &338425352
 Transform:
   m_ObjectHideFlags: 19
@@ -1243,6 +1246,7 @@ MonoBehaviour:
   m_Script: {fileID: 515723535}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &389735561
 Transform:
   m_ObjectHideFlags: 19
@@ -2051,7 +2055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &693712083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4148,12 +4152,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 2066864609}
   _shakers:
-  - <Type>k__BackingField: 1
-    <StartDuration>k__BackingField: 0
-    <StartEase>k__BackingField: 0
-    <MidDuration>k__BackingField: 0
-    <StopDuration>k__BackingField: 0
-    <StopEase>k__BackingField: 0
+  - <Config>k__BackingField:
+      <Type>k__BackingField: 0
+      <StartDuration>k__BackingField: 0
+      <StartEase>k__BackingField: 0
+      <MidDuration>k__BackingField: 0
+      <StopDuration>k__BackingField: 0
+      <StopEase>k__BackingField: 0
     <Processor>k__BackingField:
       rid: 5691942459951546368
   references:
@@ -4162,10 +4167,14 @@ MonoBehaviour:
     - rid: 5691942459951546368
       type: {class: RandomShakeProcessor, ns: Scripts.Core.Player.Shake, asm: Assembly-CSharp}
       data:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 10, y: 10, z: 10}
-        <RotationFrequency>k__BackingField: 0.5
+        <PositionAmplitude>k__BackingField:
+          <Value>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField:
+          <Value>k__BackingField: 0
+        <RotationAmplitude>k__BackingField:
+          <Value>k__BackingField: {x: 0, y: 0, z: 0}
+        <RotationFrequency>k__BackingField:
+          <Value>k__BackingField: 0
 --- !u!1 &998476124
 GameObject:
   m_ObjectHideFlags: 0
@@ -5606,7 +5615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1600548662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6959,7 +6968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2066864609
 Transform:
   m_ObjectHideFlags: 0
