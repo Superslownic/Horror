@@ -14,6 +14,8 @@ namespace Scripts.Installers
 		
 		public override void InstallBindings()
 		{
+			Cursor.visible = false;
+			Cursor.lockState = CursorLockMode.Locked;
 			Container.BindInstance(_gameConfig).AsSingle();
 			Container.BindInterfacesAndSelfTo<ObjectFactory>().AsSingle();
 			Container.BindInterfacesAndSelfTo<InputManager>().AsSingle();

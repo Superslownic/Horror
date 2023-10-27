@@ -29,6 +29,10 @@ MonoBehaviour:
       <Crouching>k__BackingField:
         <Speed>k__BackingField: 1
     <Look>k__BackingField:
+      <VerticalMinAngle>k__BackingField: -90
+      <VerticalMaxAngle>k__BackingField: 90
+      <PositionInterpolationSpeed>k__BackingField: 20
+      <RotationInterpolationSpeed>k__BackingField: 0.3
       <Gamepad>k__BackingField:
         <Sensitivity>k__BackingField: 3
         <Acceleration>k__BackingField: 5
@@ -54,9 +58,6 @@ MonoBehaviour:
     <Lean>k__BackingField:
       <Angle>k__BackingField: 3
       <Force>k__BackingField: 3
-    <SmoothPosition>k__BackingField:
-      <Force>k__BackingField: 20
-      <RotationForce>k__BackingField: 3
     <Footsteps>k__BackingField:
       <ChangeValuesDuration>k__BackingField: 0.5
       <ShakerConfig>k__BackingField:
