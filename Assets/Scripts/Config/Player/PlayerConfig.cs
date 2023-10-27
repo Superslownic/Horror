@@ -13,5 +13,6 @@ namespace Scripts.Config.Player
 		[field: SerializeField] public FootstepsConfig Footsteps { get; private set; }
 		[field: SerializeField] public BreathConfig Breath { get; private set; }
 		[field: SerializeField] public WobbleConfig Wobble { get; private set; }
+		[field: SerializeField] public FlashlightConfig Flashlight { get; private set; }
 	}
 }

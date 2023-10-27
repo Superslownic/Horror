@@ -120,6 +120,11 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 0
         <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
         <RotationFrequency>k__BackingField: 0.6
+    <Flashlight>k__BackingField:
+      <InterpolationSpeed>k__BackingField: 0.05
+      <LayerMask>k__BackingField:
+        serializedVersion: 2
+        m_Bits: 55
   <Audio>k__BackingField:
     <Events>k__BackingField:
       <Breath>k__BackingField:

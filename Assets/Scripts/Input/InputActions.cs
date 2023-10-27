@@ -64,6 +64,15 @@ namespace Scripts
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""54d2c984-6667-426c-8ac5-38cd085c5510"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -330,6 +339,17 @@ namespace Scripts
                     ""action"": ""Shift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9afe8db3-b338-4572-823f-282c6f52e509"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -342,6 +362,7 @@ namespace Scripts
             m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
             m_Default_Crouch = m_Default.FindAction("Crouch", throwIfNotFound: true);
             m_Default_Shift = m_Default.FindAction("Shift", throwIfNotFound: true);
+            m_Default_Flashlight = m_Default.FindAction("Flashlight", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -405,6 +426,7 @@ namespace Scripts
         private readonly InputAction m_Default_Look;
         private readonly InputAction m_Default_Crouch;
         private readonly InputAction m_Default_Shift;
+        private readonly InputAction m_Default_Flashlight;
         public struct DefaultActions
         {
             private @InputActions m_Wrapper;
@@ -413,6 +435,7 @@ namespace Scripts
             public InputAction @Look => m_Wrapper.m_Default_Look;
             public InputAction @Crouch => m_Wrapper.m_Default_Crouch;
             public InputAction @Shift => m_Wrapper.m_Default_Shift;
+            public InputAction @Flashlight => m_Wrapper.m_Default_Flashlight;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -434,6 +457,9 @@ namespace Scripts
                     @Shift.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
                     @Shift.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
                     @Shift.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
+                    @Flashlight.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
+                    @Flashlight.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
+                    @Flashlight.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
                 }
                 m_Wrapper.m_DefaultActionsCallbackInterface = instance;
                 if (instance != null)
@@ -450,6 +476,9 @@ namespace Scripts
                     @Shift.started += instance.OnShift;
                     @Shift.performed += instance.OnShift;
                     @Shift.canceled += instance.OnShift;
+                    @Flashlight.started += instance.OnFlashlight;
+                    @Flashlight.performed += instance.OnFlashlight;
+                    @Flashlight.canceled += instance.OnFlashlight;
                 }
             }
         }
@@ -460,6 +489,7 @@ namespace Scripts
             void OnLook(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnShift(InputAction.CallbackContext context);
+            void OnFlashlight(InputAction.CallbackContext context);
         }
     }
 }

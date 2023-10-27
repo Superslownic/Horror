@@ -11,6 +11,7 @@ namespace Scripts.Input
 		public InputAction Look => _inputActions.Default.Look;
 		public InputAction Crouch => _inputActions.Default.Crouch;
 		public InputAction Shift => _inputActions.Default.Shift;
+		public InputAction Flashlight => _inputActions.Default.Flashlight;
 
 		private InputActions _inputActions = new();
 
