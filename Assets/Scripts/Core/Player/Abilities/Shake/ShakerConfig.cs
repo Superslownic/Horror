@@ -3,7 +3,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Scripts.Core.Player.Shake
+namespace Scripts.Core.Player
 {
 	[Serializable]
 	public class ShakerConfig

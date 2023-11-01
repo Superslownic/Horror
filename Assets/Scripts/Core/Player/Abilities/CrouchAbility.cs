@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Core.Player.Shake;
 using Scripts.Entities;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,32 +12,33 @@ namespace Scripts.Core.Player
 	{
 		[SerializeField] private CharacterController _characterController;
 		[SerializeField] private Transform _cameraMainAnchor;
-		[SerializeField] private ShakeAbility _shakeAbility;
 
 		[Inject] private readonly GameConfig _gameConfig;
 
+		private ShakeHeadAbility _shakeHeadAbility;
 		private float _startHeight;
 		private float _startCameraHeight;
 		private bool _isCrouching;
-		private Shaker _shaker;
-		private RandomShakeProcessor _processor;
+		private ShakerProcessor _shakerProcessor;
+		private RandomShakeVariant _variant;
 		private Tween _tween;
 
 		protected override void OnInitialize()
 		{
+			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
 			_startHeight = _characterController.height;
 			_startCameraHeight = _cameraMainAnchor.localPosition.y;
-			_processor = new RandomShakeProcessor();
-			_shaker = new Shaker
+			_variant = new RandomShakeVariant();
+			_shakerProcessor = new ShakerProcessor
 			{
 				Config = _gameConfig.Player.Crouch.ShakeConfig,
-				Processor = _processor
+				Variant = _variant
 			};
-			_shakeAbility.StartShaker(_shaker);
+			_shakeHeadAbility.Shaker.StartShaker(_shakerProcessor);
 		}
 
 		[Button]
-		public void Crouch()
+		public void PerformCrouch()
 		{
 			if (_isCrouching)
 			{
@@ -61,7 +61,7 @@ namespace Scripts.Core.Player
 		}
 		
 		[Button]
-		public void Stand()
+		public void PerformStand()
 		{
 			if (!_isCrouching)
 			{
@@ -85,10 +85,10 @@ namespace Scripts.Core.Player
 		
 		private void ReplaceConfig(RandomShakeProcessorConfig config)
 		{
-			_processor.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_processor.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_processor.RotationAmplitude.ReplaceValue(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_processor.RotationFrequency.ReplaceValue(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationAmplitude.ReplaceValue(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationFrequency.ReplaceValue(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 		}
 	}
 }

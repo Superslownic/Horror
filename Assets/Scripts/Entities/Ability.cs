@@ -1,24 +1,23 @@
-﻿using System;
-using Scripts.Reactive;
+﻿using Scripts.Reactive;
 using UnityEngine;
 
 namespace Scripts.Entities
 {
 	public abstract class Ability : MonoBehaviour
 	{
-		public static DisposableAction<Ability> Initialized { get; } = new();
-		public static DisposableAction<Ability> Disposed { get; } = new();
+		public static DisposableAction<Ability> OnInitialized { get; } = new();
+		public static DisposableAction<Ability> OnActivated { get; } = new();
+		public static DisposableAction<Ability> OnDeactivated { get; } = new();
+		public static DisposableAction<Ability> OnDisposed { get; } = new();
 
-		public Entity Entity { get; private set; }
-		public Type Type { get; private set; }
+		public Unit Unit { get; private set; }
 		public bool IsActive { get; private set; }
 
-		public void Initialize(Entity entity)
+		public void Initialize(Unit unit)
 		{
-			Entity = entity;
-			Type = GetType();
+			Unit = unit;
 			OnInitialize();
-			Initialized.Invoke(this);
+			OnInitialized.Invoke(this);
 		}
 
 		public void SetActive(bool value)
@@ -32,11 +31,13 @@ namespace Scripts.Entities
 			{
 				IsActive = true;
 				OnActivate();
+				OnActivated.Invoke(this);
 			}
 			else
 			{
 				IsActive = false;
 				OnDeactivate();
+				OnDeactivated.Invoke(this);
 			}
 		}
 		
@@ -59,7 +60,7 @@ namespace Scripts.Entities
 		private void OnDestroy()
 		{
 			OnDispose();
-			Disposed.Invoke(this);
+			OnDisposed.Invoke(this);
 		}
 		
 		protected virtual void OnInitialize() { }

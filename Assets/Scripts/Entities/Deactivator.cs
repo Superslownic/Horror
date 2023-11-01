@@ -12,6 +12,7 @@ namespace Scripts.Entities
 		private void Awake()
 		{
 			_ability = GetComponent<Ability>();
+			UpdateActivation();
 		}
 
 		public void AddDeactivator(object deactivator)

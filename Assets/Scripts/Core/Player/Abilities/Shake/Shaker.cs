@@ -1,71 +1,76 @@
-﻿using System;
-using DG.Tweening;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts.Core.Player.Shake
+namespace Scripts.Core.Player
 {
-	[Serializable]
-	public class Shaker
+	public class Shaker : MonoBehaviour
 	{
-		[field: SerializeField]
-		public ShakerConfig Config { get; set; }
-		
-		[field: SerializeReference]
-		public IShakeProcessor Processor { get; set; }
+		[SerializeField] private Transform _target;
+		[SerializeField] private List<ShakerProcessor> _shakers;
 
-		public ShakeProcessorState State { get; private set; }
-		public float Power { get; private set; }
-		
-		private float _midTimer;
-		private Tween _tween;
-
-		public void Update(out Vector3 position, out Vector3 rotation)
+		private void Awake()
 		{
-			if (Config.Type == ShakeProcessorType.Finite && State == ShakeProcessorState.Started)
+			foreach (ShakerProcessor shaker in _shakers)
 			{
-				_midTimer += Time.deltaTime;
-					
-				if (_midTimer >= Config.MidDuration)
+				shaker.Start();
+			}
+		}
+
+		private void LateUpdate()
+		{
+			Vector3 resultPosition = Vector3.zero;
+			Vector3 resultRotation = Vector3.zero;
+
+			int index = 0;
+
+			while (index < _shakers.Count)
+			{
+				ShakerProcessor shakerProcessor = _shakers[index];
+				shakerProcessor.Update(out Vector3 position, out Vector3 rotation);
+				
+				resultPosition += position;
+				resultRotation += rotation;
+
+				if (shakerProcessor.State == ShakeProcessorState.Stopped)
 				{
-					Stop();
+					_shakers.Remove(shakerProcessor);
+					continue;
 				}
+				
+				index++;
+			}
+
+			_target.localPosition = resultPosition;
+			_target.localRotation = Quaternion.Euler(resultRotation);
+		}
+
+		public void StartShaker(ShakerProcessor shakerProcessor)
+		{
+			if (shakerProcessor == null)
+			{
+				Debug.LogError("Shaker is null");
+				return;
 			}
 			
-			Processor.Update(out Vector3 internalPosition, out Vector3 internalRotation);
-			
-			position = internalPosition * Power;
-			rotation = internalRotation * Power;
+			_shakers.Add(shakerProcessor);
+			shakerProcessor.Start();
 		}
 
-		public void Start()
+		public void StopShaker(ShakerProcessor shakerProcessor)
 		{
-			if (State is ShakeProcessorState.Starting or ShakeProcessorState.Started)
+			if (shakerProcessor == null)
+			{
+				Debug.LogError("Shaker is null");
 				return;
+			}
 
-			State = ShakeProcessorState.Starting;
-			Processor.Reset();
-			Power = 0;
-			_midTimer = 0;
-			
-			_tween?.Kill();
-			_tween = DOTween
-				.To(() => Power, value => Power = value, 1, Config.StartDuration)
-				.SetEase(Config.StartEase)
-				.OnComplete(() => State = ShakeProcessorState.Started);
-		}
-
-		public void Stop()
-		{
-			if (State is ShakeProcessorState.Stopping or ShakeProcessorState.Stopped)
+			if (!_shakers.Contains(shakerProcessor))
+			{
+				Debug.LogError("Shaker not found");
 				return;
+			}
 			
-			State = ShakeProcessorState.Stopping;
-			
-			_tween?.Kill();
-			_tween = DOTween
-				.To(() => Power, value => Power = value, 0, Config.StopDuration)
-				.SetEase(Config.StopEase)
-				.OnComplete(() => State = ShakeProcessorState.Stopped);
+			shakerProcessor.Stop();
 		}
 	}
 }

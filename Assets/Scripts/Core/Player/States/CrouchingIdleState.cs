@@ -7,7 +7,7 @@ namespace Scripts.Core.Player.States
 {
 	public class CrouchingIdleState : State
 	{
-		[Inject] private readonly Entity _playerEntity;
+		[Inject] private readonly Unit _playerUnit;
 		[Inject] private readonly GameConfig _gameConfig;
 		
 		public CrouchingIdleState(string name) : base(name)
@@ -16,11 +16,11 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerEntity.GetAbility<CrouchAbility>().Crouch();
-			_playerEntity.GetAbility<BreathAbility>().StopRunning();
-			_playerEntity.GetAbility<FootstepsAbility>().ToIdle();
-			_playerEntity.GetAbility<WobbleAbility>().ToCrouchIdle();
-			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Crouching);
+			_playerUnit.GetAbility<CrouchAbility>().PerformCrouch();
+			_playerUnit.GetAbility<BreathAbility>().StopRunning();
+			_playerUnit.GetAbility<FootstepsAbility>().ToIdle();
+			_playerUnit.GetAbility<WobbleAbility>().ToCrouchIdle();
+			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Crouching);
 		}
 
 		public override void Update()

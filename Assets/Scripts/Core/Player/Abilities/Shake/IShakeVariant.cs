@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Core.Player.Shake
+namespace Scripts.Core.Player
 {
-	public interface IShakeProcessor
+	public interface IShakeVariant
 	{
 		void Reset();
 		void Update(out Vector3 position, out Vector3 rotation);

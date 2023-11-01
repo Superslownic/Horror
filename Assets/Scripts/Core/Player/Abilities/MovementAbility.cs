@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class MovementAbility : Ability
+	public class MovementAbility : Ability, IDeactivatableAbility
 	{
 		[SerializeField] private Transform _lookAnchor;
 		[SerializeField] private CharacterController _characterController;
@@ -74,15 +74,15 @@ namespace Scripts.Core.Player
 			
 			_characterController.Move(Vector3.down * (_gameConfig.Player.Movement.Gravity * Time.deltaTime));
 
-			Vector3 rawActualVelocity = (Entity.transform.position - _previousPosition) / Time.deltaTime;
+			Vector3 rawActualVelocity = (_characterController.transform.position - _previousPosition) / Time.deltaTime;
 			ActualVelocity = Vector3.ClampMagnitude(rawActualVelocity, _config.Speed);
 			NormalizedActualVelocity = ActualVelocity / _config.Speed;
-			_previousPosition = Entity.transform.position;
+			_previousPosition = _characterController.transform.position;
 		}
 
 		private bool CheckGrounded(out Vector3 result)
 		{
-			Vector3 origin = transform.position + _characterController.center;
+			Vector3 origin = _characterController.transform.position + _characterController.center;
 			float radius = _characterController.radius;
 			Vector3 direction = Vector3.down;
 			float distance = _characterController.height * 0.5f - _characterController.radius + _gameConfig.Player.Movement.GroundCheckThreshold;

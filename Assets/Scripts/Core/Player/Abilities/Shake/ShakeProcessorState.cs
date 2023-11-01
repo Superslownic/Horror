@@ -1,4 +1,4 @@
-﻿namespace Scripts.Core.Player.Shake
+﻿namespace Scripts.Core.Player
 {
 	public enum ShakeProcessorState
 	{

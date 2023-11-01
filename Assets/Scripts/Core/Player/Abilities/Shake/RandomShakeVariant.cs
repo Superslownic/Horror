@@ -3,10 +3,10 @@ using Scripts.Config.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Scripts.Core.Player.Shake
+namespace Scripts.Core.Player
 {
 	[Serializable]
-	public class RandomShakeProcessor : IShakeProcessor
+	public class RandomShakeVariant : IShakeVariant
 	{
 		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
 		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();

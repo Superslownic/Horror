@@ -2,7 +2,7 @@
 
 namespace Scripts.Entities
 {
-	public static class AbilityExtensions
+	public static class ComponentExtensions
 	{
 		public static void AddActivator(this IActivatableAbility activatableAbility, object activator)
 		{

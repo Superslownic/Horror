@@ -6,10 +6,9 @@ using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class LookAbility : Ability
+	public class LookAbility : Ability, IDeactivatableAbility
 	{
 		[SerializeField] private Transform _mainAnchor;
-		[SerializeField] private Transform _floatingAnchor;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
@@ -17,12 +16,12 @@ namespace Scripts.Core.Player
 		private Vector3 _rotation;
 		private Vector2 _velocity;
 
-		protected override void OnInitialize()
+		protected override void OnActivate()
 		{
 			_rotation = _mainAnchor.localEulerAngles;
 		}
 
-		protected override void OnUpdate()
+		protected override void OnLateUpdate()
 		{
 			Vector2 rotationInput = _inputManager.Look.ReadValue<Vector2>();
 			
@@ -52,30 +51,8 @@ namespace Scripts.Core.Player
 
 			_rotation += new Vector3(-_velocity.y * sensitivity, _velocity.x * sensitivity, 0);
 			_rotation.x = Mathf.Clamp(_rotation.x, _gameConfig.Player.Look.VerticalMinAngle, _gameConfig.Player.Look.VerticalMaxAngle);
-			
+
 			_mainAnchor.localEulerAngles = _rotation;
-			
-			_floatingAnchor.position = Vector3.Lerp(_floatingAnchor.position, _mainAnchor.position, _gameConfig.Player.Look.PositionInterpolationSpeed * Time.deltaTime);
-
-			float angle = Quaternion.Angle(_floatingAnchor.localRotation, _mainAnchor.localRotation);
-			
-			//force limit rotation
-			/*if (angle > maxDegrees)
-			{
-				Quaternion fromRotation = _mainAnchor.localRotation;
-				Quaternion toRotation = _floatingAnchor.localRotation;
-				
-				fromRotation.Normalize();
-				toRotation.Normalize();
-
-				Quaternion deltaQuaternion = Quaternion.Inverse(fromRotation) * toRotation;
-				deltaQuaternion = Quaternion.RotateTowards(Quaternion.identity, deltaQuaternion, maxDegrees);
-				deltaQuaternion.Normalize();
-
-				_floatingAnchor.localRotation = fromRotation * deltaQuaternion;
-			}*/
-			
-			_floatingAnchor.rotation = Quaternion.Lerp(_floatingAnchor.rotation, _mainAnchor.rotation, angle * _gameConfig.Player.Look.RotationInterpolationSpeed * Time.deltaTime);
 		}
 	}
 }

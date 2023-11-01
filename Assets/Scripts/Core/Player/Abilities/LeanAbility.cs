@@ -9,10 +9,16 @@ namespace Scripts.Core.Player
 	public class LeanAbility : Ability
 	{
 		[SerializeField] private Transform _anchor;
-		[SerializeField] private MovementAbility _movementAbility;
-		
+
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
+		
+		private MovementAbility _movementAbility;
+
+		protected override void OnInitialize()
+		{
+			_movementAbility = Unit.GetAbility<MovementAbility>();
+		}
 
 		protected override void OnUpdate()
 		{

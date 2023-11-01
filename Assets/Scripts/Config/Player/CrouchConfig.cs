@@ -1,5 +1,5 @@
 ﻿using System;
-using Scripts.Core.Player.Shake;
+using Scripts.Core.Player;
 using UnityEngine;
 
 namespace Scripts.Config.Player

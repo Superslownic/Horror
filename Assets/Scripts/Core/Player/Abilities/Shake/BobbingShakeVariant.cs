@@ -2,10 +2,10 @@
 using Scripts.Config.Player;
 using UnityEngine;
 
-namespace Scripts.Core.Player.Shake
+namespace Scripts.Core.Player
 {
 	[Serializable]
-	public class BobbingShakeProcessor : IShakeProcessor
+	public class BobbingShakeVariant : IShakeVariant
 	{
 		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
 		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();

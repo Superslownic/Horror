@@ -7,7 +7,7 @@ namespace Scripts.Core.Player.States
 {
 	public class StandingIdleState : State
 	{
-		[Inject] private readonly Entity _playerEntity;
+		[Inject] private readonly Unit _playerUnit;
 		[Inject] private readonly GameConfig _gameConfig;
 		
 		public StandingIdleState(string name) : base(name)
@@ -16,11 +16,11 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerEntity.GetAbility<CrouchAbility>().Stand();
-			_playerEntity.GetAbility<BreathAbility>().StopRunning();
-			_playerEntity.GetAbility<FootstepsAbility>().ToIdle();
-			_playerEntity.GetAbility<WobbleAbility>().ToStandingIdle();
-			_playerEntity.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
+			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
+			_playerUnit.GetAbility<BreathAbility>().StopRunning();
+			_playerUnit.GetAbility<FootstepsAbility>().ToIdle();
+			_playerUnit.GetAbility<WobbleAbility>().ToStandingIdle();
+			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
 		}
 
 		public override void Update()
