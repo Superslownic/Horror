@@ -17,9 +17,9 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
-			_playerUnit.GetAbility<FootstepsAbility>().ToRun();
+			_playerUnit.GetAbility<HeadBobAbility>().ToRun();
 			_playerUnit.GetAbility<BreathAbility>().StartRunning();
-			_playerUnit.GetAbility<WobbleAbility>().ToStandingRun();
+			_playerUnit.GetAbility<HeadSwayingAbility>().ToStandingRun();
 			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Running);
 		}
 

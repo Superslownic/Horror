@@ -82,6 +82,11 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 1
         <RotationAmplitude>k__BackingField: {x: 0.1, y: 0, z: 0}
         <RotationFrequency>k__BackingField: 1
+      <LadderShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.1, z: 0}
+        <PositionFrequency>k__BackingField: 1.5
+        <RotationAmplitude>k__BackingField: {x: 0.05, y: 1, z: 0}
+        <RotationFrequency>k__BackingField: 1.5
     <Breath>k__BackingField:
       <Delay>k__BackingField: 2
       <IncreaseDuration>k__BackingField: 1
@@ -120,6 +125,11 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 0
         <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
         <RotationFrequency>k__BackingField: 0.6
+      <LadderShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <RotationFrequency>k__BackingField: 0
     <Flashlight>k__BackingField:
       <InterpolationSpeed>k__BackingField: 0.05
       <LayerMask>k__BackingField:

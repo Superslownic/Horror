@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class WobbleAbility : Ability
+	public class HeadSwayingAbility : Ability
 	{
 		[Inject] private readonly GameConfig _gameConfig;
 
@@ -50,7 +50,7 @@ namespace Scripts.Core.Player
 		{
 			ChangeValues(_gameConfig.Player.Wobble.CrouchWalkShakeConfig);
 		}
-
+		
 		private void ChangeValues(RandomShakeProcessorConfig config)
 		{
 			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);

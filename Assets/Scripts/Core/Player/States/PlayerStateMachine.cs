@@ -1,11 +1,12 @@
-﻿using Scripts.Factory;
+﻿using Scripts.Entities;
+using Scripts.Factory;
 using Scripts.FSM.Composite;
 using Scripts.Input;
 using Zenject;
 
 namespace Scripts.Core.Player.States
 {
-	public class PlayerStateMachine : StateMachineAbility
+	public class PlayerStateMachine : StateMachineAbility, IDeactivatableAbility
 	{
 		[Inject] private readonly ObjectFactory _objectFactory;
 		[Inject] private readonly InputManager _inputManager;
@@ -15,7 +16,7 @@ namespace Scripts.Core.Player.States
 			State standing = SetupStandingSuperState();
 			State crouching = SetupCrouchingSuperState();
 
-			Root = new SuperState("Root", standing);
+			Root = new SuperState("Root", initialState: standing);
 			
 			Root.AddState(standing, transitions: new Transition[]
 			{

@@ -14,5 +14,6 @@ namespace Scripts.Config.Player
 		[field: SerializeField] public RandomShakeProcessorConfig StandRunShakeConfig { get; private set; }
 		[field: SerializeField] public RandomShakeProcessorConfig CrouchIdleShakeConfig { get; private set; }
 		[field: SerializeField] public RandomShakeProcessorConfig CrouchWalkShakeConfig { get; private set; }
+		[field: SerializeField] public RandomShakeProcessorConfig LadderShakeConfig { get; private set; }
 	}
 }

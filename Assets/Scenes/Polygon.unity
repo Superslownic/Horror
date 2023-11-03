@@ -734,7 +734,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2075033506}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &341856244
 MonoBehaviour:
@@ -1149,7 +1149,7 @@ GameObject:
   - component: {fileID: 690438241}
   - component: {fileID: 690438242}
   m_Layer: 3
-  m_Name: Wobble
+  m_Name: Swaying
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,7 +1168,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1354466494}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &690438242
 MonoBehaviour:
@@ -1571,7 +1571,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _climbSpeed: 0.4
-  _smoothSpeedMax: 5
+  _smoothSpeedMax: 10
   _smoothSpeedChangeTime: 0.5
   _layerMask:
     serializedVersion: 2
@@ -2173,7 +2173,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2075033506}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &857961390
 MonoBehaviour:
@@ -3682,6 +3682,7 @@ Transform:
   - {fileID: 1527505809}
   - {fileID: 2059108215}
   - {fileID: 853417079}
+  - {fileID: 2101278534}
   - {fileID: 690438241}
   m_Father: {fileID: 2075033506}
   m_RootOrder: 1
@@ -5783,7 +5784,6 @@ Transform:
   - {fileID: 1794528467}
   - {fileID: 998476125}
   - {fileID: 1829035445}
-  - {fileID: 2101278534}
   - {fileID: 341856243}
   - {fileID: 857961389}
   m_Father: {fileID: 253909786}
@@ -5800,7 +5800,7 @@ GameObject:
   - component: {fileID: 2101278534}
   - component: {fileID: 2101278535}
   m_Layer: 3
-  m_Name: Footsteps
+  m_Name: Bob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5814,12 +5814,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101278533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2075033506}
-  m_RootOrder: 6
+  m_Father: {fileID: 1354466494}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2101278535
 MonoBehaviour:

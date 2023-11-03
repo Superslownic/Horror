@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class FootstepsAbility : Ability
+	public class HeadBobAbility : Ability, IDeactivatableAbility
 	{
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
@@ -18,6 +18,8 @@ namespace Scripts.Core.Player
 		private BobbingShakeVariant _variant;
 		private Sound _footstepSound;
 		private int _stepNumber;
+		private BobbingShakeProcessorConfig _currentConfig;
+		private BobbingShakeProcessorConfig _savedConfig;
 
 		protected override void OnInitialize()
 		{
@@ -32,10 +34,15 @@ namespace Scripts.Core.Player
 			_footstepSound = _audioManager.Create(_gameConfig.Audio.Events.Footstep);
 		}
 
+		protected override void OnDeactivate()
+		{
+			_variant.Magnitude = 0;
+		}
+
 		protected override void OnUpdate()
 		{
 			float magnitude = Unit.GetAbility<MovementAbility>().NormalizedActualVelocity.magnitude;
-			
+
 			_variant.Magnitude = magnitude;
 
 			int stepNumber = Mathf.CeilToInt(_variant.PositionTime);
@@ -54,23 +61,42 @@ namespace Scripts.Core.Player
 
 		public void ToWalk()
 		{
-			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 0);
 			ReplaceConfig(_gameConfig.Player.Footsteps.WalkShakeConfig);
 		}
 		
 		public void ToRun()
 		{
-			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 1);
 			ReplaceConfig(_gameConfig.Player.Footsteps.RunShakeConfig);
 		}
 
 		public void ToCrouch()
 		{
-			_footstepSound.SetParameter(_gameConfig.Audio.Parameters.FootstepType, 2);
 			ReplaceConfig(_gameConfig.Player.Footsteps.CrouchShakeConfig);
 		}
-		
-		private void ReplaceConfig(BobbingShakeProcessorConfig config)
+
+		public void ReplaceConfig(BobbingShakeProcessorConfig config)
+		{
+			_currentConfig = config;
+			SetConfig(config);
+		}
+
+		public void OverrideConfig(BobbingShakeProcessorConfig config)
+		{
+			_savedConfig = _currentConfig;
+			ReplaceConfig(config);
+		}
+
+		public void CancelOverride()
+		{
+			ReplaceConfig(_savedConfig);
+		}
+
+		public void OverrideMagnitude(float value)
+		{
+			_variant.Magnitude = value;
+		}
+
+		private void SetConfig(BobbingShakeProcessorConfig config)
 		{
 			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);

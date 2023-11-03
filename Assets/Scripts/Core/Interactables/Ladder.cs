@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
+using Scripts.Config;
 using Scripts.Core.Player;
+using Scripts.Core.Player.States;
 using Scripts.Entities;
 using Scripts.Input;
 using Scripts.Reactive;
@@ -24,6 +26,7 @@ namespace Scripts.Core
 		[SerializeField] private TriggerProvider _triggerProvider;
 
 		[Inject] private readonly InputManager _inputManager;
+		[Inject] private readonly GameConfig _gameConfig;
 
 		private CompositeDisposable _disposable = new();
 		private Unit _unit;
@@ -64,6 +67,9 @@ namespace Scripts.Core
 			_unit.GetAbility<MovementAbility>().AddDeactivator(this);
 			_unit.GetAbility<LookAbility>().AddDeactivator(this);
 			_unit.GetAbility<AttachHeadAbility>().AddDeactivator(this);
+			_unit.GetAbility<HeadBobAbility>().AddDeactivator(this);
+			_unit.GetAbility<HeadBobAbility>().OverrideConfig(_gameConfig.Player.Footsteps.LadderShakeConfig);
+			_unit.GetAbility<PlayerStateMachine>().AddDeactivator(this);
 
 			_height = Mathf.InverseLerp(_bottomTarget.y, _topTarget.y, currentTarget.y);
 
@@ -91,7 +97,11 @@ namespace Scripts.Core
 		{
 			if (_isClimbing)
 			{
-				_height += _inputManager.Move.ReadValue<Vector2>().y * _climbSpeed * Time.deltaTime;
+				float input = _inputManager.Move.ReadValue<Vector2>().y;
+				
+				_unit.GetAbility<HeadBobAbility>().OverrideMagnitude(Mathf.Abs(input));
+				
+				_height += input * _climbSpeed * Time.deltaTime;
 
 				if (!_canDismount)
 				{
@@ -153,15 +163,11 @@ namespace Scripts.Core
 			_dismountTime = distance * _dismountTimeMultiplier;
 			
 			_unit.GetAbility<MovementAbility>().RemoveDeactivator(this);
-			
-			playerBodyAbility.CharacterController.enabled = true;
+			_unit.GetAbility<HeadBobAbility>().RemoveDeactivator(this);
+			_unit.GetAbility<HeadBobAbility>().CancelOverride();
+			_unit.GetAbility<PlayerStateMachine>().RemoveDeactivator(this);
 
-			/*DOTween.Sequence()
-				.Append(playerHeadAbility.HeadDetachedAnchor.DOMove(playerHeadAbility.HeadStaticAnchor.position, distance * _mountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.AppendCallback(() =>
-				{
-					_unit.GetAbility<AttachHeadAbility>().RemoveDeactivator(this);
-				});*/
+			playerBodyAbility.CharacterController.enabled = true;
 		}
 
 		private Vector3 GetTopMountPoint()

@@ -33,7 +33,7 @@ namespace Scripts.Core.Player
 			ResetValues();
 		}
 
-		protected override void OnActivate()
+		protected override void OnDeactivate()
 		{
 			InputVelocity = Vector3.zero;
 			NormalizedInputVelocity = Vector3.zero;

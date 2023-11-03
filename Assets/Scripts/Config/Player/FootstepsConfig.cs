@@ -12,5 +12,6 @@ namespace Scripts.Config.Player
 		[field: SerializeField] public BobbingShakeProcessorConfig WalkShakeConfig { get; private set; }
 		[field: SerializeField] public BobbingShakeProcessorConfig RunShakeConfig { get; private set; }
 		[field: SerializeField] public BobbingShakeProcessorConfig CrouchShakeConfig { get; private set; }
+		[field: SerializeField] public BobbingShakeProcessorConfig LadderShakeConfig { get; private set; }
 	}
 }

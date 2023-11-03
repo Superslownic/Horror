@@ -18,8 +18,8 @@ namespace Scripts.Core.Player.States
 		{
 			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
 			_playerUnit.GetAbility<BreathAbility>().StopRunning();
-			_playerUnit.GetAbility<FootstepsAbility>().ToWalk();
-			_playerUnit.GetAbility<WobbleAbility>().ToStandingWalk();
+			_playerUnit.GetAbility<HeadBobAbility>().ToWalk();
+			_playerUnit.GetAbility<HeadSwayingAbility>().ToStandingWalk();
 			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
 		}
 
