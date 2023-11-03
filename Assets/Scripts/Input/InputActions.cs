@@ -57,7 +57,7 @@ namespace Scripts
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shift"",
+                    ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""329ab6e9-2e62-406a-876b-8f1894302171"",
                     ""expectedControlType"": ""Button"",
@@ -334,7 +334,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shift"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -345,7 +345,7 @@ namespace Scripts
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shift"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -381,7 +381,7 @@ namespace Scripts
             m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
             m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
             m_Default_Crouch = m_Default.FindAction("Crouch", throwIfNotFound: true);
-            m_Default_Shift = m_Default.FindAction("Shift", throwIfNotFound: true);
+            m_Default_Run = m_Default.FindAction("Run", throwIfNotFound: true);
             m_Default_Flashlight = m_Default.FindAction("Flashlight", throwIfNotFound: true);
             m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
         }
@@ -446,7 +446,7 @@ namespace Scripts
         private readonly InputAction m_Default_Move;
         private readonly InputAction m_Default_Look;
         private readonly InputAction m_Default_Crouch;
-        private readonly InputAction m_Default_Shift;
+        private readonly InputAction m_Default_Run;
         private readonly InputAction m_Default_Flashlight;
         private readonly InputAction m_Default_Interact;
         public struct DefaultActions
@@ -456,7 +456,7 @@ namespace Scripts
             public InputAction @Move => m_Wrapper.m_Default_Move;
             public InputAction @Look => m_Wrapper.m_Default_Look;
             public InputAction @Crouch => m_Wrapper.m_Default_Crouch;
-            public InputAction @Shift => m_Wrapper.m_Default_Shift;
+            public InputAction @Run => m_Wrapper.m_Default_Run;
             public InputAction @Flashlight => m_Wrapper.m_Default_Flashlight;
             public InputAction @Interact => m_Wrapper.m_Default_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
@@ -477,9 +477,9 @@ namespace Scripts
                     @Crouch.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
                     @Crouch.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
                     @Crouch.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCrouch;
-                    @Shift.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
-                    @Shift.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
-                    @Shift.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShift;
+                    @Run.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRun;
+                    @Run.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRun;
+                    @Run.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnRun;
                     @Flashlight.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
                     @Flashlight.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
                     @Flashlight.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnFlashlight;
@@ -499,9 +499,9 @@ namespace Scripts
                     @Crouch.started += instance.OnCrouch;
                     @Crouch.performed += instance.OnCrouch;
                     @Crouch.canceled += instance.OnCrouch;
-                    @Shift.started += instance.OnShift;
-                    @Shift.performed += instance.OnShift;
-                    @Shift.canceled += instance.OnShift;
+                    @Run.started += instance.OnRun;
+                    @Run.performed += instance.OnRun;
+                    @Run.canceled += instance.OnRun;
                     @Flashlight.started += instance.OnFlashlight;
                     @Flashlight.performed += instance.OnFlashlight;
                     @Flashlight.canceled += instance.OnFlashlight;
@@ -517,7 +517,7 @@ namespace Scripts
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
-            void OnShift(InputAction.CallbackContext context);
+            void OnRun(InputAction.CallbackContext context);
             void OnFlashlight(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
         }

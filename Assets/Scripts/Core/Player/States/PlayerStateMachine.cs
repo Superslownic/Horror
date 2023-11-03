@@ -24,7 +24,7 @@ namespace Scripts.Core.Player.States
 			
 			Root.AddState(crouching, transitions: new Transition[]
 			{
-				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Shift.WasPressedThisFrame())
+				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame())
 			});
 		}
 
@@ -38,20 +38,20 @@ namespace Scripts.Core.Player.States
 			
 			standing.AddState(idle, transitions: new Transition[]
 			{
-				new (destination: run, when: () => _inputManager.Move.IsPressed() && _inputManager.Shift.WasPressedThisFrame()),
+				new (destination: run, when: () => _inputManager.Move.IsPressed() && _inputManager.Run.WasPressedThisFrame()),
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
 			
 			standing.AddState(walk, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
-				new (destination: run, when: () => _inputManager.Shift.WasPressedThisFrame())
+				new (destination: run, when: () => _inputManager.Run.WasPressedThisFrame())
 			});
 			
 			standing.AddState(run, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
-				new (destination: walk, when: () => _inputManager.Shift.WasPressedThisFrame())
+				new (destination: walk, when: () => _inputManager.Run.WasPressedThisFrame())
 			});
 
 			return standing;

@@ -10,7 +10,7 @@ namespace Scripts.Input
 		public InputAction Move => _inputActions.Default.Move;
 		public InputAction Look => _inputActions.Default.Look;
 		public InputAction Crouch => _inputActions.Default.Crouch;
-		public InputAction Shift => _inputActions.Default.Shift;
+		public InputAction Run => _inputActions.Default.Run;
 		public InputAction Flashlight => _inputActions.Default.Flashlight;
 
 		private InputActions _inputActions = new();

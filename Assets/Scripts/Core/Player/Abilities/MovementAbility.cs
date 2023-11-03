@@ -33,6 +33,14 @@ namespace Scripts.Core.Player
 			ResetValues();
 		}
 
+		protected override void OnActivate()
+		{
+			InputVelocity = Vector3.zero;
+			NormalizedInputVelocity = Vector3.zero;
+			ActualVelocity = Vector3.zero;
+			NormalizedActualVelocity = Vector3.zero;
+		}
+
 		public void SetConfig(PlayerMovementValues config)
 		{
 			_config = config;
