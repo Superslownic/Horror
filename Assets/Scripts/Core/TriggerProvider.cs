@@ -7,6 +7,7 @@ namespace Scripts.Core
 	public class TriggerProvider : MonoBehaviour
 	{
 		public DisposableAction<Unit> OnEnter { get; } = new();
+		public DisposableAction<Unit> OnStay { get; } = new();
 		public DisposableAction<Unit> OnExit { get; } = new();
 		
 		private void OnTriggerEnter(Collider other)

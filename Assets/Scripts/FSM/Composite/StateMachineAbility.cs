@@ -6,6 +6,21 @@ namespace Scripts.FSM.Composite
 	{
 		public SuperState Root { get; protected set; }
 		
+		public State CurrentState
+		{
+			get
+			{
+				State state = Root;
+
+				while (state is SuperState superState)
+				{
+					state = superState.CurrentState;
+				}
+
+				return state;
+			}
+		}
+		
 		protected override void OnInitialize()
 		{
 			Setup();
@@ -27,5 +42,35 @@ namespace Scripts.FSM.Composite
 		}
 
 		protected abstract void Setup();
+
+		public bool CurrentStateIs<T>() where T : State
+		{
+			State state = Root;
+
+			while (state != null)
+			{
+				switch (state)
+				{
+					case T:
+					{
+						return true;
+					}
+
+					case SuperState superState:
+					{
+						state = superState.CurrentState;
+						break;
+					}
+
+					default:
+					{
+						state = null;
+						break;
+					}
+				}
+			}
+
+			return false;
+		}
 	}
 }

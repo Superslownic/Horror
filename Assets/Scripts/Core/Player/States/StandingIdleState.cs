@@ -1,4 +1,5 @@
 ﻿using Scripts.Config;
+using Scripts.Config.Player;
 using Scripts.Entities;
 using Scripts.FSM.Composite;
 using Zenject;
@@ -16,11 +17,8 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
-			_playerUnit.GetAbility<BreathAbility>().StopRunning();
-			_playerUnit.GetAbility<HeadBobAbility>().ToIdle();
-			_playerUnit.GetAbility<HeadSwayingAbility>().ToStandingIdle();
-			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Walking);
+			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(HeadBobShakeVaraintConfig.Default);
+			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
 		}
 
 		public override void Update()

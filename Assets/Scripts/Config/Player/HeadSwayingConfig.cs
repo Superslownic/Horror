@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Scripts.Config.Player
 {
 	[Serializable]
-	public class WobbleConfig
+	public class HeadSwayingConfig
 	{
 		[field: SerializeField] public float ChangeValuesDuration { get; private set; }
 		[field: SerializeField] public ShakerConfig ShakerConfig { get; private set; }

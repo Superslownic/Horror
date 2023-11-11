@@ -19,9 +19,17 @@ namespace Scripts.Factory
 			return (T) _diContainer.Instantiate(type, extraArgs);
 		}
 
-		public void InjectInstance<T>(T instance, params object[] extraArgs)
+		public void InjectInstance(object instance, params object[] extraArgs)
 		{
 			_diContainer.Inject(instance, extraArgs);
+		}
+		
+		public void InjectInstances(object[] instances, object[] extraArgs)
+		{
+			foreach (object instance in instances)
+			{
+				InjectInstance(instance, extraArgs);
+			}
 		}
 		
 		public T Instantiate<T>(T prefab, Transform parent = null, params object[] extraArgs) where T : Object

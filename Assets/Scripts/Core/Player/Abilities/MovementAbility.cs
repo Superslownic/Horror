@@ -29,7 +29,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnInitialize()
 		{
-			SetConfig(_gameConfig.Player.Movement.Walking);
+			ReplaceConfig(_gameConfig.Player.Movement.Walking);
 			ResetValues();
 		}
 
@@ -41,7 +41,7 @@ namespace Scripts.Core.Player
 			NormalizedActualVelocity = Vector3.zero;
 		}
 
-		public void SetConfig(PlayerMovementValues config)
+		public void ReplaceConfig(PlayerMovementValues config)
 		{
 			_config = config;
 			_tween?.Kill();

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class LeanAbility : Ability
+	public class LeanAbility : Ability, IDeactivatableAbility
 	{
 		[SerializeField] private Transform _anchor;
 

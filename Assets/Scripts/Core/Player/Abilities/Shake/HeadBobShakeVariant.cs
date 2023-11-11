@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Scripts.Core.Player
 {
 	[Serializable]
-	public class BobbingShakeVariant : IShakeVariant
+	public class HeadBobShakeVariant : IShakeVariant
 	{
 		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
 		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();

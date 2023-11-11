@@ -16,11 +16,10 @@ namespace Scripts.Core.Player.States
 		
 		public override void Enter()
 		{
-			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
-			_playerUnit.GetAbility<HeadBobAbility>().ToRun();
+			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(_gameConfig.Player.Footsteps.RunShakeConfig);
+			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandRunShakeConfig);
+			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Running);
 			_playerUnit.GetAbility<BreathAbility>().StartRunning();
-			_playerUnit.GetAbility<HeadSwayingAbility>().ToStandingRun();
-			_playerUnit.GetAbility<MovementAbility>().SetConfig(_gameConfig.Player.Movement.Running);
 		}
 
 		public override void Update()
@@ -29,6 +28,7 @@ namespace Scripts.Core.Player.States
 
 		public override void Exit()
 		{
+			_playerUnit.GetAbility<BreathAbility>().StopRunning();
 		}
 	}
 }

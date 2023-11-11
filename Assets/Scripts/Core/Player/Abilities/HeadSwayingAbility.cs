@@ -28,30 +28,25 @@ namespace Scripts.Core.Player
 
 		public void ToStandingIdle()
 		{
-			ChangeValues(_gameConfig.Player.Wobble.StandIdleShakeConfig);
+			ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
 		}
 
 		public void ToStandingWalk()
 		{
-			ChangeValues(_gameConfig.Player.Wobble.StandWalkShakeConfig);
+			ReplaceConfig(_gameConfig.Player.Wobble.StandWalkShakeConfig);
 		}
 		
 		public void ToStandingRun()
 		{
-			ChangeValues(_gameConfig.Player.Wobble.StandRunShakeConfig);
+			ReplaceConfig(_gameConfig.Player.Wobble.StandRunShakeConfig);
 		}
 
 		public void ToCrouchIdle()
 		{
-			ChangeValues(_gameConfig.Player.Wobble.CrouchIdleShakeConfig);
+			ReplaceConfig(_gameConfig.Player.Wobble.CrouchIdleShakeConfig);
 		}
 		
-		public void ToCrouchWalk()
-		{
-			ChangeValues(_gameConfig.Player.Wobble.CrouchWalkShakeConfig);
-		}
-		
-		private void ChangeValues(RandomShakeProcessorConfig config)
+		public void ReplaceConfig(RandomShakeProcessorConfig config)
 		{
 			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);

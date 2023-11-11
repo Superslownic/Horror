@@ -135,6 +135,53 @@ MonoBehaviour:
       <LayerMask>k__BackingField:
         serializedVersion: 2
         m_Bits: 1
+    <Ladder>k__BackingField:
+      <DismountCurve>k__BackingField:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      <DefaultValues>k__BackingField:
+        <ClimbSpeed>k__BackingField: 0.4
+        <MountTimeMultiplier>k__BackingField: 0.8
+        <DismountTimeMultiplier>k__BackingField: 2
+        <MaxSmoothDelta>k__BackingField: 10
+        <SmoothDeltaChangeTime>k__BackingField: 0.5
+        <ShakeConfig>k__BackingField:
+          <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.1, z: 0}
+          <PositionFrequency>k__BackingField: 1.5
+          <RotationAmplitude>k__BackingField: {x: 0.05, y: 1, z: 0}
+          <RotationFrequency>k__BackingField: 1.5
+      <RunValues>k__BackingField:
+        <ClimbSpeed>k__BackingField: 0.8
+        <MountTimeMultiplier>k__BackingField: 0.4
+        <DismountTimeMultiplier>k__BackingField: 1
+        <MaxSmoothDelta>k__BackingField: 10
+        <SmoothDeltaChangeTime>k__BackingField: 0.25
+        <ShakeConfig>k__BackingField:
+          <PositionAmplitude>k__BackingField: {x: 0.06, y: 0.15, z: 0}
+          <PositionFrequency>k__BackingField: 2.5
+          <RotationAmplitude>k__BackingField: {x: 0.1, y: 2, z: 0}
+          <RotationFrequency>k__BackingField: 2.5
   <Audio>k__BackingField:
     <Events>k__BackingField:
       <Breath>k__BackingField:

@@ -15,16 +15,16 @@ namespace Scripts.Core.Player
 
 		private ShakeHeadAbility _shakeHeadAbility;
 		private ShakerProcessor _shakerProcessor;
-		private BobbingShakeVariant _variant;
+		private HeadBobShakeVariant _variant;
 		private Sound _footstepSound;
 		private int _stepNumber;
-		private BobbingShakeProcessorConfig _currentConfig;
-		private BobbingShakeProcessorConfig _savedConfig;
+		private HeadBobShakeVaraintConfig _currentConfig;
+		private HeadBobShakeVaraintConfig _savedConfig;
 
 		protected override void OnInitialize()
 		{
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
-			_variant = new BobbingShakeVariant();
+			_variant = new HeadBobShakeVariant();
 			_shakerProcessor = new ShakerProcessor
 			{
 				Config = _gameConfig.Player.Footsteps.ShakerConfig,
@@ -56,7 +56,7 @@ namespace Scripts.Core.Player
 
 		public void ToIdle()
 		{
-			ReplaceConfig(BobbingShakeProcessorConfig.Default);
+			ReplaceConfig(HeadBobShakeVaraintConfig.Default);
 		}
 
 		public void ToWalk()
@@ -69,18 +69,13 @@ namespace Scripts.Core.Player
 			ReplaceConfig(_gameConfig.Player.Footsteps.RunShakeConfig);
 		}
 
-		public void ToCrouch()
-		{
-			ReplaceConfig(_gameConfig.Player.Footsteps.CrouchShakeConfig);
-		}
-
-		public void ReplaceConfig(BobbingShakeProcessorConfig config)
+		public void ReplaceConfig(HeadBobShakeVaraintConfig config)
 		{
 			_currentConfig = config;
 			SetConfig(config);
 		}
 
-		public void OverrideConfig(BobbingShakeProcessorConfig config)
+		public void OverrideConfig(HeadBobShakeVaraintConfig config)
 		{
 			_savedConfig = _currentConfig;
 			ReplaceConfig(config);
@@ -96,7 +91,7 @@ namespace Scripts.Core.Player
 			_variant.Magnitude = value;
 		}
 
-		private void SetConfig(BobbingShakeProcessorConfig config)
+		private void SetConfig(HeadBobShakeVaraintConfig config)
 		{
 			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
