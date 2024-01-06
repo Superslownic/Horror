@@ -25,33 +25,13 @@ namespace Scripts.Core.Player
 			};
 			_shakeHeadAbility.Shaker.StartShaker(_shakerProcessor);
 		}
-
-		public void ToStandingIdle()
-		{
-			ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
-		}
-
-		public void ToStandingWalk()
-		{
-			ReplaceConfig(_gameConfig.Player.Wobble.StandWalkShakeConfig);
-		}
-		
-		public void ToStandingRun()
-		{
-			ReplaceConfig(_gameConfig.Player.Wobble.StandRunShakeConfig);
-		}
-
-		public void ToCrouchIdle()
-		{
-			ReplaceConfig(_gameConfig.Player.Wobble.CrouchIdleShakeConfig);
-		}
 		
 		public void ReplaceConfig(RandomShakeProcessorConfig config)
 		{
-			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationAmplitude.ReplaceValue(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationFrequency.ReplaceValue(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionAmplitude.Tween(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionFrequency.Tween(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationAmplitude.Tween(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationFrequency.Tween(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 		}
 	}
 }

@@ -66,10 +66,12 @@ namespace Scripts.TFSM
 			_stateMachine.AddState(ladderClimbingWalk, parent: ladderClimbing, transitions: new[] {
 				Transition.To<LadderClimbingIdle>(when: () => _inputManager.Move.ReadValue<Vector2>().y == 0),
 				Transition.To<LadderClimbingRun>(when: () => _inputManager.Run.WasPressedThisFrame()),
+				Transition.To<StandingWalk>(when: () => false),
 			});
 			_stateMachine.AddState(ladderClimbingRun, parent: ladderClimbing, transitions: new[] {
 				Transition.To<LadderClimbingIdle>(when: () => _inputManager.Move.ReadValue<Vector2>().y == 0),
 				Transition.To<LadderClimbingWalk>(when: () => _inputManager.Run.WasPressedThisFrame()),
+				Transition.To<StandingRun>(when: () => false),
 			});
 			
 			_stateMachine.Enter<StandingIdle>();

@@ -15,80 +15,75 @@ namespace Scripts.Core.Player
 		
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
-		
-		public Vector3 InputVelocity { get; private set; }
-		public Vector3 NormalizedInputVelocity { get; private set; }
-		public Vector3 ActualVelocity { get; private set; }
-		public Vector3 NormalizedActualVelocity { get; private set; }
+
 		public bool IsGrounded { get; private set; }
-		
-		private PlayerMovementValues _config;
-		private Vector3 _previousPosition;
-		private float _speed;
-		private Tween _tween;
+		public bool IsMoving { get; private set; }
+		public Vector3 Velocity { get; private set; }
+		public Vector3 NormalizedVelocity { get; private set; }
+
+		private PlayerMovementValues _values;
+		private TweenableFloat _speed = new();
+		private Vector3 _moveVelocity;
 
 		protected override void OnInitialize()
 		{
-			ReplaceConfig(_gameConfig.Player.Movement.Walking);
-			ResetValues();
+			_values = _gameConfig.Player.Movement.Walking;
+			_speed.Set(_values.Speed);
 		}
 
 		protected override void OnDeactivate()
 		{
-			InputVelocity = Vector3.zero;
-			NormalizedInputVelocity = Vector3.zero;
-			ActualVelocity = Vector3.zero;
-			NormalizedActualVelocity = Vector3.zero;
+			Velocity = Vector3.zero;
+			NormalizedVelocity = Vector3.zero;
 		}
 
 		public void ReplaceConfig(PlayerMovementValues config)
 		{
-			_config = config;
-			_tween?.Kill();
-			_tween = DOTween.Sequence()
-				.Join(DOTween
-					.To(() => _speed, value => _speed = value, _config.Speed,
-						_gameConfig.Player.Movement.ChangeValuesDuration).SetEase(Ease.InOutCubic));
-		}
-
-		public void ResetValues()
-		{
-			_speed = _config.Speed;
+			_values = config;
+			_speed.Tween(_values.Speed, _gameConfig.Player.Movement.ChangeValuesDuration, Ease.InOutCubic);
 		}
 
 		protected override void OnUpdate()
 		{
-			IsGrounded = CheckGrounded(out Vector3 groundNormal);
+			IsGrounded = _characterController.isGrounded;
+			Vector3 groundNormal = GetGroundNormal();
+
+			Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
+			IsMoving = moveInput.sqrMagnitude > 0;
+
+			_moveVelocity = Vector3.zero;
+			Vector3 gravityVelocity = _characterController.isGrounded ? Vector3.zero : Vector3.down * _gameConfig.Player.Movement.Gravity;
 			
-			if (IsGrounded)
+			//float moveDrag = IsMoving ? 0 : _gameConfig.Player.Movement.GroundedDrag;
+			//float fallDrag = _gameConfig.Player.Movement.FallDrag;
+			//float resultDrag = 1 - (_characterController.isGrounded ? moveDrag : fallDrag);
+
+			if (IsGrounded && IsMoving)
 			{
-				Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
+				Vector3 forwardInputMotion = Vector3.ProjectOnPlane(_lookAnchor.forward, groundNormal).normalized * moveInput.y;
+				Vector3 sideInputMotion = Vector3.ProjectOnPlane(_lookAnchor.right, groundNormal).normalized * moveInput.x;
 
-				Vector3 forwardDirection = Vector3.ProjectOnPlane(_lookAnchor.forward, groundNormal).normalized * moveInput.y;
-				Vector3 sideDirection = Vector3.ProjectOnPlane(_lookAnchor.right, groundNormal).normalized * moveInput.x;
+				Vector3 resultInputMotion = (forwardInputMotion + sideInputMotion) * _speed;
+				Vector3 clampedInputMotion = Vector3.ClampMagnitude(resultInputMotion, _values.Speed);
 
-				Vector3 inputMotion = (forwardDirection + sideDirection) * _speed;
-				Vector3 clampedMotion = Vector3.ClampMagnitude(inputMotion, _config.Speed);
-
-				bool isMoving = moveInput.sqrMagnitude > 0;
-
-				Vector3 resultMotion = isMoving ? clampedMotion : Vector3.zero;
-				float resultDelta = isMoving ? _gameConfig.Player.Movement.Acceleration : _gameConfig.Player.Movement.Deceleration;
+				//float factor = Vector3.Angle(_moveVelocity, clampedInputMotion) / 180;
+				//float acceleration = Mathf.Lerp(_gameConfig.Player.Movement.Acceleration.Min, _gameConfig.Player.Movement.Acceleration.Max, _gameConfig.Player.Movement.AccelerationCurve.Evaluate(factor));
 				
-				InputVelocity = Vector3.MoveTowards(InputVelocity, resultMotion, resultDelta * Time.deltaTime);
-				NormalizedInputVelocity = InputVelocity / _config.Speed;
-				_characterController.Move(InputVelocity * Time.deltaTime);
+				_moveVelocity = Vector3.Lerp(_moveVelocity, clampedInputMotion, _gameConfig.Player.Movement.Acceleration * Time.deltaTime);
 			}
-			
-			_characterController.Move(Vector3.down * (_gameConfig.Player.Movement.Gravity * Time.deltaTime));
+			else
+			{
+				_moveVelocity = Vector3.Lerp(_moveVelocity, Vector3.zero, _gameConfig.Player.Movement.Deceleration * Time.deltaTime);
+			}
 
-			Vector3 rawActualVelocity = (_characterController.transform.position - _previousPosition) / Time.deltaTime;
-			ActualVelocity = Vector3.ClampMagnitude(rawActualVelocity, _config.Speed);
-			NormalizedActualVelocity = ActualVelocity / _config.Speed;
-			_previousPosition = _characterController.transform.position;
+			Velocity = _moveVelocity * Time.deltaTime;
+			//Velocity *= resultDrag * Time.deltaTime;
+			Velocity += gravityVelocity * Time.deltaTime;
+			NormalizedVelocity = Velocity / _speed;
+			_characterController.Move(Velocity);
 		}
 
-		private bool CheckGrounded(out Vector3 result)
+		private Vector3 GetGroundNormal()
 		{
 			Vector3 origin = _characterController.transform.position + _characterController.center;
 			float radius = _characterController.radius;
@@ -96,14 +91,9 @@ namespace Scripts.Core.Player
 			float distance = _characterController.height * 0.5f - _characterController.radius + _gameConfig.Player.Movement.GroundCheckThreshold;
 			LayerMask layer = _gameConfig.Player.Movement.FloorLayer;
 			
-			if (Physics.SphereCast(origin, radius, direction, out RaycastHit hit, distance, layer))
-			{
-				result = hit.normal;
-				return true;
-			}
-
-			result = default;
-			return false;
+			return Physics.SphereCast(origin, radius, direction, out RaycastHit hit, distance, layer)
+				? hit.normal
+				: Vector3.zero;
 		}
 	}
 }

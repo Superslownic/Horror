@@ -13,6 +13,7 @@ namespace Scripts.Core.Player
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
 
+		private MovementAbility _movementAbility;
 		private ShakeHeadAbility _shakeHeadAbility;
 		private ShakerProcessor _shakerProcessor;
 		private HeadBobShakeVariant _variant;
@@ -23,6 +24,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnInitialize()
 		{
+			_movementAbility = Unit.GetAbility<MovementAbility>();
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
 			_variant = new HeadBobShakeVariant();
 			_shakerProcessor = new ShakerProcessor
@@ -41,32 +43,17 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			float magnitude = Unit.GetAbility<MovementAbility>().NormalizedActualVelocity.magnitude;
-
-			_variant.Magnitude = magnitude;
+			_variant.Magnitude = _movementAbility.IsGrounded && _movementAbility.IsMoving
+				? _movementAbility.NormalizedVelocity.magnitude
+				: 0;
 
 			int stepNumber = Mathf.CeilToInt(_variant.PositionTime);
-			
-			if (magnitude > 0 && _stepNumber != stepNumber)
+
+			if (_variant.Magnitude > 0 && _stepNumber != stepNumber)
 			{
 				_stepNumber = stepNumber;
 				_footstepSound.Play();
 			}
-		}
-
-		public void ToIdle()
-		{
-			ReplaceConfig(HeadBobShakeVaraintConfig.Default);
-		}
-
-		public void ToWalk()
-		{
-			ReplaceConfig(_gameConfig.Player.Footsteps.WalkShakeConfig);
-		}
-		
-		public void ToRun()
-		{
-			ReplaceConfig(_gameConfig.Player.Footsteps.RunShakeConfig);
 		}
 
 		public void ReplaceConfig(HeadBobShakeVaraintConfig config)
@@ -93,10 +80,10 @@ namespace Scripts.Core.Player
 
 		private void SetConfig(HeadBobShakeVaraintConfig config)
 		{
-			_variant.PositionAmplitude.ReplaceValue(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.PositionFrequency.ReplaceValue(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationAmplitude.ReplaceValue(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationFrequency.ReplaceValue(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionAmplitude.Tween(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.PositionFrequency.Tween(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationAmplitude.Tween(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_variant.RotationFrequency.Tween(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 		}
 	}
 }

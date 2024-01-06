@@ -1,6 +1,7 @@
 ﻿using Scripts.Config;
 using Scripts.Entities;
 using Scripts.Input;
+using Scripts.Utility;
 using UnityEngine;
 using Zenject;
 
@@ -22,15 +23,10 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			if (!_movementAbility.IsGrounded)
-			{
-				return;
-			}
-			
-			if (_movementAbility.ActualVelocity.magnitude > 0)
+			if (_movementAbility.IsGrounded && _movementAbility.IsMoving)
 			{
 				float input = _inputManager.Move.ReadValue<Vector2>().x;
-				float targetAngle = -input * _movementAbility.NormalizedActualVelocity.magnitude * _gameConfig.Player.Lean.Angle;
+				float targetAngle = -input * _movementAbility.NormalizedVelocity.magnitude * _gameConfig.Player.Lean.Angle;
 				Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
 				
 				_anchor.localRotation = Quaternion.Lerp

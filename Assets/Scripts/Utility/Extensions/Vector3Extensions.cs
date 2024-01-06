@@ -32,5 +32,17 @@ namespace Scripts.Utility
 		{
 			return ClosestPointOnLine(p.x, p.y, p.z, a.x, a.y, a.z, b.x, b.y, b.z);
 		}
+		
+		public static Vector3 SetY(this Vector3 vector, float value)
+		{
+			vector.y = value;
+			return vector;
+		}
+
+		public static Vector3 ChangeY(this Vector3 vector, float value)
+		{
+			vector.y += value;
+			return vector;
+		}
 	}
 }

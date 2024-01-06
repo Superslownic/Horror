@@ -8,10 +8,10 @@ namespace Scripts.Core.Player
 	[Serializable]
 	public class RandomShakeVariant : IShakeVariant
 	{
-		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
-		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();
-		[field: SerializeField] public ReplaceableVector3 RotationAmplitude { get; set; } = new();
-		[field: SerializeField] public ReplaceableFloat RotationFrequency { get; set; } = new();
+		[field: SerializeField] public TweenableVector3 PositionAmplitude { get; set; } = new();
+		[field: SerializeField] public TweenableFloat PositionFrequency { get; set; } = new();
+		[field: SerializeField] public TweenableVector3 RotationAmplitude { get; set; } = new();
+		[field: SerializeField] public TweenableFloat RotationFrequency { get; set; } = new();
 
 		private Vector3 _positionNoiseOffset;
 		private Vector3 _rotationNoiseOffset;
@@ -31,7 +31,7 @@ namespace Scripts.Core.Player
 			position = Vector3.zero;
 			rotation = Vector3.zero;
 			
-			_positionNoiseOffset += PositionFrequency.Value * Time.deltaTime * Vector3.one;
+			_positionNoiseOffset += PositionFrequency * Time.deltaTime * Vector3.one;
 
 			Vector3 positionNoise = new Vector3
 			{
@@ -42,7 +42,7 @@ namespace Scripts.Core.Player
 			
 			positionNoise -= Vector3.one * 0.5f;
 			
-			_rotationNoiseOffset += RotationFrequency.Value * Time.deltaTime * Vector3.one;
+			_rotationNoiseOffset += RotationFrequency * Time.deltaTime * Vector3.one;
 			
 			Vector3 rotationNoise = new Vector3
 			{
@@ -57,13 +57,13 @@ namespace Scripts.Core.Player
 			
 			rotationNoise -= Vector3.one * 0.5f;
 			
-			position.x = positionNoise.x * PositionAmplitude.Value.x;
-			position.y = positionNoise.y * PositionAmplitude.Value.y;
-			position.z = positionNoise.z * PositionAmplitude.Value.z;
+			position.x = positionNoise.x * PositionAmplitude.x;
+			position.y = positionNoise.y * PositionAmplitude.y;
+			position.z = positionNoise.z * PositionAmplitude.z;
 
-			rotation.x = rotationNoise.x * RotationAmplitude.Value.x;
-			rotation.y = rotationNoise.y * RotationAmplitude.Value.y;
-			rotation.z = rotationNoise.z * RotationAmplitude.Value.z;
+			rotation.x = rotationNoise.x * RotationAmplitude.x;
+			rotation.y = rotationNoise.y * RotationAmplitude.y;
+			rotation.z = rotationNoise.z * RotationAmplitude.z;
 		}
 	}
 }

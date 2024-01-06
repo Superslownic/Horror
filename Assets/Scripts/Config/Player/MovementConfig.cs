@@ -1,4 +1,6 @@
 ﻿using System;
+using Scripts.Utility;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.Config.Player
@@ -7,8 +9,11 @@ namespace Scripts.Config.Player
 	public class MovementConfig
 	{
 		[field: SerializeField] public LayerMask FloorLayer { get; private set; }
+		[field: SerializeField, Range(0, 1)] public float GroundedDrag { get; private set; }
+		[field: SerializeField, Range(0, 1)] public float FallDrag { get; private set; }
 		[field: SerializeField] public float Gravity { get; private set; }
 		[field: SerializeField] public float GroundCheckThreshold { get; private set; }
+		[field: SerializeField] public AnimationCurve AccelerationCurve { get; private set; }
 		[field: SerializeField] public float Acceleration { get; private set; }
 		[field: SerializeField] public float Deceleration { get; private set; }
 		[field: SerializeField] public float ChangeValuesDuration { get; private set; }

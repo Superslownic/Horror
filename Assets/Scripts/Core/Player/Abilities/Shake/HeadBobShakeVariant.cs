@@ -7,10 +7,10 @@ namespace Scripts.Core.Player
 	[Serializable]
 	public class HeadBobShakeVariant : IShakeVariant
 	{
-		[field: SerializeField] public ReplaceableVector3 PositionAmplitude { get; set; } = new();
-		[field: SerializeField] public ReplaceableFloat PositionFrequency { get; set; } = new();
-		[field: SerializeField] public ReplaceableVector3 RotationAmplitude { get; set; } = new();
-		[field: SerializeField] public ReplaceableFloat RotationFrequency { get; set; } = new();
+		[field: SerializeField] public TweenableVector3 PositionAmplitude { get; set; } = new();
+		[field: SerializeField] public TweenableFloat PositionFrequency { get; set; } = new();
+		[field: SerializeField] public TweenableVector3 RotationAmplitude { get; set; } = new();
+		[field: SerializeField] public TweenableFloat RotationFrequency { get; set; } = new();
 
 		public float Magnitude { get; set; }
 		
@@ -22,14 +22,14 @@ namespace Scripts.Core.Player
 			position = Vector3.zero;
 			rotation = Vector3.zero;
 
-			PositionTime += Time.deltaTime * Magnitude * PositionFrequency.Value;
-			RotationTime += Time.deltaTime * Magnitude * RotationFrequency.Value;
+			PositionTime += Time.deltaTime * Magnitude * PositionFrequency;
+			RotationTime += Time.deltaTime * Magnitude * RotationFrequency;
 			
-			position.x = Mathf.Cos((PositionTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.Value.x;
-			position.y = Mathf.Cos((PositionTime + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.Value.y;
+			position.x = Mathf.Cos((PositionTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.x;
+			position.y = Mathf.Cos((PositionTime + 0.5f) * (Mathf.PI * 2)) * PositionAmplitude.y;
 			
-			rotation.y = Mathf.Cos((RotationTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.Value.x;
-			rotation.x = Mathf.Cos((RotationTime + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.Value.y;
+			rotation.y = Mathf.Cos((RotationTime * 0.5f + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.x;
+			rotation.x = Mathf.Cos((RotationTime + 0.5f) * (Mathf.PI * 2)) * RotationAmplitude.y;
 		}
 
 		public void Reset()

@@ -17,10 +17,36 @@ MonoBehaviour:
       <FloorLayer>k__BackingField:
         serializedVersion: 2
         m_Bits: 1
-      <Gravity>k__BackingField: 10
+      <GroundedDrag>k__BackingField: 0.1
+      <FallDrag>k__BackingField: 0.02
+      <Gravity>k__BackingField: 0.2
       <GroundCheckThreshold>k__BackingField: 0.1
-      <Acceleration>k__BackingField: 20
-      <Deceleration>k__BackingField: 20
+      <AccelerationCurve>k__BackingField:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      <Acceleration>k__BackingField: 5
+      <Deceleration>k__BackingField: 5
       <ChangeValuesDuration>k__BackingField: 0.5
       <Walking>k__BackingField:
         <Speed>k__BackingField: 2.5
@@ -82,11 +108,6 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 1
         <RotationAmplitude>k__BackingField: {x: 0.1, y: 0, z: 0}
         <RotationFrequency>k__BackingField: 1
-      <LadderShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.1, z: 0}
-        <PositionFrequency>k__BackingField: 1.5
-        <RotationAmplitude>k__BackingField: {x: 0.05, y: 1, z: 0}
-        <RotationFrequency>k__BackingField: 1.5
     <Breath>k__BackingField:
       <Delay>k__BackingField: 2
       <IncreaseDuration>k__BackingField: 1
