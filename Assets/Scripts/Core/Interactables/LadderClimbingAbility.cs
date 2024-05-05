@@ -3,10 +3,10 @@ using Scripts.Config;
 using Scripts.Config.Player;
 using Scripts.Core.Player;
 using Scripts.Core.Player.States;
-using Scripts.Entities;
 using Scripts.Input;
 using Scripts.Reactive;
-using Scripts.Utility;
+using Scripts.Units;
+using Scripts.Utility.Extensions;
 using UnityEngine;
 using Zenject;
 

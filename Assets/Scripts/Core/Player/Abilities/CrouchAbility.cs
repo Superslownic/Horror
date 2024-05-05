@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Entities;
+using Scripts.Units;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -10,8 +10,10 @@ namespace Scripts.Core.Player
 {
 	public class CrouchAbility : Ability
 	{
-		[SerializeField] private CharacterController _characterController;
+		[SerializeField] private CapsuleCollider _capsuleCollider;
 		[SerializeField] private Transform _cameraMainAnchor;
+		[SerializeField] private float _duration;
+		[SerializeField] private float _heightMultiplier;
 
 		[Inject] private readonly GameConfig _gameConfig;
 
@@ -26,7 +28,7 @@ namespace Scripts.Core.Player
 		protected override void OnInitialize()
 		{
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
-			_startHeight = _characterController.height;
+			_startHeight = _capsuleCollider.height;
 			_startCameraHeight = _cameraMainAnchor.localPosition.y;
 			_variant = new RandomShakeVariant();
 			_shakerProcessor = new ShakerProcessor
@@ -41,9 +43,7 @@ namespace Scripts.Core.Player
 		public void PerformCrouch()
 		{
 			if (_isCrouching)
-			{
 				return;
-			}
 
 			_isCrouching = true;
 
@@ -51,11 +51,11 @@ namespace Scripts.Core.Player
 			
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _characterController.height, value => _characterController.height = value, 1, _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _capsuleCollider.height, value => _capsuleCollider.height = value, _startHeight * _heightMultiplier, _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _characterController.center, value => _characterController.center = value, new Vector3(0, _gameConfig.Player.Crouch.TargetHeight * 0.5f, 0), _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _capsuleCollider.center, value => _capsuleCollider.center = value, new Vector3(0, _startHeight * _heightMultiplier * 0.5f, 0), _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _gameConfig.Player.Crouch.TargetCameraHeight, 0), _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight * _heightMultiplier, 0), _duration)
 					.SetEase(Ease.InOutQuad)
 					.OnComplete(() => ReplaceConfig(RandomShakeProcessorConfig.Default)));
 		}
@@ -64,9 +64,7 @@ namespace Scripts.Core.Player
 		public void PerformStand()
 		{
 			if (!_isCrouching)
-			{
 				return;
-			}
 
 			_isCrouching = false;
 			
@@ -74,11 +72,11 @@ namespace Scripts.Core.Player
 			
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _characterController.height, value => _characterController.height = value, _startHeight, _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _capsuleCollider.height, value => _capsuleCollider.height = value, _startHeight, _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _characterController.center, value => _characterController.center = value, new Vector3(0, _startHeight * 0.5f, 0), _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _capsuleCollider.center, value => _capsuleCollider.center = value, new Vector3(0, _startHeight * 0.5f, 0), _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight, 0), _gameConfig.Player.Crouch.Duration)
+				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight, 0), _duration)
 					.SetEase(Ease.InOutQuad)
 					.OnComplete(() => ReplaceConfig(RandomShakeProcessorConfig.Default)));
 		}

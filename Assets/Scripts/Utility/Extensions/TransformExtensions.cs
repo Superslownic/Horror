@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scripts.Utility
+namespace Scripts.Utility.Extensions
 {
 	public static class TransformExtensions
 	{

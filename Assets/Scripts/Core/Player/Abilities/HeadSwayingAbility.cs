@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Entities;
+using Scripts.Units;
 using Zenject;
 
 namespace Scripts.Core.Player

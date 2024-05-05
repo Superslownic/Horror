@@ -2,13 +2,13 @@
 using Scripts.Audio;
 using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Entities;
+using Scripts.Units;
 using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class HeadBobAbility : Ability, IDeactivatableAbility
+	public class HeadBobAbility : Ability
 	{
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
@@ -16,7 +16,7 @@ namespace Scripts.Core.Player
 		private MovementAbility _movementAbility;
 		private ShakeHeadAbility _shakeHeadAbility;
 		private ShakerProcessor _shakerProcessor;
-		private HeadBobShakeVariant _variant;
+		private HeadBobShakeVariant _shakerVariant;
 		private Sound _footstepSound;
 		private int _stepNumber;
 		private HeadBobShakeVaraintConfig _currentConfig;
@@ -26,30 +26,36 @@ namespace Scripts.Core.Player
 		{
 			_movementAbility = Unit.GetAbility<MovementAbility>();
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
-			_variant = new HeadBobShakeVariant();
+			_shakerVariant = new HeadBobShakeVariant();
 			_shakerProcessor = new ShakerProcessor
 			{
 				Config = _gameConfig.Player.Footsteps.ShakerConfig,
-				Variant = _variant
+				Variant = _shakerVariant
 			};
-			_shakeHeadAbility.Shaker.StartShaker(_shakerProcessor);
 			_footstepSound = _audioManager.Create(_gameConfig.Audio.Events.Footstep);
+		}
+
+		protected override void OnActivate()
+		{
+			base.OnActivate();
+			_shakeHeadAbility.Shaker.StartShaker(_shakerProcessor);
 		}
 
 		protected override void OnDeactivate()
 		{
-			_variant.Magnitude = 0;
+			base.OnDeactivate();
+			_shakeHeadAbility.Shaker.StopShaker(_shakerProcessor);
 		}
 
 		protected override void OnUpdate()
 		{
-			_variant.Magnitude = _movementAbility.IsGrounded && _movementAbility.IsMoving
+			_shakerVariant.Magnitude = _movementAbility.IsGrounded && _movementAbility.IsMoving
 				? _movementAbility.NormalizedVelocity.magnitude
-				: 0;
+				: Mathf.Lerp(_shakerVariant.Magnitude, 0, Time.deltaTime);
 
-			int stepNumber = Mathf.CeilToInt(_variant.PositionTime);
+			int stepNumber = Mathf.CeilToInt(_shakerVariant.PositionTime);
 
-			if (_variant.Magnitude > 0 && _stepNumber != stepNumber)
+			if (_shakerVariant.Magnitude > 0 && _stepNumber != stepNumber)
 			{
 				_stepNumber = stepNumber;
 				_footstepSound.Play();
@@ -75,15 +81,15 @@ namespace Scripts.Core.Player
 
 		public void OverrideMagnitude(float value)
 		{
-			_variant.Magnitude = value;
+			_shakerVariant.Magnitude = value;
 		}
 
 		private void SetConfig(HeadBobShakeVaraintConfig config)
 		{
-			_variant.PositionAmplitude.Tween(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.PositionFrequency.Tween(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationAmplitude.Tween(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
-			_variant.RotationFrequency.Tween(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_shakerVariant.PositionAmplitude.Tween(config.PositionAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_shakerVariant.PositionFrequency.Tween(config.PositionFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_shakerVariant.RotationAmplitude.Tween(config.RotationAmplitude, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
+			_shakerVariant.RotationFrequency.Tween(config.RotationFrequency, _gameConfig.Player.Footsteps.ChangeValuesDuration, Ease.InOutCubic);
 		}
 	}
 }

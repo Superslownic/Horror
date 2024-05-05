@@ -1,7 +1,7 @@
 ﻿using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Entities;
 using Scripts.FSM.Composite;
+using Scripts.Units;
 using Zenject;
 
 namespace Scripts.Core.Player.States
@@ -19,6 +19,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(HeadBobShakeVaraintConfig.Default);
 			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
+			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
 		}
 
 		public override void Update()

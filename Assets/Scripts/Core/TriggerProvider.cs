@@ -1,5 +1,5 @@
-﻿using Scripts.Entities;
-using Scripts.Reactive;
+﻿using Scripts.Reactive;
+using Scripts.Units;
 using UnityEngine;
 
 namespace Scripts.Core
@@ -17,7 +17,7 @@ namespace Scripts.Core
 				OnEnter.Invoke(entity);
 			}
 			
-			if (other.TryGetComponent(out UnitProvider entityProvider))
+			if (other.TryGetComponent(out UnitLink entityProvider))
 			{
 				OnEnter.Invoke(entityProvider.Unit);
 			}
@@ -30,7 +30,7 @@ namespace Scripts.Core
 				OnExit.Invoke(entity);
 			}
 			
-			if (other.TryGetComponent(out UnitProvider entityProvider))
+			if (other.TryGetComponent(out UnitLink entityProvider))
 			{
 				OnExit.Invoke(entityProvider.Unit);
 			}

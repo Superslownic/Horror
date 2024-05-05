@@ -5,5 +5,6 @@ namespace Scripts.Reflection
 	public static class TypeCache<T>
 	{
 		public static readonly Type Value = typeof(T);
+		public static string Name => Value.Name;
 	}
 }

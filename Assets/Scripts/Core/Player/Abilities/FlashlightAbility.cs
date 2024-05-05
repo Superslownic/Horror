@@ -1,6 +1,6 @@
 ﻿using Scripts.Config;
-using Scripts.Entities;
 using Scripts.Input;
+using Scripts.Units;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -23,6 +23,8 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
+			_lightAnchor.rotation = Quaternion.Lerp(_lightAnchor.rotation, _raycastAnchor.rotation, _gameConfig.Player.Flashlight.InterpolationSpeed);
+			return;
 			if (Physics.Raycast(_raycastAnchor.position, _raycastAnchor.forward, out RaycastHit hit, 1000, _gameConfig.Player.Flashlight.LayerMask))
 			{
 				_lightAnchor.rotation = Quaternion.Lerp(_lightAnchor.rotation, Quaternion.LookRotation(hit.point - _lightAnchor.position), _gameConfig.Player.Flashlight.InterpolationSpeed);

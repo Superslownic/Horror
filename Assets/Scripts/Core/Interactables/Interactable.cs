@@ -1,4 +1,4 @@
-﻿using Scripts.Entities;
+﻿using Scripts.Units;
 
 namespace Scripts.Core
 {
@@ -6,31 +6,31 @@ namespace Scripts.Core
 	{
 		public Unit User { get; private set; }
 		
-		private IActivatableAbility[] _abilities;
+		//private IActivatableAbility[] _abilities;
 
 		protected override void OnInitialize()
 		{
-			_abilities = GetComponentsInChildren<IActivatableAbility>();
+			//_abilities = GetComponentsInChildren<IActivatableAbility>();
 		}
 
 		public void Activate(Unit user)
 		{
 			User = user;
 			
-			foreach (IActivatableAbility ability in _abilities)
+			/*foreach (IActivatableAbility ability in _abilities)
 			{
 				ability.AddActivator(this);
-			}
+			}*/
 		}
 
 		public void Deactivate()
 		{
 			User = null;
 			
-			foreach (IActivatableAbility ability in _abilities)
+			/*foreach (IActivatableAbility ability in _abilities)
 			{
 				ability.RemoveActivator(this);
-			}
+			}*/
 		}
 	}
 }

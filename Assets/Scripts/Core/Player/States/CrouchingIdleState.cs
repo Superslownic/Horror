@@ -1,7 +1,7 @@
 ﻿using Scripts.Config;
 using Scripts.Config.Player;
-using Scripts.Entities;
 using Scripts.FSM.Composite;
+using Scripts.Units;
 using Zenject;
 
 namespace Scripts.Core.Player.States

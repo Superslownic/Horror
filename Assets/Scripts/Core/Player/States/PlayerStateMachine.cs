@@ -1,12 +1,11 @@
-﻿using Scripts.Entities;
-using Scripts.Factory;
+﻿using Scripts.Factory;
 using Scripts.FSM.Composite;
 using Scripts.Input;
 using Zenject;
 
 namespace Scripts.Core.Player.States
 {
-	public class PlayerStateMachine : StateMachineAbility, IDeactivatableAbility
+	public class PlayerStateMachine : StateMachineAbility
 	{
 		[Inject] private readonly ObjectFactory _objectFactory;
 		[Inject] private readonly InputManager _inputManager;
@@ -62,14 +61,14 @@ namespace Scripts.Core.Player.States
 		{
 			State idle = _objectFactory.CreateInjectedInstance<CrouchingIdleState>("Idle", Unit);
 			State walk = _objectFactory.CreateInjectedInstance<CrouchingWalkState>("Walk", Unit);
-			
-			SuperState crouching = new(name: "Crouching", initialState: idle);
-			
+
+			CrouchingSuperState crouching = _objectFactory.CreateInjectedInstance<CrouchingSuperState>("Crouching", Unit, idle);
+
 			crouching.AddState(idle, transitions: new Transition[]
 			{
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
-			
+
 			crouching.AddState(state: walk, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed())

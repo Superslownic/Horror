@@ -1,8 +1,8 @@
-﻿using Scripts.Entities;
+﻿using Scripts.Units;
 
 namespace Scripts.Core.Player
 {
-	public class AttachHeadAbility : Ability, IDeactivatableAbility
+	public class AttachHeadAbility : Ability
 	{
 		private PlayerHeadAbility _playerHeadAbility;
 

@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Scripts.Core;
+using Scripts.Units;
+using UnityEngine;
 
-namespace Scripts.Utility
+namespace Scripts.Utility.Extensions
 {
 	public static class GameObjectExtensions
 	{
@@ -20,6 +22,18 @@ namespace Scripts.Utility
 		{
 			result = gameObject.GetComponentInChildren<T>();
 			return result != null;
+		}
+
+		public static bool TryGetUnit(this GameObject gameObject, out Unit unit)
+		{
+			if (gameObject.TryGetComponent(out unit))
+				return true;
+
+			if (!gameObject.TryGetComponent(out UnitLink unitLink))
+				return false;
+
+			unit = unitLink.Unit;
+			return true;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Scripts.Audio;
 using Scripts.Config;
-using Scripts.Entities;
+using Scripts.Units;
 using UnityEngine;
 using Zenject;
 

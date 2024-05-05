@@ -1,7 +1,7 @@
 ﻿using Scripts.Core;
-using Scripts.Entities;
 using Scripts.Factory;
 using Scripts.Input;
+using Scripts.Units;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;

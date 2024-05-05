@@ -12,6 +12,7 @@ namespace Scripts.Input
 		public InputAction Crouch => _inputActions.Default.Crouch;
 		public InputAction Run => _inputActions.Default.Run;
 		public InputAction Flashlight => _inputActions.Default.Flashlight;
+		public InputAction Grab => _inputActions.Default.Grab;
 
 		private InputActions _inputActions = new();
 

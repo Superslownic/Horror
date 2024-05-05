@@ -49,16 +49,16 @@ MonoBehaviour:
       <Deceleration>k__BackingField: 5
       <ChangeValuesDuration>k__BackingField: 0.5
       <Walking>k__BackingField:
-        <Speed>k__BackingField: 2.5
+        <Speed>k__BackingField: 3
       <Running>k__BackingField:
-        <Speed>k__BackingField: 7
+        <Speed>k__BackingField: 6
       <Crouching>k__BackingField:
         <Speed>k__BackingField: 1
     <Look>k__BackingField:
       <VerticalMinAngle>k__BackingField: -90
       <VerticalMaxAngle>k__BackingField: 90
       <PositionInterpolationSpeed>k__BackingField: 20
-      <RotationInterpolationSpeed>k__BackingField: 0.3
+      <RotationInterpolationSpeed>k__BackingField: 1
       <Gamepad>k__BackingField:
         <Sensitivity>k__BackingField: 3
         <Acceleration>k__BackingField: 5
@@ -66,9 +66,6 @@ MonoBehaviour:
       <Keyboard>k__BackingField:
         <Sensitivity>k__BackingField: 0.1
     <Crouch>k__BackingField:
-      <Duration>k__BackingField: 0.5
-      <TargetHeight>k__BackingField: 0.9
-      <TargetCameraHeight>k__BackingField: 0.8
       <ShakeConfig>k__BackingField:
         <Type>k__BackingField: 1
         <StartDuration>k__BackingField: 0.25
@@ -77,12 +74,12 @@ MonoBehaviour:
         <StopDuration>k__BackingField: 0.25
         <StopEase>k__BackingField: 10
       <PerformShakeProcessorConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0.5, y: 0.5, z: 0.5}
+        <PositionAmplitude>k__BackingField: {x: 0.25, y: 0.25, z: 0.25}
         <PositionFrequency>k__BackingField: 1
-        <RotationAmplitude>k__BackingField: {x: 10, y: 10, z: 10}
+        <RotationAmplitude>k__BackingField: {x: 5, y: 5, z: 5}
         <RotationFrequency>k__BackingField: 1
     <Lean>k__BackingField:
-      <Angle>k__BackingField: 3
+      <Angle>k__BackingField: 2
       <Force>k__BackingField: 3
     <Footsteps>k__BackingField:
       <ChangeValuesDuration>k__BackingField: 0.5
@@ -94,15 +91,15 @@ MonoBehaviour:
         <StopDuration>k__BackingField: 0.5
         <StopEase>k__BackingField: 10
       <WalkShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.04, z: 0}
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
         <PositionFrequency>k__BackingField: 1.5
-        <RotationAmplitude>k__BackingField: {x: 0.03, y: 0, z: 0}
-        <RotationFrequency>k__BackingField: 1
-      <RunShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0.03, y: 0.07, z: 0}
-        <PositionFrequency>k__BackingField: 3
-        <RotationAmplitude>k__BackingField: {x: 0.5, y: 0, z: 0}
+        <RotationAmplitude>k__BackingField: {x: 0.3, y: 0.3, z: 0}
         <RotationFrequency>k__BackingField: 1.5
+      <RunShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 2.5
+        <RotationAmplitude>k__BackingField: {x: 0.5, y: 0.5, z: 0}
+        <RotationFrequency>k__BackingField: 2.5
       <CrouchShakeConfig>k__BackingField:
         <PositionAmplitude>k__BackingField: {x: 0.07, y: 0.03, z: 0}
         <PositionFrequency>k__BackingField: 1

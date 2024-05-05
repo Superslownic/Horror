@@ -1,12 +1,12 @@
 ﻿using Scripts.Config;
-using Scripts.Entities;
 using Scripts.Input;
+using Scripts.Units;
 using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player
 {
-	public class LookAbility : Ability, IDeactivatableAbility
+	public class LookAbility : Ability
 	{
 		[SerializeField] private Transform _mainAnchor;
 

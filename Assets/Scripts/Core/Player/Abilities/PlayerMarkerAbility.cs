@@ -1,4 +1,4 @@
-﻿using Scripts.Entities;
+﻿using Scripts.Units;
 
 namespace Scripts.Core.Player
 {

@@ -1,4 +1,4 @@
-﻿namespace Scripts.Utility
+﻿namespace Scripts.Utility.Extensions
 {
 	public static class FloatExtensions
 	{

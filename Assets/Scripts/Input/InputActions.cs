@@ -82,6 +82,15 @@ namespace Scripts
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""079c53f5-12c1-480c-9bb6-706ed8b21326"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +379,17 @@ namespace Scripts
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9873f8d-3210-4335-961a-52ad0d100567"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -384,6 +404,7 @@ namespace Scripts
             m_Default_Run = m_Default.FindAction("Run", throwIfNotFound: true);
             m_Default_Flashlight = m_Default.FindAction("Flashlight", throwIfNotFound: true);
             m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
+            m_Default_Grab = m_Default.FindAction("Grab", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -449,6 +470,7 @@ namespace Scripts
         private readonly InputAction m_Default_Run;
         private readonly InputAction m_Default_Flashlight;
         private readonly InputAction m_Default_Interact;
+        private readonly InputAction m_Default_Grab;
         public struct DefaultActions
         {
             private @InputActions m_Wrapper;
@@ -459,6 +481,7 @@ namespace Scripts
             public InputAction @Run => m_Wrapper.m_Default_Run;
             public InputAction @Flashlight => m_Wrapper.m_Default_Flashlight;
             public InputAction @Interact => m_Wrapper.m_Default_Interact;
+            public InputAction @Grab => m_Wrapper.m_Default_Grab;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -486,6 +509,9 @@ namespace Scripts
                     @Interact.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
                     @Interact.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
                     @Interact.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnInteract;
+                    @Grab.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrab;
+                    @Grab.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrab;
+                    @Grab.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrab;
                 }
                 m_Wrapper.m_DefaultActionsCallbackInterface = instance;
                 if (instance != null)
@@ -508,6 +534,9 @@ namespace Scripts
                     @Interact.started += instance.OnInteract;
                     @Interact.performed += instance.OnInteract;
                     @Interact.canceled += instance.OnInteract;
+                    @Grab.started += instance.OnGrab;
+                    @Grab.performed += instance.OnGrab;
+                    @Grab.canceled += instance.OnGrab;
                 }
             }
         }
@@ -520,6 +549,7 @@ namespace Scripts
             void OnRun(InputAction.CallbackContext context);
             void OnFlashlight(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnGrab(InputAction.CallbackContext context);
         }
     }
 }

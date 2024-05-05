@@ -1,6 +1,6 @@
 ﻿using Scripts.Config;
-using Scripts.Entities;
 using Scripts.FSM.Composite;
+using Scripts.Units;
 using Zenject;
 
 namespace Scripts.Core.Player.States
@@ -16,7 +16,11 @@ namespace Scripts.Core.Player.States
 		
 		public override void Enter()
 		{
-			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(_gameConfig.Player.Footsteps.WalkShakeConfig);
+			if (_playerUnit.TryGetAbility(out HeadBobAbility headBobAbility))
+			{
+				headBobAbility.ReplaceConfig(_gameConfig.Player.Footsteps.WalkShakeConfig);
+			}
+			
 			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandWalkShakeConfig);
 			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
 		}

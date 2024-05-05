@@ -1,5 +1,5 @@
 ﻿using Scripts.Config;
-using Scripts.Entities;
+using Scripts.Units;
 using UnityEngine;
 using Zenject;
 
@@ -12,18 +12,9 @@ namespace Scripts.Core.Player
 		
 		[Inject] private readonly GameConfig _gameConfig;
 
-		private Quaternion _rotation;
-
-		protected override void OnInitialize()
-		{
-			_rotation = _anchor.rotation;
-		}
-
 		protected override void OnLateUpdate()
 		{
-			float angle = Quaternion.Angle(_anchor.rotation, _target.rotation);
-			_rotation = Quaternion.Slerp(_rotation, _target.rotation, angle * _gameConfig.Player.Look.RotationInterpolationSpeed * Time.deltaTime);
-			_anchor.rotation = _rotation;
+			_anchor.rotation = _target.rotation;
 		}
 		
 		//force limit rotation
