@@ -10,14 +10,14 @@ namespace Scripts.Core.Player
 		[Inject] private readonly InputManager _inputManager;
 
 		private CursorView _cursorView;
-		private UnitFilter _grabables;
+		private UnitFilter _grabbables;
 		private UnitFilter _grabbed;
 
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
 			_cursorView = FindObjectOfType<CursorView>();
-			_grabables = UnitFilter.Create().With<GrabableAbility, SelectedAbility>().Build(Disposable);
+			_grabbables = UnitFilter.Create().With<GrabbableAbility, SelectedAbility>().Build(Disposable);
 			_grabbed = UnitFilter.Create().With<GrabbedAbility>().Build(Disposable);
 		}
 
@@ -25,9 +25,9 @@ namespace Scripts.Core.Player
 		{
 			base.OnUpdate();
 
-			if (_inputManager.Grab.WasPressedThisFrame() && _grabables.Count > 0)
+			if (_inputManager.Grab.WasPressedThisFrame() && _grabbables.Count > 0)
 			{
-				foreach (Unit grabableUnit in _grabables)
+				foreach (Unit grabableUnit in _grabbables)
 					grabableUnit.AddAbility<GrabbedAbility>();
 
 				_cursorView.gameObject.SetActive(false);
