@@ -10,6 +10,8 @@ namespace Scripts.Core.Player
 		[SerializeField] private float _forceMultiplier;
 		[SerializeField] private float _maxForce;
 		[SerializeField] private float _maxMass;
+		[SerializeField] private float _maxThrowForce;
+		[SerializeField] private bool _useJoint;
 
 		private PlayerHeadAbility _playerHeadAbility;
 		private UnitFilter _pullables;
@@ -34,34 +36,9 @@ namespace Scripts.Core.Player
 			if(_pullables.Count == 0)
 				return;
 
-			foreach (Unit pullableUnit in _pullables)
-			{
-				//Rigidbody pullableRigidbody = pullableUnit.GetAbility<RigidbodyAbility>();
-				//Vector3 direction = _pullAnchor.position - pullableUnit.transform.position;
-
-				//pullableRigidbody.automaticCenterOfMass = false;
-				//pullableRigidbody.centerOfMass = pullableRigidbody.transform.InverseTransformPoint(pullableUnit.GetAbility<GrabbedAbility>().GrabPoint);
-
-				//direction *= _forceMultiplier / (Mathf.Max(pullableRigidbody.mass, 2) * 0.5f);
-				//direction = Vector3.ClampMagnitude(direction, _maxForce);
-				//bool canLift = pullableRigidbody.mass < _maxMass;
-				//pullableRigidbody.linearVelocity = canLift
-				//	? direction
-				//	: new Vector3(direction.x, pullableRigidbody.linearVelocity.y, direction.z);
-
-			}
-
-			/*Vector3 direction = _pullAnchor.position - _grabAnchor.rigidbody.transform.position;
-
-			direction *= _forceMultiplier / (Mathf.Max(_grabAnchor.rigidbody.mass, 2) * 0.5f);
-			direction = Vector3.ClampMagnitude(direction, _maxForce);
-			bool canLift = _grabAnchor.rigidbody.mass < _maxMass;
-			_grabAnchor.rigidbody.linearVelocity = canLift
-				? direction
-				: new Vector3(direction.x, _grabAnchor.rigidbody.linearVelocity.y, direction.z);*/
-
 			Rigidbody pullableRigidbody = _pullables.First().GetAbility<RigidbodyAbility>();
-			Vector3 direction = _pullAnchor.position - _grabAnchor.rigidbody.transform.position;
+			Rigidbody targetRigidbody = _useJoint ? _grabAnchor.rigidbody : pullableRigidbody;
+			Vector3 direction = _pullAnchor.position - targetRigidbody.transform.position;
 
 			if(direction.magnitude > 1)
 				direction = direction.normalized;
@@ -70,11 +47,11 @@ namespace Scripts.Core.Player
 			direction = Vector3.ClampMagnitude(direction, _maxForce);
 			bool canLift = pullableRigidbody.mass < _maxMass;
 
-			_grabAnchor.rigidbody.linearVelocity = canLift
+			targetRigidbody.linearVelocity = canLift
 				? direction
 				: new Vector3(direction.x, pullableRigidbody.linearVelocity.y, direction.z);
 
-			Debug.DrawLine(_grabAnchor.rigidbody.transform.position, _pullAnchor.position);
+			Debug.DrawLine(targetRigidbody.transform.position, _pullAnchor.position);
 		}
 
 		private void HandlePullableAdded(Unit unit)
@@ -82,14 +59,29 @@ namespace Scripts.Core.Player
 			Rigidbody pullableRigidbody = unit.GetAbility<RigidbodyAbility>();
 			pullableRigidbody.linearVelocity = Vector3.zero;
 			pullableRigidbody.angularVelocity = Vector3.zero;
-			_pullAnchor.position = unit.GetAbility<GrabbedAbility>().GrabPoint;
-			_grabAnchor.rigidbody.transform.position = _pullAnchor.position;
-			_grabAnchor.configurableJoint.connectedBody = pullableRigidbody;
+
+			if(_useJoint)
+			{
+				_pullAnchor.position = unit.GetAbility<GrabbedAbility>().GrabPoint;
+				_grabAnchor.rigidbody.transform.position = _pullAnchor.position;
+				_grabAnchor.configurableJoint.connectedBody = pullableRigidbody;
+			}
+			else
+			{
+				_pullAnchor.position = pullableRigidbody.transform.position;
+			}
 		}
 
 		private void HandlePullableRemoved(Unit unit)
 		{
-			_grabAnchor.configurableJoint.connectedBody = null;
+			Vector3 velocity = unit.GetAbility<RigidbodyAbility>().Rigidbody.linearVelocity;
+			velocity = Vector3.ClampMagnitude(velocity, _maxThrowForce);
+			unit.GetAbility<RigidbodyAbility>().Rigidbody.linearVelocity = velocity;
+
+			if(_useJoint)
+			{
+				_grabAnchor.configurableJoint.connectedBody = null;
+			}
 		}
 
 		private void CreateAnchor()

@@ -2137,6 +2137,8 @@ MonoBehaviour:
   _forceMultiplier: 40
   _maxForce: 40
   _maxMass: 50
+  _maxThrowForce: 10
+  _useJoint: 1
   references:
     version: 2
     RefIds:
