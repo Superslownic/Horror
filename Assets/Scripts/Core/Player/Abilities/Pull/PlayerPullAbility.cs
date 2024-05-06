@@ -37,15 +37,15 @@ namespace Scripts.Core.Player
 				direction *= _forceMultiplier / (Mathf.Max(pullableRigidbody.mass, 2) * 0.5f);
 				direction = Vector3.ClampMagnitude(direction, _maxForce);
 				bool canLift = pullableRigidbody.mass < _maxMass;
-				pullableRigidbody.velocity = canLift
+				pullableRigidbody.linearVelocity = canLift
 					? direction
-					: new Vector3(direction.x, pullableRigidbody.velocity.y, direction.z);
+					: new Vector3(direction.x, pullableRigidbody.linearVelocity.y, direction.z);
 			}
 		}
 
 		private void HandlePullableAdded(Unit unit)
 		{
-			unit.GetAbility<RigidbodyAbility>().Rigidbody.velocity = Vector3.zero;
+			unit.GetAbility<RigidbodyAbility>().Rigidbody.linearVelocity = Vector3.zero;
 			unit.GetAbility<RigidbodyAbility>().Rigidbody.angularVelocity = Vector3.zero;
 			_pullAnchor.position = unit.transform.position;
 			_pullAnchor.rotation = unit.transform.rotation;

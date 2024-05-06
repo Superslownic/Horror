@@ -23,7 +23,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			_lightAnchor.rotation = Quaternion.Lerp(_lightAnchor.rotation, _raycastAnchor.rotation, _gameConfig.Player.Flashlight.InterpolationSpeed);
+			//_lightAnchor.rotation = Quaternion.Lerp(_lightAnchor.rotation, _raycastAnchor.rotation, _gameConfig.Player.Flashlight.InterpolationSpeed);
 			return;
 			if (Physics.Raycast(_raycastAnchor.position, _raycastAnchor.forward, out RaycastHit hit, 1000, _gameConfig.Player.Flashlight.LayerMask))
 			{

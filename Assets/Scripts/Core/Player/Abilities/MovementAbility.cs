@@ -76,7 +76,7 @@ namespace Scripts.Core.Player
 
 			NormalizedVelocity = Velocity.normalized;
 			//_rigidbody.AddForce(Velocity);
-			_rigidbody.velocity = Velocity;
+			_rigidbody.linearVelocity = Velocity;
 		}
 
 		private bool TryGetGroundInfo(CapsuleCollider collider, LayerMask layerMask, float threshold, out RaycastHit info)

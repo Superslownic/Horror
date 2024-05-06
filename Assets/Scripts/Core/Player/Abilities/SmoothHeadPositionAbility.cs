@@ -1,7 +1,5 @@
-﻿using Scripts.Config;
-using Scripts.Units;
+﻿using Scripts.Units;
 using UnityEngine;
-using Zenject;
 
 namespace Scripts.Core.Player
 {
@@ -9,12 +7,11 @@ namespace Scripts.Core.Player
 	{
 		[SerializeField] private Transform _anchor;
 		[SerializeField] private Transform _target;
-		
-		[Inject] private readonly GameConfig _gameConfig;
+		[SerializeField] private float _speed;
 		
 		protected override void OnLateUpdate()
 		{
-			_anchor.position = Vector3.Lerp(_anchor.position, _target.position, _gameConfig.Player.Look.PositionInterpolationSpeed * Time.deltaTime);
+			_anchor.position = Vector3.Lerp(_anchor.position, _target.position, _speed * Time.deltaTime);
 		}
 	}
 }
