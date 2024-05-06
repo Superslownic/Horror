@@ -18,7 +18,7 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerUnit.GetAbility<CrouchAbility>().PerformCrouch();
-			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Crouching);
+			_playerUnit.GetAbility<MoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Crouching);
 			base.Enter();
 		}
 

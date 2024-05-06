@@ -19,7 +19,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(HeadBobShakeVaraintConfig.Default);
 			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
-			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
+			_playerUnit.GetAbility<MoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
 		}
 
 		public override void Update()

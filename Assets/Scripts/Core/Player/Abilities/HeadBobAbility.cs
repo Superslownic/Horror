@@ -13,7 +13,8 @@ namespace Scripts.Core.Player
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
 
-		private MovementAbility _movementAbility;
+		private MoveAbility _moveAbility;
+		private CheckGroundAbility _checkGroundAbility;
 		private ShakeHeadAbility _shakeHeadAbility;
 		private ShakerProcessor _shakerProcessor;
 		private HeadBobShakeVariant _shakerVariant;
@@ -24,7 +25,8 @@ namespace Scripts.Core.Player
 
 		protected override void OnInitialize()
 		{
-			_movementAbility = Unit.GetAbility<MovementAbility>();
+			_moveAbility = Unit.GetAbility<MoveAbility>();
+			_checkGroundAbility = Unit.GetAbility<CheckGroundAbility>();
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
 			_shakerVariant = new HeadBobShakeVariant();
 			_shakerProcessor = new ShakerProcessor
@@ -49,8 +51,8 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			_shakerVariant.Magnitude = _movementAbility.IsGrounded && _movementAbility.IsMoving
-				? _movementAbility.NormalizedVelocity.magnitude
+			_shakerVariant.Magnitude = _checkGroundAbility.IsGrounded && _moveAbility.IsMoving
+				? _moveAbility.NormalizedVelocity.magnitude
 				: Mathf.Lerp(_shakerVariant.Magnitude, 0, Time.deltaTime);
 
 			int stepNumber = Mathf.CeilToInt(_shakerVariant.PositionTime);

@@ -22,7 +22,7 @@ namespace Scripts.Core.Player.States
 			}
 			
 			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandWalkShakeConfig);
-			_playerUnit.GetAbility<MovementAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
+			_playerUnit.GetAbility<MoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
 		}
 
 		public override void Update()

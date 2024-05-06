@@ -92,6 +92,15 @@ namespace Scripts
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""94d78305-c939-48b7-b2b6-95966a972c91"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -391,6 +400,17 @@ namespace Scripts
                     ""action"": ""Grab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58ff5c9e-8c61-4899-bd8c-50aaac9ccfbb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -406,6 +426,7 @@ namespace Scripts
             m_Default_Flashlight = m_Default.FindAction("Flashlight", throwIfNotFound: true);
             m_Default_Interact = m_Default.FindAction("Interact", throwIfNotFound: true);
             m_Default_Grab = m_Default.FindAction("Grab", throwIfNotFound: true);
+            m_Default_Jump = m_Default.FindAction("Jump", throwIfNotFound: true);
         }
 
         ~@InputActions()
@@ -479,6 +500,7 @@ namespace Scripts
         private readonly InputAction m_Default_Flashlight;
         private readonly InputAction m_Default_Interact;
         private readonly InputAction m_Default_Grab;
+        private readonly InputAction m_Default_Jump;
         public struct DefaultActions
         {
             private @InputActions m_Wrapper;
@@ -490,6 +512,7 @@ namespace Scripts
             public InputAction @Flashlight => m_Wrapper.m_Default_Flashlight;
             public InputAction @Interact => m_Wrapper.m_Default_Interact;
             public InputAction @Grab => m_Wrapper.m_Default_Grab;
+            public InputAction @Jump => m_Wrapper.m_Default_Jump;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -520,6 +543,9 @@ namespace Scripts
                 @Grab.started += instance.OnGrab;
                 @Grab.performed += instance.OnGrab;
                 @Grab.canceled += instance.OnGrab;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
 
             private void UnregisterCallbacks(IDefaultActions instance)
@@ -545,6 +571,9 @@ namespace Scripts
                 @Grab.started -= instance.OnGrab;
                 @Grab.performed -= instance.OnGrab;
                 @Grab.canceled -= instance.OnGrab;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
             }
 
             public void RemoveCallbacks(IDefaultActions instance)
@@ -571,6 +600,7 @@ namespace Scripts
             void OnFlashlight(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnGrab(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
     }
 }

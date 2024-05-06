@@ -112,7 +112,7 @@ namespace Scripts.Core
 
 			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
 
-			Unit.GetAbility<MovementAbility>().AddDeactivator(this);
+			Unit.GetAbility<MoveAbility>().AddDeactivator(this);
 			Unit.GetAbility<LookAbility>().AddDeactivator(this);
 			Unit.GetAbility<AttachHeadAbility>().AddDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().AddDeactivator(this);
@@ -159,7 +159,7 @@ namespace Scripts.Core
 			_dismountTimer = 0;
 			_dismountTime = distance * _values.DismountTimeMultiplier;
 			
-			Unit.GetAbility<MovementAbility>().RemoveDeactivator(this);
+			Unit.GetAbility<MoveAbility>().RemoveDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().RemoveDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().CancelOverride();
 			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
