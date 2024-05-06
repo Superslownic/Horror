@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Scripts.Behaviour;
 using Scripts.Reactive;
 using Scripts.Reflection;
 using Scripts.Utility.Extensions;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace Scripts.Units
 {
 	[DefaultExecutionOrder(1)]
-	public class Unit : MonoBehaviour
+	public class Unit : Toggleable
 	{
 		public static HashSet<Unit> List { get; } = new();
 		public static DisposableAction<Unit> InitializedAction { get; } = new();
@@ -42,6 +43,20 @@ namespace Scripts.Units
 			DisposedAction.Invoke(this);
 		}
 
+		protected override void OnActivate()
+		{
+			base.OnActivate();
+			foreach (Ability ability in _abilities.Values)
+				ability.AddDeactivator(this);
+		}
+
+		protected override void OnDeactivate()
+		{
+			base.OnDeactivate();
+			foreach (Ability ability in _abilities.Values)
+				ability.RemoveDeactivator(this);
+		}
+
 		public bool HasAbility(Type type)
 		{
 			return _abilities.ContainsKey(type);
@@ -57,18 +72,20 @@ namespace Scripts.Units
 			return (T)_abilities[TypeCache<T>.Value];
 		}
 
-		public void AddAbility<T>() where T : Ability
+		public T AddAbility<T>(Action<T> createCallback = null) where T : Ability
 		{
 			Type type = TypeCache<T>.Value;
 
 			GameObject go = new GameObject(type.Name);
 			go.transform.SetParent(_abilityParent);
 
-			Ability ability = go.AddComponent<T>();
+			T ability = go.AddComponent<T>();
 			_abilities.Add(type, ability);
+			createCallback?.Invoke(ability);
 			ability.Initialize(this);
-			
+
 			AbilityAddedAction?.Invoke(ability);
+			return ability;
 		}
 
 		public void RemoveAbility<T>() where T : Ability

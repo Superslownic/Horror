@@ -41,13 +41,16 @@ namespace Scripts.Core.Player
 					return;
 				}
 
-				if (unit.HasAbility<SelectedAbility>())
+				if (unit.TryGetAbility(out SelectedAbility selectedAbility))
+				{
+					selectedAbility.HitPoint = hitInfo.point;
 					return;
+				}
 
 				if(_selected.Count > 0)
 					_selected.First().RemoveAbility<SelectedAbility>();
 
-				unit.AddAbility<SelectedAbility>();
+				unit.AddAbility<SelectedAbility>(x => x.HitPoint = hitInfo.point);
 				_cursorView.CenterImage.enabled = true;
 			}
 			else if(_selected.Count > 0)

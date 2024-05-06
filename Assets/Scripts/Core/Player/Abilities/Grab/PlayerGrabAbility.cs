@@ -28,7 +28,9 @@ namespace Scripts.Core.Player
 			if (_inputManager.Grab.WasPressedThisFrame() && _grabbables.Count > 0)
 			{
 				foreach (Unit grabableUnit in _grabbables)
-					grabableUnit.AddAbility<GrabbedAbility>();
+				{
+					grabableUnit.AddAbility<GrabbedAbility>(x => x.GrabPoint = grabableUnit.GetAbility<SelectedAbility>().HitPoint);
+				}
 
 				_cursorView.gameObject.SetActive(false);
 			}

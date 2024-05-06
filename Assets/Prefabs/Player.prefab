@@ -160,6 +160,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac19f05547bf6254aafeb49ac83a4dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activationController:
+    rid: -2
+  _deactivationController:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &1089791359203446526
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +764,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac19f05547bf6254aafeb49ac83a4dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activationController:
+    rid: -2
+  _deactivationController:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &1089791359833957175
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +879,7 @@ MonoBehaviour:
     rid: -2
   _anchor: {fileID: 1089791359679817450}
   _target: {fileID: 1089791359210236498}
-  _speed: 5
+  _speed: 10
   references:
     version: 2
     RefIds:
@@ -1060,7 +1078,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089791360368335175}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2116,8 +2134,8 @@ MonoBehaviour:
     rid: -2
   _deactivationController:
     rid: -2
-  _forceMultiplier: 10
-  _maxForce: 10
+  _forceMultiplier: 40
+  _maxForce: 40
   _maxMass: 50
   references:
     version: 2
