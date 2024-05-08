@@ -20,7 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Meniscus_Distortion
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -60,15 +60,17 @@ Material:
     m_Floats:
     - _ADD_CLOUDY_NOISE: 0
     - _Blur: 4
-    - _Height_Fade_Range: 1
-    - _Height_Fade_Start: 1
-    - _Meniscus_Distortion: 0.01
-    - _Meniscus_Height: 0.01
-    - _Refraction_Strength: 1.5
+    - _DistirtionScale: 3
+    - _DistortionSpeed: -1
+    - _Height_Fade_Range: 0.1
+    - _Height_Fade_Start: 0.05
+    - _Meniscus_Distortion: 0.1
+    - _Meniscus_Height: 0.3
+    - _Refraction_Strength: 4
     - _Static_Droplets: 1
     - _Static_Droplets_Intensity: 0.025
     - _Tiling: 0.2
-    - _Waterline_Height: 0.05
+    - _Waterline_Height: 0.075
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

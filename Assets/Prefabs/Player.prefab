@@ -1114,9 +1114,9 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5096.0977
+  m_Intensity: 1024.2015
   m_Range: 20
-  m_SpotAngle: 50
+  m_SpotAngle: 115.4725
   m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
@@ -1163,7 +1163,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShadowRadius: 0.025
   m_ShadowAngle: 0
   m_LightUnit: 0
   m_LuxAtDistance: 1
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_LightUnit: 0
   m_LuxAtDistance: 1
   m_Intensity: 3000
-  m_InnerSpotPercent: 100
+  m_InnerSpotPercent: 55.63535
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 0.02
