@@ -148,6 +148,16 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 0
         <RotationAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
         <RotationFrequency>k__BackingField: 0
+      <SwimIdleShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 4, y: 4, z: 4}
+        <RotationFrequency>k__BackingField: 0.3
+      <SwimMoveShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 6, y: 6, z: 6}
+        <RotationFrequency>k__BackingField: 0.8
     <Flashlight>k__BackingField:
       <InterpolationSpeed>k__BackingField: 0.05
       <LayerMask>k__BackingField:

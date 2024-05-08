@@ -18,7 +18,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(_gameConfig.Player.Footsteps.RunShakeConfig);
 			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandRunShakeConfig);
-			_playerUnit.GetAbility<MoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Running);
+			_playerUnit.GetAbility<GroundMoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Running);
 			_playerUnit.GetAbility<BreathAbility>().StartRunning();
 		}
 

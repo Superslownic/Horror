@@ -112,7 +112,7 @@ namespace Scripts.Core
 
 			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
 
-			Unit.GetAbility<MoveAbility>().AddDeactivator(this);
+			Unit.GetAbility<GroundMoveAbility>().AddDeactivator(this);
 			Unit.GetAbility<LookAbility>().AddDeactivator(this);
 			Unit.GetAbility<AttachHeadAbility>().AddDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().AddDeactivator(this);
@@ -148,8 +148,8 @@ namespace Scripts.Core
 			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
 			PlayerBodyAbility playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
 
-			playerBodyAbility.CharacterController.enabled = false;
-			playerBodyAbility.CharacterController.transform.position = targetPosition;
+			playerBodyAbility.WalkCollider.enabled = false;
+			playerBodyAbility.WalkCollider.transform.position = targetPosition;
             
 			_isDismounting = true;
 			_isClimbing = false;
@@ -159,12 +159,12 @@ namespace Scripts.Core
 			_dismountTimer = 0;
 			_dismountTime = distance * _values.DismountTimeMultiplier;
 			
-			Unit.GetAbility<MoveAbility>().RemoveDeactivator(this);
+			Unit.GetAbility<GroundMoveAbility>().RemoveDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().RemoveDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().CancelOverride();
 			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
 
-			playerBodyAbility.CharacterController.enabled = true;
+			playerBodyAbility.WalkCollider.enabled = true;
 		}
 	}
 }

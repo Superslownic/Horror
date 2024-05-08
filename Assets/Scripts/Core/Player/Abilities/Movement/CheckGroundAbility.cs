@@ -5,17 +5,24 @@ namespace Scripts.Core.Player
 {
 	public class CheckGroundAbility : Ability
 	{
-		[SerializeField] private CapsuleCollider _collider;
 		[SerializeField] private LayerMask _groundLayer;
 		[SerializeField] private float _heightThreshold;
 
 		public bool IsGrounded { get; private set; }
 		public RaycastHit GroundInfo { get; private set; }
 
+		private PlayerBodyAbility _playerBodyAbility;
+
+		protected override void OnInitialize()
+		{
+			base.OnInitialize();
+			_playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
+		}
+
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			IsGrounded = TryGetGroundInfo(_collider, _groundLayer, _heightThreshold, out RaycastHit info);
+			IsGrounded = TryGetGroundInfo(_playerBodyAbility.WalkCollider, _groundLayer, _heightThreshold, out RaycastHit info);
 			GroundInfo = info;
 		}
 

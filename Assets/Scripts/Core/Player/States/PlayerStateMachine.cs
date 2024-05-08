@@ -9,22 +9,30 @@ namespace Scripts.Core.Player.States
 	{
 		[Inject] private readonly ObjectFactory _objectFactory;
 		[Inject] private readonly InputManager _inputManager;
-		
+
 		protected override void Setup()
 		{
 			State standing = SetupStandingSuperState();
 			State crouching = SetupCrouchingSuperState();
+			State swimming = SetupSwimmingSuperState();
 
 			Root = new SuperState("Root", initialState: standing);
-			
+
 			Root.AddState(standing, transitions: new Transition[]
 			{
-				new (crouching, when: () => _inputManager.Crouch.WasPressedThisFrame())
+				new (crouching, when: () => _inputManager.Crouch.WasPressedThisFrame()),
+				new (swimming, when: () => Unit.GetAbility<CheckWater>().InWater)
 			});
-			
+
 			Root.AddState(crouching, transitions: new Transition[]
 			{
-				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame())
+				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame()),
+				new (swimming, when: () => Unit.GetAbility<CheckWater>().InWater)
+			});
+
+			Root.AddState(swimming, transitions: new Transition[]
+			{
+				new (standing, when: () => !Unit.GetAbility<CheckWater>().InWater)
 			});
 		}
 
@@ -34,7 +42,7 @@ namespace Scripts.Core.Player.States
 			State walk = _objectFactory.CreateInjectedInstance<StandingWalkState>("Walk", Unit);
 			State run = _objectFactory.CreateInjectedInstance<StandingRunState>("Run", Unit);
 			
-			SuperState standing = new(name: "Standing", initialState: idle);
+			StandingSuperState standing = _objectFactory.CreateInjectedInstance<StandingSuperState>("Standing", Unit, idle);
 			
 			standing.AddState(idle, transitions: new Transition[]
 			{
@@ -75,6 +83,26 @@ namespace Scripts.Core.Player.States
 			});
 
 			return crouching;
+		}
+
+		private State SetupSwimmingSuperState()
+		{
+			State idle = _objectFactory.CreateInjectedInstance<SwimmingIdleState>("Idle", Unit);
+			State move = _objectFactory.CreateInjectedInstance<SwimmingMoveState>("Walk", Unit);
+
+			SwimmingSuperState swimming = _objectFactory.CreateInjectedInstance<SwimmingSuperState>("Swimming", Unit, idle);
+
+			swimming.AddState(idle, transitions: new Transition[]
+			{
+				new (destination: move, when: () => _inputManager.Move.IsPressed())
+			});
+
+			swimming.AddState(state: move, transitions: new Transition[]
+			{
+				new (destination: idle, when: () => !_inputManager.Move.IsPressed())
+			});
+
+			return swimming;
 		}
 	}
 }

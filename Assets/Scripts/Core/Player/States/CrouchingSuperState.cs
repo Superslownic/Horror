@@ -1,7 +1,6 @@
 ﻿using Scripts.Config;
 using Scripts.FSM.Composite;
 using Scripts.Units;
-using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player.States
@@ -10,20 +9,27 @@ namespace Scripts.Core.Player.States
 	{
 		[Inject] private readonly Unit _playerUnit;
 		[Inject] private readonly GameConfig _gameConfig;
-		
+
 		public CrouchingSuperState(string name, State initialState) : base(name, initialState)
 		{
 		}
 
 		public override void Enter()
 		{
+			_playerUnit.GetAbility<PlayerBodyAbility>().WalkCollider.enabled = true;
+			_playerUnit.GetAbility<HeadBobAbility>().AddActivator(this);
+			_playerUnit.GetAbility<GroundMoveAbility>().AddActivator(this);
+			_playerUnit.GetAbility<GroundMoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Crouching);
+			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = false;
 			_playerUnit.GetAbility<CrouchAbility>().PerformCrouch();
-			_playerUnit.GetAbility<MoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Crouching);
 			base.Enter();
 		}
 
 		public override void Exit()
 		{
+			_playerUnit.GetAbility<PlayerBodyAbility>().WalkCollider.enabled = false;
+			_playerUnit.GetAbility<HeadBobAbility>().RemoveActivator(this);
+			_playerUnit.GetAbility<GroundMoveAbility>().RemoveActivator(this);
 			_playerUnit.GetAbility<CrouchAbility>().PerformStand();
 			base.Exit();
 		}

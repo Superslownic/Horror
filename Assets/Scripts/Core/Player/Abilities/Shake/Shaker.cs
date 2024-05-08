@@ -51,7 +51,10 @@ namespace Scripts.Core.Player
 				Debug.LogError("Shaker is null");
 				return;
 			}
-			
+
+			if (_shakers.Contains(shakerProcessor))
+				return;
+
 			_shakers.Add(shakerProcessor);
 			shakerProcessor.Start();
 		}
@@ -65,10 +68,7 @@ namespace Scripts.Core.Player
 			}
 
 			if (!_shakers.Contains(shakerProcessor))
-			{
-				Debug.LogError("Shaker not found");
 				return;
-			}
 			
 			shakerProcessor.Stop();
 		}

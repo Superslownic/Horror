@@ -5,10 +5,7 @@ namespace Scripts.Core.Player
 {
 	public class PlayerBodyAbility : Ability
 	{
-		[field: SerializeField] public CharacterController CharacterController { get; private set; }
-
-		public float Radius => CharacterController.radius;
-		public float Height => CharacterController.height + CharacterController.radius * 2;
-		public float HalfHeight => Height * 0.5f;
+		[field: SerializeField] public CapsuleCollider WalkCollider { get; private set; }
+		[field: SerializeField] public SphereCollider SwimCollider { get; private set; }
 	}
 }

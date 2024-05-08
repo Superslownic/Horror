@@ -1,4 +1,4 @@
-﻿using Scripts.Config;
+using Scripts.Config;
 using Scripts.Config.Player;
 using Scripts.FSM.Composite;
 using Scripts.Units;
@@ -6,20 +6,19 @@ using Zenject;
 
 namespace Scripts.Core.Player.States
 {
-	public class StandingIdleState : State
+	public class SwimmingIdleState : State
 	{
 		[Inject] private readonly Unit _playerUnit;
 		[Inject] private readonly GameConfig _gameConfig;
-		
-		public StandingIdleState(string name) : base(name)
+
+		public SwimmingIdleState(string name) : base(name)
 		{
 		}
 
 		public override void Enter()
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(HeadBobShakeVaraintConfig.Default);
-			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandIdleShakeConfig);
-			_playerUnit.GetAbility<GroundMoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
+			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.SwimIdleShakeConfig);
 		}
 
 		public override void Update()

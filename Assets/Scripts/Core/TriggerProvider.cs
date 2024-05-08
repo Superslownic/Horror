@@ -16,8 +16,7 @@ namespace Scripts.Core
 			{
 				OnEnter.Invoke(entity);
 			}
-			
-			if (other.TryGetComponent(out UnitLink entityProvider))
+			else if (other.TryGetComponent(out UnitLink entityProvider))
 			{
 				OnEnter.Invoke(entityProvider.Unit);
 			}
@@ -29,8 +28,7 @@ namespace Scripts.Core
 			{
 				OnExit.Invoke(entity);
 			}
-			
-			if (other.TryGetComponent(out UnitLink entityProvider))
+			else if (other.TryGetComponent(out UnitLink entityProvider))
 			{
 				OnExit.Invoke(entityProvider.Unit);
 			}
