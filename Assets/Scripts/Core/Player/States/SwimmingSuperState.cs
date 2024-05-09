@@ -28,6 +28,14 @@ namespace Scripts.Core.Player.States
 			base.Enter();
 		}
 
+		public override void Update()
+		{
+			base.Update();
+			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = _playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = !_playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = _playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater ? 5 : 0;
+		}
+
 		public override void Exit()
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().RemoveActivator(this);

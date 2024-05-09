@@ -1,6 +1,5 @@
 using Scripts.FSM.Composite;
 using Scripts.Units;
-using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player.States

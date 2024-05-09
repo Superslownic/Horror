@@ -1,27 +1,44 @@
+using Scripts.Units;
 using UnityEngine;
 
 namespace Scripts.Core.Player
 {
 	public class PlayerCheckWaterAbility : CheckWaterAbility
 	{
-		public override bool InWater => base.InWater && !_canStand;
+		public bool CanStand { get; private set; }
 
 		[SerializeField] private LayerMask _layerMask;
 
 		private PlayerHeadAbility _playerHeadAbility;
-		private bool _canStand;
+		private RigidbodyAbility _rigidbodyAbility;
 
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
 			_playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
+			_rigidbodyAbility = Unit.GetAbility<RigidbodyAbility>();
 		}
+
+		/*protected override void OnFixedUpdate()
+		{
+			base.OnFixedUpdate();
+			if(InWater)
+			{
+				if (_playerHeadAbility.HeadStaticAnchor.position.y > WaterSurfaceHeight)
+				{
+					float distance = _playerHeadAbility.HeadStaticAnchor.position.y - _rigidbodyAbility.Rigidbody.transform.position.y;
+					Vector3 position = _rigidbodyAbility.Rigidbody.transform.position;
+					position.y = WaterSurfaceHeight - distance;
+					_rigidbodyAbility.Rigidbody.transform.position = position;
+				}
+			}
+		}*/
 
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
 
-			bool isHit = Physics.SphereCast(
+			Physics.SphereCast(
 				origin: _playerHeadAbility.HeadStaticAnchor.position,
 				radius: 0.3f,
 				direction: Vector3.down,
@@ -30,14 +47,15 @@ namespace Scripts.Core.Player
 				layerMask: _layerMask,
 				queryTriggerInteraction: QueryTriggerInteraction.Ignore);
 
-			if (!isHit)
+			float distanceToSurface = WaterSurfaceHeight - hitInfo.point.y;
+
+			if (distanceToSurface > 1.7f)
 			{
-				_canStand = false;
+				CanStand = false;
 				return;
 			}
 
-			float distanceToSurface = WaterSurfaceHeight - hitInfo.point.y;
-			_canStand = IsActive && distanceToSurface <= 1.7f;
+			CanStand = IsActive && distanceToSurface <= 1.7f;
 		}
 	}
 }
