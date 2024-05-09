@@ -16,7 +16,7 @@ namespace Scripts.Core
 	{
 		public DisposableAction OnLadderDetected { get; } = new();
 		
-		[SerializeField] private TriggerProvider _triggerProvider;
+		[SerializeField] private TriggerLink triggerLink;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
@@ -34,7 +34,7 @@ namespace Scripts.Core
 
 		protected override void OnInitialize()
 		{
-			_triggerProvider.OnEnter.AddListener(HandleTriggerEnter).AddTo(_disposable);
+			triggerLink.OnEnter.AddListener(HandleTriggerEnter).AddTo(_disposable);
 		}
 
 		protected override void OnDispose()

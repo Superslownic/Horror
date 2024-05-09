@@ -21,18 +21,18 @@ namespace Scripts.Core.Player.States
 			Root.AddState(standing, transitions: new Transition[]
 			{
 				new (crouching, when: () => _inputManager.Crouch.WasPressedThisFrame()),
-				new (swimming, when: () => Unit.GetAbility<CheckWaterAbility>().InWater)
+				new (swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
 			});
 
 			Root.AddState(crouching, transitions: new Transition[]
 			{
 				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame()),
-				new (swimming, when: () => Unit.GetAbility<CheckWaterAbility>().InWater)
+				new (swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
 			});
 
 			Root.AddState(swimming, transitions: new Transition[]
 			{
-				new (standing, when: () => !Unit.GetAbility<CheckWaterAbility>().InWater)
+				new (standing, when: () => !Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
 			});
 		}
 

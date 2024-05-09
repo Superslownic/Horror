@@ -82,10 +82,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activationController:
-    rid: 6296081953601880145
+    rid: -2
   _deactivationController:
     rid: -2
   _trigger: {fileID: 6093001087549062816}
+  _anchor: {fileID: 1089791359213750564}
   _layerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -94,9 +95,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6296081953601880145
-      type: {class: ActivationController, ns: Scripts.Behaviour, asm: Assembly-CSharp}
-      data: 
 --- !u!1 &767645895608146519
 GameObject:
   m_ObjectHideFlags: 0

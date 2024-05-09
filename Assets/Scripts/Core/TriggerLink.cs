@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Core
 {
-	public class TriggerProvider : MonoBehaviour
+	public class TriggerLink : MonoBehaviour
 	{
 		public DisposableAction<Unit> OnEnter { get; } = new();
 		public DisposableAction<Unit> OnStay { get; } = new();

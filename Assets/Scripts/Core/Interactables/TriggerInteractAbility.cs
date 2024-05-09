@@ -6,14 +6,14 @@ namespace Scripts.Core
 {
 	public class TriggerInteractAbility : Ability
 	{
-		[SerializeField] private TriggerProvider _triggerProvider;
+		[SerializeField] private TriggerLink triggerLink;
 		
 		private CompositeDisposable _disposable = new();
 		
 		protected override void OnInitialize()
 		{
-			_triggerProvider.OnEnter.AddListener(HandleTriggerEnter).AddTo(_disposable);
-			_triggerProvider.OnExit.AddListener(HandleTriggerExit).AddTo(_disposable);
+			triggerLink.OnEnter.AddListener(HandleTriggerEnter).AddTo(_disposable);
+			triggerLink.OnExit.AddListener(HandleTriggerExit).AddTo(_disposable);
 		}
 
 		protected override void OnDispose()
