@@ -2497,6 +2497,9 @@ MonoBehaviour:
     rid: -2
   _deactivationController:
     rid: -2
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
   references:
     version: 2
     RefIds:

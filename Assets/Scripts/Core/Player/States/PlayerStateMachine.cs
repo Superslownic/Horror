@@ -15,24 +15,30 @@ namespace Scripts.Core.Player.States
 			State standing = SetupStandingSuperState();
 			State crouching = SetupCrouchingSuperState();
 			State swimming = SetupSwimmingSuperState();
+			State swimToStand = _objectFactory.CreateInjectedInstance<SwimToStandState>("SwimToStand", Unit);
 
 			Root = new SuperState("Root", initialState: standing);
 
-			Root.AddState(standing, transitions: new Transition[]
+			Root.AddState(state: standing, transitions: new[]
 			{
-				new (crouching, when: () => _inputManager.Crouch.WasPressedThisFrame()),
-				new (swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
+				new Transition(destination: crouching, when: () => _inputManager.Crouch.WasPressedThisFrame()),
+				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
 			});
 
-			Root.AddState(crouching, transitions: new Transition[]
+			Root.AddState(state: crouching, transitions: new[]
 			{
-				new (standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame()),
-				new (swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
+				new Transition(destination: standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame()),
+				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
 			});
 
-			Root.AddState(swimming, transitions: new Transition[]
+			Root.AddState(state: swimming, transitions: new[]
 			{
-				new (standing, when: () => !Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
+				new Transition(destination: swimToStand, when: () => !Unit.GetAbility<PlayerCheckWaterAbility>().InWater)
+			});
+
+			Root.AddState(state: swimToStand, transitions: new[]
+			{
+				new Transition(destination: standing, when: () => true)
 			});
 		}
 
@@ -44,19 +50,19 @@ namespace Scripts.Core.Player.States
 			
 			StandingSuperState standing = _objectFactory.CreateInjectedInstance<StandingSuperState>("Standing", Unit, idle);
 			
-			standing.AddState(idle, transitions: new Transition[]
+			standing.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: run, when: () => _inputManager.Move.IsPressed() && _inputManager.Run.WasPressedThisFrame()),
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
 			
-			standing.AddState(walk, transitions: new Transition[]
+			standing.AddState(state: walk, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
 				new (destination: run, when: () => _inputManager.Run.WasPressedThisFrame())
 			});
 			
-			standing.AddState(run, transitions: new Transition[]
+			standing.AddState(state: run, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
 				new (destination: walk, when: () => _inputManager.Run.WasPressedThisFrame())
@@ -72,7 +78,7 @@ namespace Scripts.Core.Player.States
 
 			CrouchingSuperState crouching = _objectFactory.CreateInjectedInstance<CrouchingSuperState>("Crouching", Unit, idle);
 
-			crouching.AddState(idle, transitions: new Transition[]
+			crouching.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
@@ -88,11 +94,11 @@ namespace Scripts.Core.Player.States
 		private State SetupSwimmingSuperState()
 		{
 			State idle = _objectFactory.CreateInjectedInstance<SwimmingIdleState>("Idle", Unit);
-			State move = _objectFactory.CreateInjectedInstance<SwimmingMoveState>("Walk", Unit);
+			State move = _objectFactory.CreateInjectedInstance<SwimmingMoveState>("Move", Unit);
 
 			SwimmingSuperState swimming = _objectFactory.CreateInjectedInstance<SwimmingSuperState>("Swimming", Unit, idle);
 
-			swimming.AddState(idle, transitions: new Transition[]
+			swimming.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: move, when: () => _inputManager.Move.IsPressed())
 			});
