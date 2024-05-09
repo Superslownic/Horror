@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using Scripts.Audio;
-using Scripts.Config;
-using Scripts.Config.Player;
+using Scripts.Configs;
+using Scripts.Configs.Player;
 using Scripts.Units;
 using UnityEngine;
 using Zenject;

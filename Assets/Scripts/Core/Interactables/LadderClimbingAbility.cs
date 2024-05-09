@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
-using Scripts.Config;
-using Scripts.Config.Player;
+using Scripts.Configs;
+using Scripts.Configs.Player;
 using Scripts.Core.Player;
 using Scripts.Core.Player.States;
 using Scripts.Input;
@@ -148,8 +148,8 @@ namespace Scripts.Core
 			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
 			PlayerBodyAbility playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
 
-			playerBodyAbility.WalkCollider.enabled = false;
-			playerBodyAbility.WalkCollider.transform.position = targetPosition;
+			playerBodyAbility.Collider.enabled = false;
+			playerBodyAbility.Collider.transform.position = targetPosition;
             
 			_isDismounting = true;
 			_isClimbing = false;
@@ -164,7 +164,7 @@ namespace Scripts.Core
 			Unit.GetAbility<HeadBobAbility>().CancelOverride();
 			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
 
-			playerBodyAbility.WalkCollider.enabled = true;
+			playerBodyAbility.Collider.enabled = true;
 		}
 	}
 }

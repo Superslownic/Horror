@@ -1,4 +1,4 @@
-﻿using Scripts.Config;
+﻿using Scripts.Configs;
 using Scripts.FSM.Composite;
 using Scripts.Units;
 using Zenject;
@@ -21,7 +21,7 @@ namespace Scripts.Core.Player.States
 				headBobAbility.ReplaceConfig(_gameConfig.Player.Footsteps.WalkShakeConfig);
 			}
 			
-			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.StandWalkShakeConfig);
+			_playerUnit.GetAbility<HeadSwayAbility>().ReplaceConfig(_gameConfig.Player.Sway.StandWalkShakeConfig);
 			_playerUnit.GetAbility<GroundMoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Walking);
 		}
 

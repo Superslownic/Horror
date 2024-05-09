@@ -1,4 +1,4 @@
-using Scripts.Config.Player;
+using Scripts.Configs.Player;
 using Scripts.Units;
 using UnityEngine;
 

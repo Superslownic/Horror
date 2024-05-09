@@ -1,5 +1,5 @@
 ﻿using System;
-using Scripts.Config.Player;
+using Scripts.Configs.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -64,6 +64,14 @@ namespace Scripts.Core.Player
 			rotation.x = rotationNoise.x * RotationAmplitude.x;
 			rotation.y = rotationNoise.y * RotationAmplitude.y;
 			rotation.z = rotationNoise.z * RotationAmplitude.z;
+		}
+
+		public void SetValues(RandomShakeProcessorConfig config)
+		{
+			PositionAmplitude.Tween(config.PositionAmplitude, config.ChangeDuration, config.ChangeEase);
+			PositionFrequency.Tween(config.PositionFrequency, config.ChangeDuration, config.ChangeEase);
+			RotationAmplitude.Tween(config.RotationAmplitude, config.ChangeDuration, config.ChangeEase);
+			RotationFrequency.Tween(config.RotationFrequency, config.ChangeDuration, config.ChangeEase);
 		}
 	}
 }

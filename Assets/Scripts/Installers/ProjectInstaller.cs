@@ -1,5 +1,5 @@
 ﻿using Scripts.Audio;
-using Scripts.Config;
+using Scripts.Configs;
 using Scripts.Factory;
 using Scripts.Game.States;
 using Scripts.Input;

@@ -1,4 +1,4 @@
-﻿using Scripts.Config;
+﻿using Scripts.Configs;
 using Scripts.FSM.Composite;
 using Scripts.Units;
 using Zenject;
@@ -16,7 +16,6 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerUnit.GetAbility<PlayerBodyAbility>().WalkCollider.enabled = true;
 			_playerUnit.GetAbility<HeadBobAbility>().AddActivator(this);
 			_playerUnit.GetAbility<GroundMoveAbility>().AddActivator(this);
 			_playerUnit.GetAbility<GroundMoveAbility>().ReplaceConfig(_gameConfig.Player.Movement.Crouching);
@@ -27,7 +26,6 @@ namespace Scripts.Core.Player.States
 
 		public override void Exit()
 		{
-			_playerUnit.GetAbility<PlayerBodyAbility>().WalkCollider.enabled = false;
 			_playerUnit.GetAbility<HeadBobAbility>().RemoveActivator(this);
 			_playerUnit.GetAbility<GroundMoveAbility>().RemoveActivator(this);
 			_playerUnit.GetAbility<CrouchAbility>().PerformStand();

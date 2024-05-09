@@ -1,5 +1,5 @@
 ﻿using Scripts.Audio;
-using Scripts.Config;
+using Scripts.Configs;
 using Scripts.Units;
 using UnityEngine;
 using Zenject;

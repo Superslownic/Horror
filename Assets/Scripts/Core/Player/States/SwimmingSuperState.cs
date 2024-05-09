@@ -1,4 +1,4 @@
-using Scripts.Config;
+using Scripts.Configs;
 using Scripts.FSM.Composite;
 using Scripts.Units;
 using Zenject;
@@ -16,9 +16,9 @@ namespace Scripts.Core.Player.States
 
 		public override void Enter()
 		{
-			_playerUnit.GetAbility<PlayerBodyAbility>().SwimCollider.enabled = true;
 			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = true;
 			_playerUnit.GetAbility<WaterMoveAbility>().AddActivator(this);
+			_playerUnit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.SwimConfig, _gameConfig.Player.ChangeHeight.Duration);
 			_playerUnit.GetAbility<HeadBobAbility>().AddActivator(this);
 
 			RigidbodyAbility rigidbodyAbility = _playerUnit.GetAbility<RigidbodyAbility>();
@@ -30,7 +30,6 @@ namespace Scripts.Core.Player.States
 
 		public override void Exit()
 		{
-			_playerUnit.GetAbility<PlayerBodyAbility>().SwimCollider.enabled = false;
 			_playerUnit.GetAbility<HeadBobAbility>().RemoveActivator(this);
 			_playerUnit.GetAbility<WaterMoveAbility>().RemoveActivator(this);
 

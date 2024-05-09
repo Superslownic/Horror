@@ -1,4 +1,4 @@
-﻿using Scripts.Config;
+﻿using Scripts.Configs;
 using Scripts.FSM.Composite;
 using Scripts.Units;
 using Zenject;
@@ -17,7 +17,7 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(_gameConfig.Player.Footsteps.CrouchShakeConfig);
-			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.CrouchWalkShakeConfig);
+			_playerUnit.GetAbility<HeadSwayAbility>().ReplaceConfig(_gameConfig.Player.Sway.CrouchWalkShakeConfig);
 		}
 
 		public override void Update()

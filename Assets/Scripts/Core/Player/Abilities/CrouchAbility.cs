@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
-using Scripts.Config;
-using Scripts.Config.Player;
+using Scripts.Configs;
+using Scripts.Configs.Player;
 using Scripts.Units;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,7 +29,7 @@ namespace Scripts.Core.Player
 		{
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
 			_playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
-			_startHeight = _playerBodyAbility.WalkCollider.height;
+			_startHeight = _playerBodyAbility.Collider.height;
 			_startCameraHeight = _cameraMainAnchor.localPosition.y;
 			_variant = new RandomShakeVariant();
 			_shakerProcessor = new ShakerProcessor
@@ -52,9 +52,9 @@ namespace Scripts.Core.Player
 			
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _playerBodyAbility.WalkCollider.height, value => _playerBodyAbility.WalkCollider.height = value, _startHeight * _heightMultiplier, _duration)
+				.Join(DOTween.To(() => _playerBodyAbility.Collider.height, value => _playerBodyAbility.Collider.height = value, _startHeight * _heightMultiplier, _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _playerBodyAbility.WalkCollider.center, value => _playerBodyAbility.WalkCollider.center = value, new Vector3(0, _startHeight * _heightMultiplier * 0.5f, 0), _duration)
+				.Join(DOTween.To(() => _playerBodyAbility.Collider.center, value => _playerBodyAbility.Collider.center = value, new Vector3(0, _startHeight * _heightMultiplier * 0.5f, 0), _duration)
 					.SetEase(Ease.InOutQuad))
 				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight * _heightMultiplier, 0), _duration)
 					.SetEase(Ease.InOutQuad)
@@ -73,9 +73,9 @@ namespace Scripts.Core.Player
 			
 			_tween?.Kill();
 			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _playerBodyAbility.WalkCollider.height, value => _playerBodyAbility.WalkCollider.height = value, _startHeight, _duration)
+				.Join(DOTween.To(() => _playerBodyAbility.Collider.height, value => _playerBodyAbility.Collider.height = value, _startHeight, _duration)
 					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _playerBodyAbility.WalkCollider.center, value => _playerBodyAbility.WalkCollider.center = value, new Vector3(0, _startHeight * 0.5f, 0), _duration)
+				.Join(DOTween.To(() => _playerBodyAbility.Collider.center, value => _playerBodyAbility.Collider.center = value, new Vector3(0, _startHeight * 0.5f, 0), _duration)
 					.SetEase(Ease.InOutQuad))
 				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight, 0), _duration)
 					.SetEase(Ease.InOutQuad)

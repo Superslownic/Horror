@@ -22,7 +22,7 @@ namespace Scripts.Core.Player
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			IsGrounded = TryGetGroundInfo(_playerBodyAbility.WalkCollider, _groundLayer, _heightThreshold, out RaycastHit info);
+			IsGrounded = TryGetGroundInfo(_playerBodyAbility.Collider, _groundLayer, _heightThreshold, out RaycastHit info);
 			GroundInfo = info;
 		}
 

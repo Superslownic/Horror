@@ -1,6 +1,6 @@
 ﻿using DG.Tweening;
-using Scripts.Config;
-using Scripts.Config.Player;
+using Scripts.Configs;
+using Scripts.Configs.Player;
 using Scripts.Input;
 using Scripts.Units;
 using UnityEngine;

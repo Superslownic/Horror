@@ -1,5 +1,5 @@
-using Scripts.Config;
-using Scripts.Config.Player;
+using Scripts.Configs;
+using Scripts.Configs.Player;
 using Scripts.FSM.Composite;
 using Scripts.Units;
 using Zenject;
@@ -18,7 +18,7 @@ namespace Scripts.Core.Player.States
 		public override void Enter()
 		{
 			_playerUnit.GetAbility<HeadBobAbility>().ReplaceConfig(HeadBobShakeVaraintConfig.Default);
-			_playerUnit.GetAbility<HeadSwayingAbility>().ReplaceConfig(_gameConfig.Player.Wobble.SwimMoveShakeConfig);
+			_playerUnit.GetAbility<HeadSwayAbility>().ReplaceConfig(_gameConfig.Player.Sway.SwimMoveShakeConfig);
 		}
 
 		public override void Update()

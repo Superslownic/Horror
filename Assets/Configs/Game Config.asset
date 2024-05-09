@@ -78,6 +78,8 @@ MonoBehaviour:
         <PositionFrequency>k__BackingField: 1
         <RotationAmplitude>k__BackingField: {x: 5, y: 5, z: 5}
         <RotationFrequency>k__BackingField: 1
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
     <Lean>k__BackingField:
       <Angle>k__BackingField: 2
       <Force>k__BackingField: 3
@@ -109,55 +111,6 @@ MonoBehaviour:
       <Delay>k__BackingField: 2
       <IncreaseDuration>k__BackingField: 1
       <DecreaseDuration>k__BackingField: 3
-    <Wobble>k__BackingField:
-      <ChangeValuesDuration>k__BackingField: 0.5
-      <ShakerConfig>k__BackingField:
-        <Type>k__BackingField: 1
-        <StartDuration>k__BackingField: 0.5
-        <StartEase>k__BackingField: 9
-        <MidDuration>k__BackingField: 0
-        <StopDuration>k__BackingField: 0.5
-        <StopEase>k__BackingField: 10
-      <StandIdleShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
-        <RotationFrequency>k__BackingField: 0.4
-      <StandWalkShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 1.7, y: 1.7, z: 1.7}
-        <RotationFrequency>k__BackingField: 1
-      <StandRunShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0.1, y: 0.1, z: 0.1}
-        <PositionFrequency>k__BackingField: 2
-        <RotationAmplitude>k__BackingField: {x: 2, y: 2, z: 2}
-        <RotationFrequency>k__BackingField: 2
-      <CrouchIdleShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 1.2, y: 1.2, z: 1.2}
-        <RotationFrequency>k__BackingField: 0.4
-      <CrouchWalkShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
-        <RotationFrequency>k__BackingField: 0.6
-      <LadderShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <RotationFrequency>k__BackingField: 0
-      <SwimIdleShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 4, y: 4, z: 4}
-        <RotationFrequency>k__BackingField: 0.3
-      <SwimMoveShakeConfig>k__BackingField:
-        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
-        <PositionFrequency>k__BackingField: 0
-        <RotationAmplitude>k__BackingField: {x: 6, y: 6, z: 6}
-        <RotationFrequency>k__BackingField: 0.8
     <Flashlight>k__BackingField:
       <InterpolationSpeed>k__BackingField: 0.05
       <LayerMask>k__BackingField:
@@ -210,6 +163,82 @@ MonoBehaviour:
           <PositionFrequency>k__BackingField: 2.5
           <RotationAmplitude>k__BackingField: {x: 0.1, y: 2, z: 0}
           <RotationFrequency>k__BackingField: 2.5
+    Sway:
+      <ChangeValuesDuration>k__BackingField: 0.5
+      <ShakerConfig>k__BackingField:
+        <Type>k__BackingField: 1
+        <StartDuration>k__BackingField: 0.5
+        <StartEase>k__BackingField: 9
+        <MidDuration>k__BackingField: 0
+        <StopDuration>k__BackingField: 0.5
+        <StopEase>k__BackingField: 10
+      <StandIdleShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
+        <RotationFrequency>k__BackingField: 0.4
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <StandWalkShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.7, y: 1.7, z: 1.7}
+        <RotationFrequency>k__BackingField: 1
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <StandRunShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0.1, y: 0.1, z: 0.1}
+        <PositionFrequency>k__BackingField: 2
+        <RotationAmplitude>k__BackingField: {x: 2, y: 2, z: 2}
+        <RotationFrequency>k__BackingField: 2
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <CrouchIdleShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.2, y: 1.2, z: 1.2}
+        <RotationFrequency>k__BackingField: 0.4
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <CrouchWalkShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 1.5, y: 1.5, z: 1.5}
+        <RotationFrequency>k__BackingField: 0.6
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <LadderShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <RotationFrequency>k__BackingField: 0
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <SwimIdleShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 4, y: 4, z: 4}
+        <RotationFrequency>k__BackingField: 0.3
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+      <SwimMoveShakeConfig>k__BackingField:
+        <PositionAmplitude>k__BackingField: {x: 0, y: 0, z: 0}
+        <PositionFrequency>k__BackingField: 0
+        <RotationAmplitude>k__BackingField: {x: 6, y: 6, z: 6}
+        <RotationFrequency>k__BackingField: 0.8
+        <ChangeDuration>k__BackingField: 0
+        <ChangeEase>k__BackingField: 0
+    ChangeHeight:
+      StandConfig:
+        Center: 1
+        Height: 2
+      CrouchConfig:
+        Center: 0
+        Height: 0
+      SwimConfig:
+        Center: 1.7
+        Height: 0.6
+      Duration: 1
   <Audio>k__BackingField:
     <Events>k__BackingField:
       <Breath>k__BackingField:

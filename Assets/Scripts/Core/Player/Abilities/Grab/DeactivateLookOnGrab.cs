@@ -20,7 +20,7 @@ namespace Scripts.Core.Player
 		{
 			if (ability is GrabbedAbility)
 			{
-				_playerFilter.First().GetAbility<SmoothHeadRotationAbility>().AddDeactivator(this);
+				_playerFilter.First().GetAbility<SmoothRotationAbility>().AddDeactivator(this);
 			}
 		}
 
@@ -28,7 +28,7 @@ namespace Scripts.Core.Player
 		{
 			if (ability is GrabbedAbility)
 			{
-				_playerFilter.First().GetAbility<SmoothHeadRotationAbility>().RemoveDeactivator(this);
+				_playerFilter.First().GetAbility<SmoothRotationAbility>().RemoveDeactivator(this);
 			}
 		}
 	}

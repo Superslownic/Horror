@@ -18,9 +18,9 @@ namespace Scripts.Core
 
 		public void Place(Vector3 point)
 		{
-			float radius = _playerBodyAbility.WalkCollider.radius;
+			float radius = _playerBodyAbility.Collider.radius;
 			Physics.SphereCast(point + Vector3.up, radius, Vector3.down, out RaycastHit hit, _maxDistance, _surfaceLayer);
-			_playerBodyAbility.WalkCollider.transform.position = hit.point + hit.normal * radius + Vector3.down * radius;
+			_playerBodyAbility.Collider.transform.position = hit.point + hit.normal * radius + Vector3.down * radius;
 		}
 	}
 }

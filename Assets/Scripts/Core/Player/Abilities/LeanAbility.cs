@@ -1,4 +1,4 @@
-﻿using Scripts.Config;
+﻿using Scripts.Configs;
 using Scripts.Input;
 using Scripts.Units;
 using UnityEngine;

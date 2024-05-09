@@ -1,5 +1,5 @@
 ﻿using System;
-using Scripts.Config.Player;
+using Scripts.Configs.Player;
 using UnityEngine;
 
 namespace Scripts.Core.Player
