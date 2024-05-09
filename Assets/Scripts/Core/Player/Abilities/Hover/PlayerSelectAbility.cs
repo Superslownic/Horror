@@ -27,7 +27,7 @@ namespace Scripts.Core.Player
 		{
 			Ray ray = _playerHead.Camera.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f));
 
-			if (Physics.Raycast(ray, out RaycastHit hitInfo, _maxDistance, _layerMask))
+			if (Physics.Raycast(ray, out RaycastHit hitInfo, _maxDistance, _layerMask, QueryTriggerInteraction.Ignore))
 			{
 				if (!hitInfo.transform.TryGetUnit(out Unit unit))
 				{
