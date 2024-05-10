@@ -317,6 +317,70 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1856518, y: 0.15635213, z: 1.1178474}
   m_Center: {x: -0.5945158, y: 0.08286224, z: -0.5582113}
+--- !u!1 &3849271920260417339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5110504308849402956}
+  - component: {fileID: 5761779751263209778}
+  m_Layer: 0
+  m_Name: WaterRipples
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5110504308849402956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849271920260417339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2652245263762628685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5761779751263209778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849271920260417339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e13e21880494f89afa6cb06262ab554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activationController:
+    rid: -2
+  _deactivationController:
+    rid: -2
+  _waterRipplesPrefab: {fileID: 3321455800764131461, guid: 63a4b4ff305463e4c92985ceb84c16bd,
+    type: 3}
+  _waterSplashPrefab: {fileID: 772826757912859597, guid: 1b2fd1836777dc94cb2518d0c5747b9c,
+    type: 3}
+  _ripplesAmplitude: 0.5
+  _ripplesMaxAmplitudeSpeed: 5
+  _ripplesStartScale: 0.1
+  _ripplesEndScale: 1
+  _ripplesDuration: 4
+  _ripplesCount: 3
+  _ripplesDelay: 0.1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &4064493799826884029
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +594,7 @@ Transform:
   - {fileID: 7184711534142609485}
   - {fileID: 5059101555831436567}
   - {fileID: 4407296943024127025}
+  - {fileID: 5110504308849402956}
   m_Father: {fileID: 5976167077466118486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7163781974274577488
@@ -602,7 +667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5059101555831436567
 Transform:
   m_ObjectHideFlags: 0
@@ -764,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4407296943024127025
 Transform:
   m_ObjectHideFlags: 0
