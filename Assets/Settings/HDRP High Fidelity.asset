@@ -35,7 +35,7 @@ MonoBehaviour:
     waterSimulationResolution: 128
     supportWaterExclusion: 1
     supportWaterDeformation: 1
-    deformationAtlasSize: 512
+    deformationAtlasSize: 2048
     maximumDeformerCount: 64
     supportWaterFoam: 1
     foamAtlasSize: 512
