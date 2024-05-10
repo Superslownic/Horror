@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scripts.Behaviour
 {
-	[DefaultExecutionOrder(2)]
+	[DefaultExecutionOrder(-1)]
 	public abstract class Toggleable : MonoBehaviour
 	{
 		public DisposableAction OnActivated { get; } = new();

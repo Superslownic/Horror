@@ -34,10 +34,10 @@ namespace Scripts.Core
 		{
 			base.OnUpdate();
 
-			if (_checkWaterAbility.InWater == _inWater)
+			if (_checkWaterAbility.IsInWater == _inWater)
 				return;
 
-			_inWater = _checkWaterAbility.InWater;
+			_inWater = _checkWaterAbility.IsInWater;
 
 			if(!_inWater)
 				return;
@@ -74,7 +74,11 @@ namespace Scripts.Core
 					.Join(DOTween.To(() => ripplesInstance.amplitude, value => ripplesInstance.amplitude = value, endValue: 0, _ripplesDuration * multiplier))
 					.Join(DOTween.To(() => ripplesInstance.transform.localScale, value => ripplesInstance.transform.localScale = value, endValue: endScale, _ripplesDuration * multiplier))
 					.SetEase(Ease.OutCubic)
-					.AppendCallback(() => Destroy(ripplesInstance.gameObject));
+					.AppendCallback(() =>
+					{
+						Destroy(splashInstance.gameObject);
+						Destroy(ripplesInstance.gameObject);
+					});
 
 				yield return new WaitForSeconds(_ripplesDelay);
 			}

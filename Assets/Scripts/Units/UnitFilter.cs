@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Scripts.Reactive;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace Scripts.Units
 {
@@ -33,7 +32,7 @@ namespace Scripts.Units
 			Ability.InitializedAction.AddListener(HandleAbilityInitialized);
 			Ability.DisposedAction.AddListener(HandleAbilityDisposed);
 
-			foreach (Unit unit in Unit.List)
+			foreach (Unit unit in UnitManager.Instance.UnitList)
 				ManageUnit(unit);
 		}
 

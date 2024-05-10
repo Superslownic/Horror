@@ -22,7 +22,7 @@ namespace Scripts.Core
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			_waterFoamGenerator.surfaceFoamDimmer = _waterFoamGenerator.deepFoamDimmer = _checkWaterAbility.InWater
+			_waterFoamGenerator.surfaceFoamDimmer = _waterFoamGenerator.deepFoamDimmer = _checkWaterAbility.IsInWater
 				? Mathf.Clamp01(_rigidbodyAbility.Rigidbody.linearVelocity.magnitude / _maxFoamVelocity)
 				: 0;
 		}

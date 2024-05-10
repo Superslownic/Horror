@@ -8,10 +8,9 @@ using UnityEngine;
 
 namespace Scripts.Units
 {
-	[DefaultExecutionOrder(1)]
+	[DefaultExecutionOrder(-2)]
 	public class Unit : Toggleable
 	{
-		public static HashSet<Unit> List { get; } = new();
 		public static DisposableAction<Unit> InitializedAction { get; } = new();
 		public static DisposableAction<Unit> DisposedAction { get; } = new();
 
@@ -35,7 +34,7 @@ namespace Scripts.Units
 			GatherAbilities(transform);
 			InitializeAbilities();
 			InitializedAction.Invoke(this);
-			List.Add(this);
+			UnitManager.Instance.UnitList.Add(this);
 		}
 
 		private void OnDestroy()

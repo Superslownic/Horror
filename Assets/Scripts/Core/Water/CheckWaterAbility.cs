@@ -8,7 +8,11 @@ namespace Scripts.Core
 {
 	public class CheckWaterAbility : Ability
 	{
-		public virtual bool InWater => _activationController.GetState();
+		public DisposableAction EnterAction { get; } = new();
+		public DisposableAction ExitAction { get; } = new();
+
+		public bool IsInWater => _activationController.GetState();
+		
 		public WaterSurface WaterSurface { get; private set; }
 		public float WaterSurfaceHeight { get; private set; }
 
@@ -36,7 +40,11 @@ namespace Scripts.Core
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
+			FindWaterSurface();
+		}
 
+		private void FindWaterSurface()
+		{
 			_searchParameters.startPositionWS = _searchResult.candidateLocationWS;
 			_searchParameters.targetPositionWS = _anchor.position;
 			_searchParameters.error = 0.01f;
@@ -58,6 +66,8 @@ namespace Scripts.Core
 			{
 				WaterSurface = unit.GetAbility<WaterSurfaceAbility>().WaterSurface;
 				_activationController.Add(unit);
+				FindWaterSurface();
+				EnterAction.Invoke();
 			}
 		}
 
@@ -66,6 +76,7 @@ namespace Scripts.Core
 			if (unit.HasAbility<WaterMarkerAbility>())
 			{
 				_activationController.Remove(unit);
+				ExitAction.Invoke();
 			}
 		}
 	}

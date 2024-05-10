@@ -25,7 +25,7 @@ namespace Scripts.Core
 		{
 			base.OnFixedUpdate();
 
-			if(!_checkWaterAbility.InWater)
+			if(!_checkWaterAbility.IsInWater)
 				return;
 
 			foreach (Transform floatPoint in _floatPoints)

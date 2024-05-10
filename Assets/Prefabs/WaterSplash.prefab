@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4844216197345731293}
   - component: {fileID: 9118886735436603723}
   - component: {fileID: 1690565716027537974}
-  - component: {fileID: 6128023713636850890}
   m_Layer: 0
   m_Name: WaterSplash
   m_TagString: Untagged
@@ -127,16 +126,3 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6128023713636850890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772826757912859597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b57bf546bd2092a4982135f7f73dd0cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 0.1

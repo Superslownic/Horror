@@ -23,7 +23,7 @@ namespace Scripts.Core
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			_waterDeformer.amplitude = _checkWaterAbility.InWater
+			_waterDeformer.amplitude = _checkWaterAbility.IsInWater
 				? Mathf.Clamp01(_rigidbodyAbility.Rigidbody.linearVelocity.magnitude / _maxVelocity) * _maxAmplitude
 				: 0;
 		}

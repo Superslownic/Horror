@@ -31,9 +31,9 @@ namespace Scripts.Core.Player.States
 		public override void Update()
 		{
 			base.Update();
-			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = _playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater;
-			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = !_playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater;
-			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = _playerUnit.GetAbility<PlayerCheckWaterAbility>().InWater ? 5 : 0;
+			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = _playerUnit.GetAbility<PlayerCheckWaterAbility>().IsInWater;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = !_playerUnit.GetAbility<PlayerCheckWaterAbility>().IsInWater;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = _playerUnit.GetAbility<PlayerCheckWaterAbility>().IsInWater ? 5 : 0;
 		}
 
 		public override void Exit()

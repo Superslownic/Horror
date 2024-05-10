@@ -22,13 +22,13 @@ namespace Scripts.Core.Player.States
 			Root.AddState(state: standing, transitions: new[]
 			{
 				new Transition(destination: crouching, when: () => _inputManager.Crouch.WasPressedThisFrame()),
-				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater && !Unit.GetAbility<PlayerCheckWaterAbility>().CanStand)
+				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().IsInWater && !Unit.GetAbility<PlayerCheckWaterAbility>().CanStand)
 			});
 
 			Root.AddState(state: crouching, transitions: new[]
 			{
 				new Transition(destination: standing, when: () => _inputManager.Crouch.WasPressedThisFrame() || _inputManager.Run.WasPressedThisFrame()),
-				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().InWater && !Unit.GetAbility<PlayerCheckWaterAbility>().CanStand)
+				new Transition(destination: swimming, when: () => Unit.GetAbility<PlayerCheckWaterAbility>().IsInWater && !Unit.GetAbility<PlayerCheckWaterAbility>().CanStand)
 			});
 
 			Root.AddState(state: swimming, transitions: new[]
