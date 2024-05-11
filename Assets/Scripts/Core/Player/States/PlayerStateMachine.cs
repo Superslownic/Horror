@@ -7,7 +7,9 @@ namespace Scripts.Core.Player.States
 {
 	public class PlayerStateMachine : StateMachineAbility
 	{
-		[Inject] private readonly ObjectFactory _objectFactory;
+		protected override void Setup() { }
+
+		/*[Inject] private readonly ObjectFactory _objectFactory;
 		[Inject] private readonly InputManager _inputManager;
 
 		protected override void Setup()
@@ -44,71 +46,71 @@ namespace Scripts.Core.Player.States
 
 		private State SetupStandingSuperState()
 		{
-			State idle = _objectFactory.CreateInjectedInstance<StandingIdleState>("Idle", Unit);
-			State walk = _objectFactory.CreateInjectedInstance<StandingWalkState>("Walk", Unit);
-			State run = _objectFactory.CreateInjectedInstance<StandingRunState>("Run", Unit);
+			State idle = _objectFactory.CreateInjectedInstance<StandIdleState>("Idle", Unit);
+			State walk = _objectFactory.CreateInjectedInstance<StandWalkState>("Walk", Unit);
+			State run = _objectFactory.CreateInjectedInstance<StandRunState>("Run", Unit);
 			
-			StandingSuperState standing = _objectFactory.CreateInjectedInstance<StandingSuperState>("Standing", Unit, idle);
+			StandSuperState stand = _objectFactory.CreateInjectedInstance<StandSuperState>("Standing", Unit, idle);
 			
-			standing.AddState(state: idle, transitions: new Transition[]
+			stand.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: run, when: () => _inputManager.Move.IsPressed() && _inputManager.Run.WasPressedThisFrame()),
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
 			
-			standing.AddState(state: walk, transitions: new Transition[]
+			stand.AddState(state: walk, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
 				new (destination: run, when: () => _inputManager.Run.WasPressedThisFrame())
 			});
 			
-			standing.AddState(state: run, transitions: new Transition[]
+			stand.AddState(state: run, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed()),
 				new (destination: walk, when: () => _inputManager.Run.WasPressedThisFrame())
 			});
 
-			return standing;
+			return stand;
 		}
 		
 		private State SetupCrouchingSuperState()
 		{
-			State idle = _objectFactory.CreateInjectedInstance<CrouchingIdleState>("Idle", Unit);
-			State walk = _objectFactory.CreateInjectedInstance<CrouchingWalkState>("Walk", Unit);
+			State idle = _objectFactory.CreateInjectedInstance<CrouchIdleState>("Idle", Unit);
+			State walk = _objectFactory.CreateInjectedInstance<CrouchWalkState>("Walk", Unit);
 
-			CrouchingSuperState crouching = _objectFactory.CreateInjectedInstance<CrouchingSuperState>("Crouching", Unit, idle);
+			CrouchSuperState crouch = _objectFactory.CreateInjectedInstance<CrouchSuperState>("Crouching", Unit, idle);
 
-			crouching.AddState(state: idle, transitions: new Transition[]
+			crouch.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: walk, when: () => _inputManager.Move.IsPressed())
 			});
 
-			crouching.AddState(state: walk, transitions: new Transition[]
+			crouch.AddState(state: walk, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed())
 			});
 
-			return crouching;
+			return crouch;
 		}
 
 		private State SetupSwimmingSuperState()
 		{
-			State idle = _objectFactory.CreateInjectedInstance<SwimmingIdleState>("Idle", Unit);
-			State move = _objectFactory.CreateInjectedInstance<SwimmingMoveState>("Move", Unit);
+			State idle = _objectFactory.CreateInjectedInstance<SwimIdleState>("Idle", Unit);
+			State move = _objectFactory.CreateInjectedInstance<SwimWalkState>("Move", Unit);
 
-			SwimmingSuperState swimming = _objectFactory.CreateInjectedInstance<SwimmingSuperState>("Swimming", Unit, idle);
+			SwimSuperState swim = _objectFactory.CreateInjectedInstance<SwimSuperState>("Swimming", Unit, idle);
 
-			swimming.AddState(state: idle, transitions: new Transition[]
+			swim.AddState(state: idle, transitions: new Transition[]
 			{
 				new (destination: move, when: () => _inputManager.Move.IsPressed())
 			});
 
-			swimming.AddState(state: move, transitions: new Transition[]
+			swim.AddState(state: move, transitions: new Transition[]
 			{
 				new (destination: idle, when: () => !_inputManager.Move.IsPressed())
 			});
 
-			return swimming;
-		}
+			return swim;
+		}*/
 	}
 }

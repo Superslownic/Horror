@@ -1895,7 +1895,7 @@ namespace Zenject
         // Any constructor parameters will be filled in with values from the container
         public T Instantiate<T>()
         {
-            return Instantiate<T>(new object[0]);
+            return Instantiate<T>(Array.Empty<object>());
         }
 
         // Note: For IL2CPP platforms make sure to use new object[] instead of new [] when creating
