@@ -16,66 +16,71 @@ namespace Scripts.Core.Player.States
 		{
 			LadderClimbAbility ladderClimbAbility = Unit.GetAbility<LadderClimbAbility>();
 			PlayerCheckWaterAbility checkWaterAbility = Unit.GetAbility<PlayerCheckWaterAbility>();
+			PlayerCheckUnderwaterAbility checkUnderwaterAbility = Unit.GetAbility<PlayerCheckUnderwaterAbility>();
 			ResizeToFitSurfaceAbility resizeToFitSurfaceAbility = Unit.GetAbility<ResizeToFitSurfaceAbility>();
 
 			Condition isMovePressed = new(() => _inputManager.Move.IsPressed());
 			Condition crouchWasPressed = new(() => _inputManager.Crouch.WasPressedThisFrame());
 			Condition runWasPressed = new(() => _inputManager.Run.WasPressedThisFrame());
-			Condition isClimbingOnLadder = new(() => ladderClimbAbility.IsClimbing);
+			Condition canClimbOnLadder = new(() => ladderClimbAbility.Ladder != null);
 			Condition inWater = new(() => checkWaterAbility.IsInWater);
-			Condition canStand = new(() => checkWaterAbility.CanStand);
+			Condition canStandInWater = new(() => checkWaterAbility.CanStand);
+			Condition isUnderwater = new(() => checkUnderwaterAbility.IsUnderWater);
 
 			RegisterState<StandSuperState>();
 			RegisterState<StandIdleState>(transitions: new[] {
 				To<StandWalkState>(when: () => isMovePressed),
 				To<CrouchIdleState>(when: () => crouchWasPressed),
-				To<LadderIdleState>(when: () => isClimbingOnLadder),
-				To<SwimIdleState>(when: () => inWater && !canStand),
+				To<LadderIdleState>(when: () => canClimbOnLadder),
+				To<SwimIdleState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<StandWalkState>(transitions: new[] {
 				To<StandIdleState>(when: () => !isMovePressed),
 				To<StandRunState>(when: () => runWasPressed),
 				To<CrouchIdleState>(when: () => crouchWasPressed),
-				To<LadderWalkState>(when: () => isClimbingOnLadder),
-				To<SwimWalkState>(when: () => inWater && !canStand),
+				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<StandRunState>(transitions: new[] {
 				To<StandIdleState>(when: () => !isMovePressed),
 				To<StandWalkState>(when: () => runWasPressed),
 				To<CrouchWalkState>(when: () => crouchWasPressed),
-				To<LadderWalkState>(when: () => isClimbingOnLadder),
-				To<SwimWalkState>(when: () => inWater && !canStand),
+				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 
 			RegisterState<CrouchSuperState>();
 			RegisterState<CrouchIdleState>(transitions: new[] {
 				To<CrouchWalkState>(when: () => isMovePressed),
 				To<StandIdleState>(when: () => crouchWasPressed),
-				To<LadderIdleState>(when: () => isClimbingOnLadder),
-				To<SwimIdleState>(when: () => inWater && !canStand),
+				To<LadderIdleState>(when: () => canClimbOnLadder),
+				To<SwimIdleState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<CrouchWalkState>(transitions: new[] {
 				To<CrouchIdleState>(when: () => !isMovePressed),
 				To<StandWalkState>(when: () => crouchWasPressed),
 				To<StandRunState>(when: () => runWasPressed),
-				To<LadderWalkState>(when: () => isClimbingOnLadder),
-				To<SwimWalkState>(when: () => inWater && !canStand),
+				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 
 			RegisterState<LadderSuperState>();
-			RegisterState<LadderIdleState>(null);
-			RegisterState<LadderWalkState>(null);
+			RegisterState<LadderIdleState>(transitions: new[] {
+				To<StandIdleState>(when: () => !canClimbOnLadder),
+			});
+			RegisterState<LadderWalkState>(transitions: new[] {
+				To<StandWalkState>(when: () => !canClimbOnLadder),
+			});
 
 			RegisterState<SwimSuperState>();
-			RegisterState<SwimIdleState>(transitions: new []
-			{
+			RegisterState<SwimIdleState>(transitions: new[] {
 				To<SwimWalkState>(when: () => isMovePressed),
-				To<StandIdleState>(when: () => canStand, with: resizeToFitSurfaceAbility.Resize),
+				To<StandIdleState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
 			});
-			RegisterState<SwimWalkState>(transitions: new []
-			{
+			RegisterState<SwimWalkState>(transitions: new [] {
 				To<SwimIdleState>(when: () => !isMovePressed),
-				To<StandWalkState>(when: () => canStand, with: resizeToFitSurfaceAbility.Resize),
+				To<StandWalkState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
+				To<LadderWalkState>(when: () => !isUnderwater && canClimbOnLadder, with: resizeToFitSurfaceAbility.Resize),
 			});
 		}
 

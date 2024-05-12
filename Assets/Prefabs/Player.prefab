@@ -2433,7 +2433,7 @@ MonoBehaviour:
     rid: -2
   _deactivationController:
     rid: -2
-  triggerLink: {fileID: 4023524320262694912}
+  _triggerLink: {fileID: 4023524320262694912}
   references:
     version: 2
     RefIds:
