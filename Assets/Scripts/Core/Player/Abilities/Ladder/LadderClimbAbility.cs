@@ -16,6 +16,7 @@ namespace Scripts.Core.Player
 		public DisposableAction DismountAction { get; } = new();
 
 		public bool IsClimbing { get; private set; }
+		public bool IsDismounting { get; private set; }
 		public LadderMarkerAbility Ladder { get; private set; }
 
 		[SerializeField] private TriggerLink _triggerLink;
@@ -29,7 +30,6 @@ namespace Scripts.Core.Player
 		private Vector3 _targetPosition;
 		private float _dismountTime;
 		private float _dismountTimer;
-		private bool _isDismounting;
 		private bool _canDismount;
 
 		protected override void OnInitialize()
@@ -40,10 +40,14 @@ namespace Scripts.Core.Player
 
 		private void HandleTriggerEnter(Unit unit)
 		{
+			if(IsClimbing)
+				return;
+
+			if(IsDismounting)
+				return;
+
 			if (unit.TryGetAbility(out LadderMarkerAbility ladder))
-			{
 				Ladder = ladder;
-			}
 		}
 
 		protected override void OnUpdate()
@@ -52,7 +56,7 @@ namespace Scripts.Core.Player
 			{
 				float verticalInput = _inputManager.Move.ReadValue<Vector2>().y;
 				Vector3 direction = Ladder.TopMountPoint.position - Ladder.BottomMountPoint.position;
-				_targetPosition += direction.normalized * (verticalInput * Time.deltaTime);
+				_targetPosition += direction.normalized * (verticalInput * _values.ClimbSpeed * Time.deltaTime);
 				_playerHeadAbility.HeadDetachedAnchor.LerpPosition(_targetPosition, _smoothSpeed * Time.deltaTime);
 
 				if(_canDismount)
@@ -62,8 +66,7 @@ namespace Scripts.Core.Player
 					{
 						Dismount(Ladder.TopDismountPoint.position);
 					}
-
-					if (Vector3.Distance(Ladder.TopMountPoint.position, _targetPosition) >
+					else if (Vector3.Distance(Ladder.TopMountPoint.position, _targetPosition) >
 					    Vector3.Distance(Ladder.BottomMountPoint.position.AddY(_gameConfig.Player.ChangeHeight.StandConfig.HeadHeight), Ladder.TopMountPoint.position))
 					{
 						Dismount(Ladder.BottomDismountPoint.position);
@@ -71,7 +74,7 @@ namespace Scripts.Core.Player
 				}
 			}
 
-			if (_isDismounting)
+			if (IsDismounting)
 			{
 				if (_dismountTimer < _dismountTime)
 				{
@@ -83,7 +86,7 @@ namespace Scripts.Core.Player
 				}
 				else
 				{
-					_isDismounting = false;
+					IsDismounting = false;
 					Unit.GetAbility<AttachHeadAbility>().RemoveDeactivator(this);
 				}
 			}
@@ -104,7 +107,7 @@ namespace Scripts.Core.Player
 
 			_smoothSpeed = 0;
 			IsClimbing = true;
-			_isDismounting = false;
+			IsDismounting = false;
 			_canDismount = false;
 			_targetPosition = Vector3Extensions.ClosestPointOnLine(playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
 
@@ -135,8 +138,8 @@ namespace Scripts.Core.Player
 			rigidbodyAbility.Rigidbody.gameObject.SetActive(false);
 			rigidbodyAbility.Rigidbody.transform.position = targetPosition;
 
-			_isDismounting = true;
-			IsClimbing = false;	
+			IsDismounting = true;
+			IsClimbing = false;
 
 			float distance = Vector3.Distance(playerHeadAbility.HeadStaticAnchor.position, playerHeadAbility.HeadDetachedAnchor.position);
 

@@ -2,6 +2,8 @@
 using Scripts.Input;
 using Scripts.Reflection;
 using Scripts.TFSM;
+using Scripts.Utility.Extensions;
+using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player.States
@@ -22,7 +24,9 @@ namespace Scripts.Core.Player.States
 			Condition isMovePressed = new(() => _inputManager.Move.IsPressed());
 			Condition crouchWasPressed = new(() => _inputManager.Crouch.WasPressedThisFrame());
 			Condition runWasPressed = new(() => _inputManager.Run.WasPressedThisFrame());
-			Condition canClimbOnLadder = new(() => ladderClimbAbility.Ladder != null);
+			Condition isLadderNearby = new(() => ladderClimbAbility.Ladder != null);
+			Condition isLadderClimbing = new(() => ladderClimbAbility.IsClimbing);
+			Condition isLadderDismounting = new(() => ladderClimbAbility.IsDismounting);
 			Condition inWater = new(() => checkWaterAbility.IsInWater);
 			Condition canStandInWater = new(() => checkWaterAbility.CanStand);
 			Condition isUnderwater = new(() => checkUnderwaterAbility.IsUnderWater);
@@ -31,21 +35,21 @@ namespace Scripts.Core.Player.States
 			RegisterState<StandIdleState>(transitions: new[] {
 				To<StandWalkState>(when: () => isMovePressed),
 				To<CrouchIdleState>(when: () => crouchWasPressed),
-				To<LadderIdleState>(when: () => canClimbOnLadder),
+				To<LadderIdleState>(when: () => isLadderNearby && !isLadderClimbing && !isLadderDismounting),
 				To<SwimIdleState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<StandWalkState>(transitions: new[] {
 				To<StandIdleState>(when: () => !isMovePressed),
 				To<StandRunState>(when: () => runWasPressed),
 				To<CrouchIdleState>(when: () => crouchWasPressed),
-				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<LadderWalkState>(when: () => isLadderNearby && !isLadderClimbing && !isLadderDismounting),
 				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<StandRunState>(transitions: new[] {
 				To<StandIdleState>(when: () => !isMovePressed),
 				To<StandWalkState>(when: () => runWasPressed),
 				To<CrouchWalkState>(when: () => crouchWasPressed),
-				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<LadderWalkState>(when: () => isLadderNearby && !isLadderClimbing && !isLadderDismounting),
 				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 
@@ -53,23 +57,23 @@ namespace Scripts.Core.Player.States
 			RegisterState<CrouchIdleState>(transitions: new[] {
 				To<CrouchWalkState>(when: () => isMovePressed),
 				To<StandIdleState>(when: () => crouchWasPressed),
-				To<LadderIdleState>(when: () => canClimbOnLadder),
+				To<LadderIdleState>(when: () => isLadderNearby && !isLadderClimbing && !isLadderDismounting),
 				To<SwimIdleState>(when: () => inWater && !canStandInWater),
 			});
 			RegisterState<CrouchWalkState>(transitions: new[] {
 				To<CrouchIdleState>(when: () => !isMovePressed),
 				To<StandWalkState>(when: () => crouchWasPressed),
 				To<StandRunState>(when: () => runWasPressed),
-				To<LadderWalkState>(when: () => canClimbOnLadder),
+				To<LadderWalkState>(when: () => isLadderNearby && !isLadderClimbing && !isLadderDismounting),
 				To<SwimWalkState>(when: () => inWater && !canStandInWater),
 			});
 
 			RegisterState<LadderSuperState>();
 			RegisterState<LadderIdleState>(transitions: new[] {
-				To<StandIdleState>(when: () => !canClimbOnLadder),
+				To<StandIdleState>(when: () => !isLadderClimbing),
 			});
 			RegisterState<LadderWalkState>(transitions: new[] {
-				To<StandWalkState>(when: () => !canClimbOnLadder),
+				To<StandWalkState>(when: () => !isLadderClimbing),
 			});
 
 			RegisterState<SwimSuperState>();
@@ -80,7 +84,7 @@ namespace Scripts.Core.Player.States
 			RegisterState<SwimWalkState>(transitions: new [] {
 				To<SwimIdleState>(when: () => !isMovePressed),
 				To<StandWalkState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
-				To<LadderWalkState>(when: () => !isUnderwater && canClimbOnLadder, with: resizeToFitSurfaceAbility.Resize),
+				To<LadderWalkState>(when: () => !isUnderwater && isLadderNearby, with: resizeToFitSurfaceAbility.Resize),
 			});
 		}
 

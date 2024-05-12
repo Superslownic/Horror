@@ -2020,7 +2020,6 @@ GameObject:
   m_Component:
   - component: {fileID: 538929761}
   - component: {fileID: 538929762}
-  - component: {fileID: 538929764}
   - component: {fileID: 538929765}
   m_Layer: 2
   m_Name: Trigger
@@ -2065,27 +2064,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 7.5, z: 0.6979189}
   m_Center: {x: 0, y: 0, z: 0.15104055}
---- !u!65 &538929764
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538929760}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.5, y: 2.3647232, z: 0.8787818}
-  m_Center: {x: 0, y: 2.5664973, z: 0.23980069}
 --- !u!114 &538929765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,7 +2178,7 @@ Transform:
   m_GameObject: {fileID: 569106403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3351,7 +3329,7 @@ Transform:
   m_GameObject: {fileID: 845553242}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: -0.7}
+  m_LocalPosition: {x: 0, y: -5, z: -0.5600001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4111,7 +4089,7 @@ Transform:
   m_GameObject: {fileID: 1138227843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: -1.31}
+  m_LocalPosition: {x: 0, y: -5, z: -1.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5999,7 +5977,7 @@ Transform:
   m_GameObject: {fileID: 1850135048}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.85, z: -0.7}
+  m_LocalPosition: {x: 0, y: 1.2, z: -0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7845,7 +7823,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
