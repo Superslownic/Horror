@@ -1,7 +1,6 @@
 using System;
 using Scripts.Units;
 using Sirenix.OdinInspector;
-using UnityEngine;
 using Zenject;
 
 namespace Scripts.TFSM
@@ -14,6 +13,12 @@ namespace Scripts.TFSM
 
 		private DiContainer _diContainer;
 
+		[Inject]
+		private void OnInject(DiContainer diContainer)
+		{
+			_diContainer = new DiContainer(diContainer);
+		}
+
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
@@ -22,27 +27,28 @@ namespace Scripts.TFSM
 			StateMachine.Enter(InitialState);
 		}
 
-		[Inject]
-		private void OnInject(DiContainer diContainer)
-		{
-			_diContainer = new DiContainer(diContainer);
-		}
-
 		protected abstract void RegisterStates();
 
 		protected void RegisterState<TState>()
-			where TState : State
+			where TState : SuperState
 		{
 			TState state = _diContainer.Instantiate<TState>();
+			state.OnInitialize();
 			StateMachine.RegisterState(state);
 		}
 
-		protected void RegisterTransition<TTransition>()
-			where TTransition : Transition
+		protected void RegisterState<TState>(Transition[] transitions)
+			where TState : LeafState
 		{
-			TTransition transition = _diContainer.Instantiate<TTransition>();
-			transition.Initialize();
-			StateMachine.RegisterTransition(transition);
+			TState state = _diContainer.Instantiate<TState>();
+			state.OnInitialize();
+			StateMachine.RegisterState(state, transitions);
+		}
+
+		protected static Transition To<TState>(Func<bool> when, Action with = null)
+			where TState : State
+		{
+			return new Transition(typeof(TState), when, with != null ? new ActionTransitionProcessor(with) : null);
 		}
 	}
 }

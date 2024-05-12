@@ -15,6 +15,7 @@ namespace Scripts.Core.Player
 		public DisposableAction MountAction { get; } = new();
 		public DisposableAction DismountAction { get; } = new();
 
+		public bool IsClimbing { get; private set; }
 		public LadderMarkerAbility Ladder { get; private set; }
 
 		[SerializeField] private TriggerLink triggerLink;
@@ -22,17 +23,18 @@ namespace Scripts.Core.Player
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
 
+		private PlayerHeadAbility _playerHeadAbility;
 		private LadderValuesConfig _values;
 		private float _smoothSpeed;
-		private float _height;
+		private Vector3 _targetPosition;
 		private float _dismountTime;
 		private float _dismountTimer;
-		private bool _isClimbing;
 		private bool _isDismounting;
 		private bool _canDismount;
 
 		protected override void OnInitialize()
 		{
+			_playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
 			triggerLink.OnEnter.AddListener(HandleTriggerEnter).AddTo(Disposable);
 		}
 
@@ -48,33 +50,25 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			if (_isClimbing)
+			if (IsClimbing)
 			{
-				float input = _inputManager.Move.ReadValue<Vector2>().y;
+				float verticalInput = _inputManager.Move.ReadValue<Vector2>().y;
+				Vector3 direction = Ladder.TopMountPoint.position - Ladder.BottomMountPoint.position;
+				_targetPosition += direction.normalized * (verticalInput * Time.deltaTime);
+				_playerHeadAbility.HeadDetachedAnchor.LerpPosition(_targetPosition, _smoothSpeed * Time.deltaTime);
 
-				_height += input * _values.ClimbSpeed * Time.deltaTime;
-
-				if (!_canDismount)
+				if(_canDismount)
 				{
-					_height = Mathf.Clamp01(_height);
-				}
-
-				Vector3 targetPosition = Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, _height);
-				PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
-				targetPosition.x = playerHeadAbility.HeadDetachedAnchor.position.x;
-				targetPosition.z = playerHeadAbility.HeadDetachedAnchor.position.z;
-				playerHeadAbility.HeadDetachedAnchor.position = Vector3.Lerp(playerHeadAbility.HeadDetachedAnchor.position, targetPosition, _smoothSpeed * Time.deltaTime);
-
-				if (_canDismount)
-				{
-					if (_height < 0)
-					{
-						Dismount(Ladder.BottomDismountPoint.position);
-					}
-				
-					if (_height > 1)
+					if (Vector3.Distance(Ladder.BottomMountPoint.position, _targetPosition) >
+					    Vector3.Distance(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position))
 					{
 						Dismount(Ladder.TopDismountPoint.position);
+					}
+
+					if (Vector3.Distance(Ladder.TopMountPoint.position, _targetPosition) >
+					    Vector3.Distance(Ladder.BottomMountPoint.position.AddY(_gameConfig.Player.ChangeHeight.StandConfig.HeadHeight), Ladder.TopMountPoint.position))
+					{
+						Dismount(Ladder.BottomDismountPoint.position);
 					}
 				}
 			}
@@ -108,23 +102,21 @@ namespace Scripts.Core.Player
 			Unit.GetAbility<AttachHeadAbility>().AddDeactivator(this);
 			Unit.GetAbility<HeadBobAbility>().ReplaceConfig(_values.ShakeConfig);
 			Unit.GetAbility<LeanAbility>().AddDeactivator(this);
+			Unit.GetAbility<ChangeVelocityAbility>().SetActualVelocity(Vector3.zero);
 
 			_smoothSpeed = 0;
-			_isClimbing = true;
+			IsClimbing = true;
 			_isDismounting = false;
 			_canDismount = false;
-
-			Vector3 mountPosition = Vector3Extensions.ClosestPointOnLine(playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
-
-			_height = Mathf.InverseLerp(Ladder.BottomMountPoint.position.y, Ladder.TopMountPoint.position.y, mountPosition.y);
+			_targetPosition = Vector3Extensions.ClosestPointOnLine(playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
 
 			DOTween.To(() => _smoothSpeed, value => _smoothSpeed = value, _values.MaxSmoothDelta, _values.SmoothDeltaChangeTime).SetEase(Ease.InFlash);
 			
-			float distance = Vector3.Distance(mountPosition, playerHeadAbility.HeadDetachedAnchor.position);
+			float distance = Vector3.Distance(_targetPosition, playerHeadAbility.HeadDetachedAnchor.position);
 
 			DOTween.Sequence()
-				.Append(playerHeadAbility.HeadDetachedAnchor.DOMoveX(mountPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(playerHeadAbility.HeadDetachedAnchor.DOMoveZ(mountPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Append(playerHeadAbility.HeadDetachedAnchor.DOMoveX(_targetPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Join(playerHeadAbility.HeadDetachedAnchor.DOMoveZ(_targetPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
 				.Join(playerHeadAbility.HeadDetachedAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
 				.AppendCallback(() =>
 				{
@@ -144,7 +136,7 @@ namespace Scripts.Core.Player
 			rigidbodyAbility.Rigidbody.transform.position = targetPosition;
             
 			_isDismounting = true;
-			_isClimbing = false;	
+			IsClimbing = false;	
 					
 			float distance = Vector3.Distance(playerHeadAbility.HeadStaticAnchor.position, playerHeadAbility.HeadDetachedAnchor.position);
 			
@@ -156,7 +148,7 @@ namespace Scripts.Core.Player
 
 			rigidbodyAbility.Rigidbody.gameObject.SetActive(true);
 			playerBodyAbility.Collider.enabled = true;
-			
+
 			DismountAction.Invoke();
 		}
 	}

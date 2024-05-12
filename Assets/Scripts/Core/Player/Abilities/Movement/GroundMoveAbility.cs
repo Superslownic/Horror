@@ -24,7 +24,6 @@ namespace Scripts.Core.Player
 		private CheckGroundAbility _checkGroundAbility;
 		private PlayerMovementValues _values;
 		private TweenableFloat _speed = new();
-		//private Vector3 _velocity;
 		private ChangeVelocityAbility _changeVelocityAbility;
 
 		protected override void OnInitialize()
@@ -46,7 +45,7 @@ namespace Scripts.Core.Player
 			_speed.Tween(_values.Speed, _gameConfig.Player.Movement.ChangeValuesDuration, Ease.InOutCubic);
 		}
 
-		protected override void OnFixedUpdate()
+		protected override void OnUpdate()
 		{
 			Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
 			Vector3 velocity = _changeVelocityAbility.TargetVelocity;
@@ -66,7 +65,7 @@ namespace Scripts.Core.Player
 				}
 				else
 				{
-					velocity = _changeVelocityAbility.ActualVelocity + clampedInputMotion * _airCorrectionMultiplier * Time.fixedDeltaTime;
+					velocity = _changeVelocityAbility.ActualVelocity + clampedInputMotion * (_airCorrectionMultiplier * Time.fixedDeltaTime);
 					velocity.y = 0;
 					velocity = Vector3.ClampMagnitude(velocity, _speed);
 				}
@@ -80,9 +79,6 @@ namespace Scripts.Core.Player
 				velocity = Vector3.zero;
 			}
 
-			//velocity.y = _rigidbody.linearVelocity.y;
-			//_changeVelocityAbility.TargetVelocity = velocity;
-			//_changeVelocityAbility.SetActualVelocity(y: _rigidbody.linearVelocity.y);
 			_changeVelocityAbility.SetTargetVelocity(x: velocity.x, z: velocity.z);
 		}
 	}

@@ -7,7 +7,7 @@ namespace Scripts.Reactive
 			observable.AddListener(() => _wasInvoked = true);
 		}
 
-		public bool IsChecked
+		public bool IsTriggered
 		{
 			get
 			{

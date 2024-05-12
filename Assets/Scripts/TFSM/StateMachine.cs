@@ -2,45 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace Scripts.TFSM
 {
 	public class StateMachine
 	{
-		[ShowInInspector] public State CurrentState { get; private set; }
+		[ShowInInspector] public string CurrentStateName => CurrentState?.GetType().GetNiceName() ?? "Null";
 
-		[ShowInInspector] private Dictionary<Type, State> _states = new();
-		[ShowInInspector] private Dictionary<Type, List<Transition>> _transitions = new();
-		[ShowInInspector] private Transition _currentTransition;
+		public State CurrentState { get; private set; }
 
-		public void RegisterState(State state)
+		private Dictionary<Type, State> _states = new();
+		private Dictionary<Type, List<Transition>> _transitions = new();
+		private Transition _currentTransition;
+
+		public void RegisterState(SuperState state)
 		{
 			_states.Add(state.GetType(), state);
 		}
 
-		public void RegisterTransition(Transition transition)
+		public void RegisterState(LeafState state, IEnumerable<Transition> transitions)
 		{
-			if(!_transitions.ContainsKey(transition.From))
-				_transitions.Add(transition.From, new List<Transition>());
+			Type type = state.GetType();
 
-			_transitions[transition.From].Add(transition);
+			_states.Add(type, state);
+
+			if(transitions == null)
+				return;
+
+			if(!_transitions.ContainsKey(type))
+				_transitions.Add(type, new List<Transition>());
+
+			_transitions[type].AddRange(transitions);
 		}
 
 		public void Update()
 		{
-			CurrentState.OnUpdate();
-
-			if (FindPossibleTransition(out Transition transition))
+			if(_currentTransition == null)
 			{
-				_currentTransition = transition;
-				_currentTransition.Execute();
+				CurrentState.OnUpdate();
+
+				if (FindPossibleTransition(out Transition transition))
+					_currentTransition = transition;
 			}
 
-			if (_currentTransition is { IsFinished: true })
-			{
-				Enter(_currentTransition.To);
-			}
+			if (_currentTransition == null)
+				return;
+
+			_currentTransition.Execute();
+
+			if (!_currentTransition.IsFinished)
+				return;
+
+			Enter(_currentTransition.Destination);
+			_currentTransition = null;
 		}
 
 		public void Enter(Type targetStateType)

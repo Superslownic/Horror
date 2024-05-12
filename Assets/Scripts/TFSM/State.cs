@@ -5,6 +5,8 @@ namespace Scripts.TFSM
 	public abstract class State
 	{
 		public abstract Type Parent { get; }
+		
+		public virtual void OnInitialize() { }
 
 		public virtual void OnEnter() { }
 		

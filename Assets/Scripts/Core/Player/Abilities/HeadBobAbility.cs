@@ -10,6 +10,8 @@ namespace Scripts.Core.Player
 {
 	public class HeadBobAbility : Ability
 	{
+		public float Magnitude { get; set; }
+
 		[Inject] private readonly GameConfig _gameConfig;
 		[Inject] private readonly AudioManager _audioManager;
 
@@ -83,7 +85,7 @@ namespace Scripts.Core.Player
 			ReplaceConfig(_savedConfig);
 		}
 
-		public void OverrideMagnitude(float value)
+		public void SetMagnitude(float value)
 		{
 			_shakerVariant.Magnitude = value;
 		}

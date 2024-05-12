@@ -1,27 +1,23 @@
 using System;
-using Zenject;
 
 namespace Scripts.TFSM
 {
-	public abstract class Transition : IInitializable
+	public class Transition
 	{
-		public abstract Type From { get; }
-		public abstract Type To { get; }
-		public abstract bool IsValid { get; }
+		public Type Destination { get; }
+		public bool IsValid => _condition.Invoke();
+		public bool IsFinished => _processor?.IsFinished ?? true;
 
-		public bool IsFinished { get; private set; }
+		private readonly Func<bool> _condition;
+		private readonly TransitionProcessor _processor;
 
-		public virtual void Initialize() { }
-		public virtual void Execute() => FinishTransition();
+		public Transition(Type destination, Func<bool> condition, TransitionProcessor processor)
+		{
+			Destination = destination;
+			_condition = condition;
+			_processor = processor;
+		}
 
-		protected void FinishTransition() => IsFinished = true;
-	}
-
-	public abstract class Transition<TFrom, TTo> : Transition
-		where TFrom : LeafState
-		where TTo : LeafState
-	{
-		public sealed override Type From { get; } = typeof(TFrom);
-		public sealed override Type To { get; } = typeof(TTo);
+		public void Execute() => _processor?.Execute();
 	}
 }

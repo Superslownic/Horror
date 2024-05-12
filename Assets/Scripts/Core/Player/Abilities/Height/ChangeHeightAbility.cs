@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using Scripts.Units;
-using Scripts.Utility.Extensions;
 using UnityEngine;
 
 namespace Scripts.Core.Player
