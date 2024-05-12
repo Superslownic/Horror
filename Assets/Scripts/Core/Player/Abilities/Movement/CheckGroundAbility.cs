@@ -7,8 +7,10 @@ namespace Scripts.Core.Player
 	{
 		[SerializeField] private LayerMask _groundLayer;
 		[SerializeField] private float _heightThreshold;
+		[SerializeField] private float _radiusThreshold;
 
 		public bool IsGrounded { get; private set; }
+		public float GroundHeight { get; private set; }
 		public RaycastHit GroundInfo { get; private set; }
 
 		private PlayerBodyAbility _playerBodyAbility;
@@ -22,17 +24,23 @@ namespace Scripts.Core.Player
 		protected override void OnUpdate()
 		{
 			base.OnUpdate();
-			IsGrounded = TryGetGroundInfo(_playerBodyAbility.Collider, _groundLayer, _heightThreshold, out RaycastHit info);
-			GroundInfo = info;
-		}
 
-		private bool TryGetGroundInfo(CapsuleCollider collider, LayerMask layerMask, float threshold, out RaycastHit info)
-		{
-			Vector3 origin = collider.transform.position + collider.center;
-			float radius = collider.radius - 0.01f;
-			Vector3 direction = Vector3.down;
-			float distance = collider.height * 0.5f - collider.radius + threshold;
-			return Physics.SphereCast(origin, radius, direction, out info, distance, layerMask);
+			float sphereCastRadius = _playerBodyAbility.Radius - _radiusThreshold;
+
+			Physics.SphereCast
+			(
+				origin: _playerBodyAbility.BodyCenter,
+				radius: sphereCastRadius,
+				direction: Vector3.down,
+				hitInfo: out RaycastHit hitInfo,
+				maxDistance: 1000,
+				layerMask: _groundLayer
+			);
+
+			Vector3 targetFootPosition = hitInfo.point + hitInfo.normal * sphereCastRadius + Vector3.down * sphereCastRadius;
+			GroundHeight = _playerBodyAbility.BodyBottom.y - targetFootPosition.y;
+			IsGrounded = GroundHeight <= _heightThreshold;
+			GroundInfo = hitInfo;
 		}
 	}
 }

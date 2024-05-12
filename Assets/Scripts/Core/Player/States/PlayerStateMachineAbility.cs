@@ -16,7 +16,7 @@ namespace Scripts.Core.Player.States
 				{
 					RegisterTransition<StandIdleToStandWalkTransition>();
 					RegisterTransition<StandIdleToCrouchIdleTransition>();
-					RegisterTransition<StandIdleToLadderIdleTransition>();
+					//RegisterTransition<StandIdleToLadderIdleTransition>();
 					RegisterTransition<StandIdleToSwimIdleTransition>();
 				}
 
@@ -25,7 +25,7 @@ namespace Scripts.Core.Player.States
 					RegisterTransition<StandWalkToStandIdleTransition>();
 					RegisterTransition<StandWalkToStandRunTransition>();
 					RegisterTransition<StandWalkToCrouchWalkTransition>();
-					RegisterTransition<StandWalkToLadderWalkTransition>();
+					//RegisterTransition<StandWalkToLadderWalkTransition>();
 					RegisterTransition<StandWalkToSwimWalkTransition>();
 				}
 
@@ -34,7 +34,7 @@ namespace Scripts.Core.Player.States
 					RegisterTransition<StandRunToStandIdleTransition>();
 					RegisterTransition<StandRunToStandWalkTransition>();
 					RegisterTransition<StandRunToCrouchWalkTransition>();
-					RegisterTransition<StandRunToLadderRunTransition>();
+					//RegisterTransition<StandRunToLadderRunTransition>();
 					RegisterTransition<StandRunToSwimWalkTransition>();
 				}
 			}
@@ -45,7 +45,7 @@ namespace Scripts.Core.Player.States
 				{
 					RegisterTransition<CrouchIdleToCrouchWalkTransition>();
 					RegisterTransition<CrouchIdleToStandIdleTransition>();
-					RegisterTransition<CrouchIdleToLadderIdleTransition>();
+					//RegisterTransition<CrouchIdleToLadderIdleTransition>();
 					RegisterTransition<CrouchIdleToSwimIdleTransition>();
 				}
 
@@ -54,15 +54,15 @@ namespace Scripts.Core.Player.States
 					RegisterTransition<CrouchWalkToCrouchIdleTransition>();
 					RegisterTransition<CrouchWalkToStandWalkTransition>();
 					RegisterTransition<CrouchWalkToStandRunTransition>();
-					RegisterTransition<CrouchWalkToLadderWalkTransition>();
+					//RegisterTransition<CrouchWalkToLadderWalkTransition>();
 					RegisterTransition<CrouchWalkToSwimWalkTransition>();
 				}
 			}
 
-			RegisterState<LadderSuperState>();
-			RegisterState<LadderIdleState>();
-			RegisterState<LadderWalkState>();
-			RegisterState<LadderRunState>();
+			//RegisterState<LadderSuperState>();
+			//RegisterState<LadderIdleState>();
+			//RegisterState<LadderWalkState>();
+			//RegisterState<LadderRunState>();
 
 			RegisterState<SwimSuperState>();
 			{

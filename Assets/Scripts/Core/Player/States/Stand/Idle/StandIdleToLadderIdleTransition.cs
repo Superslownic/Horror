@@ -15,7 +15,7 @@ namespace Scripts.Core.Player.States
 
 		public override void Initialize()
 		{
-			_observableTrigger = new ObservableTrigger(_playerUnit.GetAbility<LadderClimbAbility>().LadderDetectedAction);
+			_observableTrigger = new ObservableTrigger(_playerUnit.GetAbility<LadderClimbAbility>().MountAction);
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace Scripts.Core.Player.States
 
 		public override void Execute()
 		{
-			_playerUnit.GetAbility<ChangeHeightAbility>().ResizeToFitSurface();
+			_playerUnit.GetAbility<ResizeToFitSurfaceAbility>().Resize();
 			FinishTransition();
 		}
 	}

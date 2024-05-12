@@ -10,27 +10,20 @@ namespace Scripts.Core.Player
 {
 	public class CrouchAbility : Ability
 	{
-		[SerializeField] private Transform _cameraMainAnchor;
 		[SerializeField] private float _duration;
-		[SerializeField] private float _heightMultiplier;
 
 		[Inject] private readonly GameConfig _gameConfig;
 
 		private ShakeHeadAbility _shakeHeadAbility;
-		private PlayerBodyAbility _playerBodyAbility;
-		private float _startHeight;
-		private float _startCameraHeight;
+		private ChangeHeightAbility _changeHeightAbility;
 		private bool _isCrouching;
 		private ShakerProcessor _shakerProcessor;
 		private RandomShakeVariant _variant;
-		private Tween _tween;
 
 		protected override void OnInitialize()
 		{
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
-			_playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
-			_startHeight = _playerBodyAbility.Collider.height;
-			_startCameraHeight = _cameraMainAnchor.localPosition.y;
+			_changeHeightAbility = Unit.GetAbility<ChangeHeightAbility>();
 			_variant = new RandomShakeVariant();
 			_shakerProcessor = new ShakerProcessor
 			{
@@ -47,18 +40,8 @@ namespace Scripts.Core.Player
 				return;
 
 			_isCrouching = true;
-
 			ReplaceConfig(_gameConfig.Player.Crouch.PerformShakeProcessorConfig);
-			
-			_tween?.Kill();
-			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _playerBodyAbility.Collider.height, value => _playerBodyAbility.Collider.height = value, _startHeight * _heightMultiplier, _duration)
-					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _playerBodyAbility.Collider.center, value => _playerBodyAbility.Collider.center = value, new Vector3(0, _startHeight * _heightMultiplier * 0.5f, 0), _duration)
-					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight * _heightMultiplier, 0), _duration)
-					.SetEase(Ease.InOutQuad)
-					.OnComplete(() => ReplaceConfig(RandomShakeProcessorConfig.Default)));
+			_changeHeightAbility.Execute(_gameConfig.Player.ChangeHeight.CrouchConfig, _duration, () => ReplaceConfig(RandomShakeProcessorConfig.Default));
 		}
 		
 		[Button]
@@ -68,18 +51,8 @@ namespace Scripts.Core.Player
 				return;
 
 			_isCrouching = false;
-			
 			ReplaceConfig(_gameConfig.Player.Crouch.PerformShakeProcessorConfig);
-			
-			_tween?.Kill();
-			_tween = DOTween.Sequence()
-				.Join(DOTween.To(() => _playerBodyAbility.Collider.height, value => _playerBodyAbility.Collider.height = value, _startHeight, _duration)
-					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _playerBodyAbility.Collider.center, value => _playerBodyAbility.Collider.center = value, new Vector3(0, _startHeight * 0.5f, 0), _duration)
-					.SetEase(Ease.InOutQuad))
-				.Join(DOTween.To(() => _cameraMainAnchor.localPosition, value => _cameraMainAnchor.localPosition = value, new Vector3(0, _startCameraHeight, 0), _duration)
-					.SetEase(Ease.InOutQuad)
-					.OnComplete(() => ReplaceConfig(RandomShakeProcessorConfig.Default)));
+			_changeHeightAbility.Execute(_gameConfig.Player.ChangeHeight.StandConfig, _duration, () => ReplaceConfig(RandomShakeProcessorConfig.Default));
 		}
 		
 		private void ReplaceConfig(RandomShakeProcessorConfig config)

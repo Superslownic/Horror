@@ -51,7 +51,7 @@ MonoBehaviour:
       <Walking>k__BackingField:
         <Speed>k__BackingField: 3
       <Running>k__BackingField:
-        <Speed>k__BackingField: 6
+        <Speed>k__BackingField: 5
       <Crouching>k__BackingField:
         <Speed>k__BackingField: 1
     <Look>k__BackingField:
@@ -142,9 +142,9 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       <DefaultValues>k__BackingField:
-        <ClimbSpeed>k__BackingField: 0.4
-        <MountTimeMultiplier>k__BackingField: 0.8
-        <DismountTimeMultiplier>k__BackingField: 2
+        <ClimbSpeed>k__BackingField: 0.2
+        <MountTimeMultiplier>k__BackingField: 0.4
+        <DismountTimeMultiplier>k__BackingField: 1
         <MaxSmoothDelta>k__BackingField: 10
         <SmoothDeltaChangeTime>k__BackingField: 0.5
         <ShakeConfig>k__BackingField:
@@ -230,14 +230,17 @@ MonoBehaviour:
         <ChangeEase>k__BackingField: 0
     ChangeHeight:
       StandConfig:
-        Center: 1
-        Height: 2
+        BodyCenter: 0.9
+        BodyHeight: 1.8
+        HeadHeight: 1.6
       CrouchConfig:
-        Center: 0
-        Height: 0
+        BodyCenter: 0.5
+        BodyHeight: 1
+        HeadHeight: 0.8
       SwimConfig:
-        Center: 1.7
-        Height: 0.6
+        BodyCenter: 1.6
+        BodyHeight: 0.6
+        HeadHeight: 1.6
       Duration: 1
   <Audio>k__BackingField:
     <Events>k__BackingField:

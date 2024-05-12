@@ -5,7 +5,8 @@ namespace Scripts.Core.Player
 	[Serializable]
 	public class ChangeHeightConfig
 	{
-		public float Center;
-		public float Height;
+		public float BodyCenter;
+		public float BodyHeight;
+		public float HeadHeight;
 	}
 }
