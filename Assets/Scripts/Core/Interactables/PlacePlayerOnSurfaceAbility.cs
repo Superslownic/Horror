@@ -8,7 +8,7 @@ namespace Scripts.Core
 	{
 		[SerializeField] private float _maxDistance;
 		[SerializeField] private LayerMask _surfaceLayer;
-		
+
 		private PlayerBodyAbility _playerBodyAbility;
 
 		protected override void OnInitialize()
@@ -20,7 +20,7 @@ namespace Scripts.Core
 		{
 			float radius = _playerBodyAbility.Collider.radius;
 			Physics.SphereCast(point + Vector3.up, radius, Vector3.down, out RaycastHit hit, _maxDistance, _surfaceLayer);
-			_playerBodyAbility.Collider.transform.position = hit.point + hit.normal * radius + Vector3.down * radius;
+			_playerBodyAbility.BodyTransform.position = hit.point + hit.normal * radius + Vector3.down * radius - _playerBodyAbility.Collider.center + Vector3.up * _playerBodyAbility.HalfHeight;
 		}
 	}
 }

@@ -778,6 +778,7 @@ MonoBehaviour:
     rid: -2
   _deactivationController:
     rid: -2
+  <BodyTransform>k__BackingField: {fileID: 1089791360745151957}
   <Collider>k__BackingField: {fileID: 2255337210415585284}
   references:
     version: 2

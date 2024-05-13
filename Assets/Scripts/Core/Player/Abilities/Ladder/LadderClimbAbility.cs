@@ -148,6 +148,7 @@ namespace Scripts.Core.Player
 			playerBodyAbility.Collider.enabled = false;
 			rigidbodyAbility.Rigidbody.gameObject.SetActive(false);
 			rigidbodyAbility.Rigidbody.transform.position = targetPosition;
+			Unit.GetAbility<PlacePlayerOnSurfaceAbility>().Place(targetPosition);
 
 			IsDismounting = true;
 			IsClimbing = false;

@@ -5,6 +5,7 @@ namespace Scripts.Core.Player
 {
 	public class PlayerBodyAbility : Ability
 	{
+		[field: SerializeField] public Transform BodyTransform { get; private set; }
 		[field: SerializeField] public CapsuleCollider Collider { get; private set; }
 
 		public float HalfHeight => Collider.height * 0.5f;
