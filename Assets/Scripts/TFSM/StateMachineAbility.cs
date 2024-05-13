@@ -21,10 +21,14 @@ namespace Scripts.TFSM
 
 		protected override void OnInitialize()
 		{
-			base.OnInitialize();
 			_diContainer.BindInstance(Unit).AsSingle();
 			RegisterStates();
 			StateMachine.Enter(InitialState);
+		}
+
+		protected override void OnUpdate()
+		{
+			StateMachine.Update();
 		}
 
 		protected abstract void RegisterStates();

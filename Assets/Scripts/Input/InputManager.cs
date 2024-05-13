@@ -14,6 +14,7 @@ namespace Scripts.Input
 		public InputAction Flashlight => _inputActions.Default.Flashlight;
 		public InputAction Grab => _inputActions.Default.Grab;
 		public InputAction Jump => _inputActions.Default.Jump;
+		public InputAction Interact => _inputActions.Default.Interact;
 
 		private InputActions _inputActions = new();
 

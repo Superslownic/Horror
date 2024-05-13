@@ -9,7 +9,7 @@ namespace Scripts.Core
 		public DisposableAction<Unit> OnEnter { get; } = new();
 		public DisposableAction<Unit> OnStay { get; } = new();
 		public DisposableAction<Unit> OnExit { get; } = new();
-		
+
 		private void OnTriggerEnter(Collider other)
 		{
 			if (other.TryGetComponent(out Unit entity))

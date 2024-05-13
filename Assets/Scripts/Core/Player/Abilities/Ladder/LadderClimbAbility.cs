@@ -5,6 +5,7 @@ using Scripts.Input;
 using Scripts.Reactive;
 using Scripts.Units;
 using Scripts.Utility.Extensions;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -15,9 +16,9 @@ namespace Scripts.Core.Player
 		public DisposableAction MountAction { get; } = new();
 		public DisposableAction DismountAction { get; } = new();
 
-		public bool IsClimbing { get; private set; }
-		public bool IsDismounting { get; private set; }
-		public LadderMarkerAbility Ladder { get; private set; }
+		[ShowInInspector] public bool IsClimbing { get; private set; }
+		[ShowInInspector] public bool IsDismounting { get; private set; }
+		[ShowInInspector] public LadderMarkerAbility Ladder { get; private set; }
 
 		[SerializeField] private TriggerLink _triggerLink;
 
@@ -41,9 +42,6 @@ namespace Scripts.Core.Player
 		private void HandleTriggerEnter(Unit unit)
 		{
 			if(IsClimbing)
-				return;
-
-			if(IsDismounting)
 				return;
 
 			if (unit.TryGetAbility(out LadderMarkerAbility ladder))
@@ -70,6 +68,19 @@ namespace Scripts.Core.Player
 					    Vector3.Distance(Ladder.BottomMountPoint.position.AddY(_gameConfig.Player.ChangeHeight.StandConfig.HeadHeight), Ladder.TopMountPoint.position))
 					{
 						Dismount(Ladder.BottomDismountPoint.position);
+					}
+				}
+				else
+				{
+					if (Vector3.Distance(Ladder.BottomMountPoint.position, _targetPosition) >
+					    Vector3.Distance(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position))
+					{
+						_targetPosition = Vector3Extensions.ClosestPointOnLine(_playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
+					}
+					else if (Vector3.Distance(Ladder.TopMountPoint.position, _targetPosition) >
+					         Vector3.Distance(Ladder.BottomMountPoint.position.AddY(_gameConfig.Player.ChangeHeight.StandConfig.HeadHeight), Ladder.TopMountPoint.position))
+					{
+						_targetPosition = Vector3Extensions.ClosestPointOnLine(_playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
 					}
 				}
 			}
@@ -118,7 +129,7 @@ namespace Scripts.Core.Player
 			DOTween.Sequence()
 				.Append(playerHeadAbility.HeadDetachedAnchor.DOMoveX(_targetPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
 				.Join(playerHeadAbility.HeadDetachedAnchor.DOMoveZ(_targetPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(playerHeadAbility.HeadDetachedAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Join(playerHeadAbility.HeadDetachedAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutCubic))
 				.AppendCallback(() =>
 				{
 					Unit.GetAbility<LookAbility>().RemoveDeactivator(this);
@@ -146,11 +157,11 @@ namespace Scripts.Core.Player
 			_dismountTimer = 0;
 			_dismountTime = distance * _values.DismountTimeMultiplier;
 
-			Unit.GetAbility<GroundMoveAbility>().RemoveDeactivator(this);
-			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
-
 			rigidbodyAbility.Rigidbody.gameObject.SetActive(true);
 			playerBodyAbility.Collider.enabled = true;
+
+			Unit.GetAbility<GroundMoveAbility>().RemoveDeactivator(this);
+			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
 
 			Ladder = null;
 			DismountAction.Invoke();

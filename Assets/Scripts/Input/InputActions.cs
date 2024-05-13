@@ -79,7 +79,7 @@ namespace Scripts
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""2d8e25a2-db2c-4e1b-a773-eaa8556b9f5d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
