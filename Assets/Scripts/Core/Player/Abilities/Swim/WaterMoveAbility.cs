@@ -26,8 +26,8 @@ namespace Scripts.Core.Player
 			base.OnUpdate();
 
 			Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
-			Vector3 forwardInputMotion = _playerHeadAbility.HeadDetachedAnchor.forward * moveInput.y;
-			Vector3 sideInputMotion = _playerHeadAbility.HeadDetachedAnchor.right * moveInput.x;
+			Vector3 forwardInputMotion = _playerHeadAbility.HeadFloatingAnchor.forward * moveInput.y;
+			Vector3 sideInputMotion = _playerHeadAbility.HeadFloatingAnchor.right * moveInput.x;
 			Vector3 resultInputMotion = (forwardInputMotion + sideInputMotion) * _speed;
 			Vector3 clampedInputMotion = Vector3.ClampMagnitude(resultInputMotion, _speed);
 

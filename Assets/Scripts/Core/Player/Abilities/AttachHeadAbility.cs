@@ -1,4 +1,5 @@
 ﻿using Scripts.Units;
+using UnityEngine;
 
 namespace Scripts.Core.Player
 {
@@ -15,5 +16,10 @@ namespace Scripts.Core.Player
 		{
 			_playerHeadAbility.HeadDetachedAnchor.position = _playerHeadAbility.HeadStaticAnchor.position;
 		}
+
+		/*protected override void OnFixedUpdate()
+		{
+			_playerHeadAbility.HeadDetachedAnchorRigidbody.MovePosition(_playerHeadAbility.HeadStaticAnchor.position);
+		}*/
 	}
 }

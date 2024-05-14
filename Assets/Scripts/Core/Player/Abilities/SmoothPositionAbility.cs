@@ -9,7 +9,7 @@ namespace Scripts.Core.Player
 		[SerializeField] private Transform _target;
 		[SerializeField] private float _speed;
 
-		protected override void OnLateUpdate()
+		protected override void OnUpdate()
 		{
 			_anchor.position = Vector3.Lerp(_anchor.position, _target.position, _speed * Time.deltaTime);
 		}
