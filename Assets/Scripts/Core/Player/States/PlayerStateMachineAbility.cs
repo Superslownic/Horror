@@ -74,17 +74,20 @@ namespace Scripts.Core.Player.States
 			});
 			RegisterState<LadderWalkState>(transitions: new[] {
 				To<StandWalkState>(when: () => !isLadderClimbing),
+				To<SwimWalkState>(when: () => _inputManager.Jump.WasPressedThisFrame()),
 			});
 
 			RegisterState<SwimSuperState>();
 			RegisterState<SwimIdleState>(transitions: new[] {
 				To<SwimWalkState>(when: () => isMovePressed),
+				To<StandIdleState>(when: () => !inWater),
 				To<StandIdleState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
 			});
 			RegisterState<SwimWalkState>(transitions: new [] {
 				To<SwimIdleState>(when: () => !isMovePressed),
+				To<StandWalkState>(when: () => !inWater),
 				To<StandWalkState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
-				To<LadderWalkState>(when: () => !isUnderwater && isLadderNearby, with: resizeToFitSurfaceAbility.Resize),
+				To<LadderWalkState>(when: () => !isUnderwater && isLadderNearby),
 			});
 		}
 	}

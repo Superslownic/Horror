@@ -1,6 +1,7 @@
 using Scripts.Behaviour;
 using Scripts.Reactive;
 using Scripts.Units;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 
@@ -11,7 +12,7 @@ namespace Scripts.Core
 		public DisposableAction EnterAction { get; } = new();
 		public DisposableAction ExitAction { get; } = new();
 
-		public bool IsInWater => _activationController.GetState();
+		[ShowInInspector] public bool IsInWater => _activationController.GetState();
 		
 		public WaterSurface WaterSurface { get; private set; }
 		public float WaterSurfaceHeight { get; private set; }

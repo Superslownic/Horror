@@ -26,6 +26,15 @@ namespace Scripts.Core.Player
 		[Inject] private readonly GameConfig _gameConfig;
 
 		private PlayerHeadAbility _playerHeadAbility;
+		private PlayerBodyAbility _playerBodyAbility;
+		private RigidbodyAbility _rigidbodyAbility;
+		private AttachHeadAbility _attachHeadAbility;
+		private GroundMoveAbility _groundMoveAbility;
+		private LookAbility _lookAbility;
+		private HeadBobAbility _headBobAbility;
+		private LeanAbility _leanAbility;
+		private ChangeVelocityAbility _changeVelocityAbility;
+		private PlacePlayerOnSurfaceAbility _placePlayerOnSurfaceAbility;
 		private LadderValuesConfig _values;
 		private float _smoothSpeed;
 		private Vector3 _targetPosition;
@@ -36,7 +45,18 @@ namespace Scripts.Core.Player
 		protected override void OnInitialize()
 		{
 			_playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
+			_playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
+			_rigidbodyAbility = Unit.GetAbility<RigidbodyAbility>();
+			_attachHeadAbility = Unit.GetAbility<AttachHeadAbility>();
+			_groundMoveAbility = Unit.GetAbility<GroundMoveAbility>();
+			_lookAbility = Unit.GetAbility<LookAbility>();
+			_headBobAbility = Unit.GetAbility<HeadBobAbility>();
+			_leanAbility = Unit.GetAbility<LeanAbility>();
+			_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
+			_placePlayerOnSurfaceAbility = Unit.GetAbility<PlacePlayerOnSurfaceAbility>();
+
 			_triggerLink.OnEnter.AddListener(HandleTriggerEnter).AddTo(Disposable);
+			_triggerLink.OnExit.AddListener(HandleTriggerExit).AddTo(Disposable);
 		}
 
 		private void HandleTriggerEnter(Unit unit)
@@ -46,6 +66,15 @@ namespace Scripts.Core.Player
 
 			if (unit.TryGetAbility(out LadderMarkerAbility ladder))
 				Ladder = ladder;
+		}
+
+		private void HandleTriggerExit(Unit unit)
+		{
+			if(IsClimbing)
+				return;
+
+			if (unit.TryGetAbility(out LadderMarkerAbility ladder) && Ladder == ladder)
+				Ladder = null;
 		}
 
 		protected override void OnUpdate()
@@ -91,14 +120,13 @@ namespace Scripts.Core.Player
 				{
 					_dismountTimer += Time.deltaTime;
 					
-					PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
-					playerHeadAbility.HeadDetachedAnchor.position =
-						Vector3.Lerp(playerHeadAbility.HeadDetachedAnchor.position, playerHeadAbility.HeadStaticAnchor.position, _gameConfig.Player.Ladder.DismountCurve.Evaluate(_dismountTimer / _dismountTime));
+					_playerHeadAbility.HeadDetachedAnchor.position =
+						Vector3.Lerp(_playerHeadAbility.HeadDetachedAnchor.position, _playerHeadAbility.HeadStaticAnchor.position, _gameConfig.Player.Ladder.DismountCurve.Evaluate(_dismountTimer / _dismountTime));
 				}
 				else
 				{
 					IsDismounting = false;
-					Unit.GetAbility<AttachHeadAbility>().RemoveDeactivator(this);
+					_attachHeadAbility.RemoveDeactivator(this);
 				}
 			}
 		}
@@ -107,32 +135,30 @@ namespace Scripts.Core.Player
 		{
 			_values = _gameConfig.Player.Ladder.DefaultValues;
 
-			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
-
-			Unit.GetAbility<GroundMoveAbility>().AddDeactivator(this);
-			Unit.GetAbility<LookAbility>().AddDeactivator(this);
-			Unit.GetAbility<AttachHeadAbility>().AddDeactivator(this);
-			Unit.GetAbility<HeadBobAbility>().ReplaceConfig(_values.ShakeConfig);
-			Unit.GetAbility<LeanAbility>().AddDeactivator(this);
-			Unit.GetAbility<ChangeVelocityAbility>().SetActualVelocity(Vector3.zero);
+			_groundMoveAbility.AddDeactivator(this);
+			_lookAbility.AddDeactivator(this);
+			_attachHeadAbility.AddDeactivator(this);
+			_headBobAbility.ReplaceConfig(_values.ShakeConfig);
+			_leanAbility.AddDeactivator(this);
+			_changeVelocityAbility.SetActualVelocity(Vector3.zero);
 
 			_smoothSpeed = 0;
 			IsClimbing = true;
 			IsDismounting = false;
 			_canDismount = false;
-			_targetPosition = Vector3Extensions.ClosestPointOnLine(playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
+			_targetPosition = Vector3Extensions.ClosestPointOnLine(_playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
 
 			DOTween.To(() => _smoothSpeed, value => _smoothSpeed = value, _values.MaxSmoothDelta, _values.SmoothDeltaChangeTime).SetEase(Ease.InFlash);
 
-			float distance = Vector3.Distance(_targetPosition, playerHeadAbility.HeadDetachedAnchor.position);
+			float distance = Vector3.Distance(_targetPosition, _playerHeadAbility.HeadDetachedAnchor.position);
 
 			DOTween.Sequence()
-				.Append(playerHeadAbility.HeadDetachedAnchor.DOMoveX(_targetPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(playerHeadAbility.HeadDetachedAnchor.DOMoveZ(_targetPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(playerHeadAbility.HeadDetachedAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutCubic))
+				.Append(_playerHeadAbility.HeadDetachedAnchor.DOMoveX(_targetPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Join(_playerHeadAbility.HeadDetachedAnchor.DOMoveZ(_targetPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Join(_playerHeadAbility.HeadDetachedAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutCubic))
 				.AppendCallback(() =>
 				{
-					Unit.GetAbility<LookAbility>().RemoveDeactivator(this);
+					_lookAbility.RemoveDeactivator(this);
 					_canDismount = true;
 				});
 
@@ -141,28 +167,23 @@ namespace Scripts.Core.Player
 
 		private void Dismount(Vector3 targetPosition)
 		{
-			PlayerHeadAbility playerHeadAbility = Unit.GetAbility<PlayerHeadAbility>();
-			PlayerBodyAbility playerBodyAbility = Unit.GetAbility<PlayerBodyAbility>();
-			RigidbodyAbility rigidbodyAbility = Unit.GetAbility<RigidbodyAbility>();
-
-			playerBodyAbility.Collider.enabled = false;
-			rigidbodyAbility.Rigidbody.gameObject.SetActive(false);
-			rigidbodyAbility.Rigidbody.transform.position = targetPosition;
-			Unit.GetAbility<PlacePlayerOnSurfaceAbility>().Place(targetPosition);
+			_playerBodyAbility.Collider.enabled = false;
+			_rigidbodyAbility.Rigidbody.gameObject.SetActive(false);
+			_rigidbodyAbility.Rigidbody.transform.position = targetPosition;
+			_placePlayerOnSurfaceAbility.Place(targetPosition);
 
 			IsDismounting = true;
 			IsClimbing = false;
 
-			float distance = Vector3.Distance(playerHeadAbility.HeadStaticAnchor.position, playerHeadAbility.HeadDetachedAnchor.position);
+			float distance = Vector3.Distance(_playerHeadAbility.HeadStaticAnchor.position, _playerHeadAbility.HeadDetachedAnchor.position);
 
 			_dismountTimer = 0;
 			_dismountTime = distance * _values.DismountTimeMultiplier;
 
-			rigidbodyAbility.Rigidbody.gameObject.SetActive(true);
-			playerBodyAbility.Collider.enabled = true;
-
-			Unit.GetAbility<GroundMoveAbility>().RemoveDeactivator(this);
-			Unit.GetAbility<LeanAbility>().RemoveDeactivator(this);
+			_rigidbodyAbility.Rigidbody.gameObject.SetActive(true);
+			_playerBodyAbility.Collider.enabled = true;
+			_groundMoveAbility.RemoveDeactivator(this);
+			_leanAbility.RemoveDeactivator(this);
 
 			Ladder = null;
 			DismountAction.Invoke();

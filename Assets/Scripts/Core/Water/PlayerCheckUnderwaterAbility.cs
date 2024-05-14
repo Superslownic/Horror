@@ -1,6 +1,7 @@
 using Scripts.Core.Player;
 using Scripts.Reactive;
 using Scripts.Units;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Scripts.Core
@@ -10,7 +11,7 @@ namespace Scripts.Core
 		public DisposableAction EnterAction { get; } = new();
 		public DisposableAction ExitAction { get; } = new();
 
-		public bool IsUnderWater { get; private set; }
+		[ShowInInspector] public bool IsUnderWater { get; private set; }
 
 		private PlayerHeadAbility _playerHeadAbility;
 		private PlayerCheckWaterAbility _checkWaterAbility;
