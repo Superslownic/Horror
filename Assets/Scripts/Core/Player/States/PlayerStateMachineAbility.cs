@@ -2,8 +2,6 @@
 using Scripts.Input;
 using Scripts.Reflection;
 using Scripts.TFSM;
-using Scripts.Utility.Extensions;
-using UnityEngine;
 using Zenject;
 
 namespace Scripts.Core.Player.States
@@ -26,7 +24,6 @@ namespace Scripts.Core.Player.States
 			Condition runWasPressed = new(() => _inputManager.Run.WasPressedThisFrame());
 			Condition isLadderNearby = new(() => ladderClimbAbility.Ladder != null);
 			Condition isLadderClimbing = new(() => ladderClimbAbility.IsClimbing);
-			Condition isLadderDismounting = new(() => ladderClimbAbility.IsDismounting);
 			Condition inWater = new(() => checkWaterAbility.IsInWater);
 			Condition canStandInWater = new(() => checkWaterAbility.CanStand);
 			Condition isUnderwater = new(() => checkUnderwaterAbility.IsUnderWater);
@@ -71,10 +68,11 @@ namespace Scripts.Core.Player.States
 			RegisterState<LadderSuperState>();
 			RegisterState<LadderIdleState>(transitions: new[] {
 				To<StandIdleState>(when: () => !isLadderClimbing),
+				To<SwimIdleState>(when: () => inWater && _inputManager.Jump.WasPressedThisFrame(), with: ladderClimbAbility.Dismount),
 			});
 			RegisterState<LadderWalkState>(transitions: new[] {
 				To<StandWalkState>(when: () => !isLadderClimbing),
-				To<SwimWalkState>(when: () => _inputManager.Jump.WasPressedThisFrame()),
+				To<SwimWalkState>(when: () => inWater && _inputManager.Jump.WasPressedThisFrame(), with: ladderClimbAbility.Dismount),
 			});
 
 			RegisterState<SwimSuperState>();

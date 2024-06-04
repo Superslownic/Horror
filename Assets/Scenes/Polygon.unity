@@ -2178,7 +2178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &555612138
 Transform:
   m_ObjectHideFlags: 0
@@ -4203,7 +4203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1305539369
 Transform:
   m_ObjectHideFlags: 0
@@ -4213,7 +4213,7 @@ Transform:
   m_GameObject: {fileID: 1305539368}
   serializedVersion: 2
   m_LocalRotation: {x: -0.30961537, y: -0, z: -0, w: 0.9508619}
-  m_LocalPosition: {x: -15.5, y: 3.63, z: 5.67}
+  m_LocalPosition: {x: -15.5, y: 4.8, z: 5.58}
   m_LocalScale: {x: 3, y: 1.50003, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7530,6 +7530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ladder
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010424256712491512, guid: 158f4b6d0d8895442b1529e232f99776,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9111597109551785244, guid: 158f4b6d0d8895442b1529e232f99776,
         type: 3}

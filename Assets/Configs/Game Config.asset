@@ -230,17 +230,17 @@ MonoBehaviour:
         <ChangeEase>k__BackingField: 0
     ChangeHeight:
       StandConfig:
-        BodyCenter: 0.9
-        BodyHeight: 1.8
-        HeadHeight: 1.6
+        BodyCenter: 1
+        BodyHeight: 2
+        HeadHeight: 1.7
       CrouchConfig:
-        BodyCenter: 0.5
-        BodyHeight: 1
+        BodyCenter: 0.55
+        BodyHeight: 1.1
         HeadHeight: 0.8
       SwimConfig:
-        BodyCenter: 1.6
+        BodyCenter: 1.7
         BodyHeight: 0.6
-        HeadHeight: 1.6
+        HeadHeight: 1.7
       Duration: 1
   <Audio>k__BackingField:
     <Events>k__BackingField:

@@ -8,16 +8,17 @@ namespace Scripts.Core.Player.States
 	{
 		[Inject] private readonly Unit _playerUnit;
 
-		private LadderClimbAbility _ladderClimbAbility;
-
-		public override void OnInitialize()
-		{
-			_ladderClimbAbility = _playerUnit.GetAbility<LadderClimbAbility>();
-		}
-
 		public override void OnEnter()
 		{
-			_ladderClimbAbility.Mount();
+			_playerUnit.GetAbility<LadderClimbAbility>().Mount();
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = false;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = 5;
+		}
+
+		public override void OnExit()
+		{
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = true;
+			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = 0;
 		}
 	}
 }

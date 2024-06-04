@@ -14,7 +14,7 @@ namespace Scripts.Core.Player.States
 		{
 			_playerUnit.GetAbility<ChangeVelocityAbility>().AffectGravity = true;
 			_playerUnit.GetAbility<WaterMoveAbility>().AddActivator(this);
-			_playerUnit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.SwimConfig, _gameConfig.Player.ChangeHeight.Duration);
+			_playerUnit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.SwimConfig);
 			_playerUnit.GetAbility<HeadBobAbility>().AddActivator(this);
 
 			RigidbodyAbility rigidbodyAbility = _playerUnit.GetAbility<RigidbodyAbility>();

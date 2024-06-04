@@ -14,7 +14,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnLateUpdate()
 		{
-			_playerHeadAbility.HeadDetachedAnchor.position = _playerHeadAbility.HeadStaticAnchor.position;
+			//_playerHeadAbility.HeadDetachedAnchor.position = _playerHeadAbility.HeadStaticAnchor.position;
 		}
 
 		/*protected override void OnFixedUpdate()

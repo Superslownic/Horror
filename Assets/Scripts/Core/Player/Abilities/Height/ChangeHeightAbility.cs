@@ -33,5 +33,16 @@ namespace Scripts.Core.Player
 				.SetEase(Ease.InOutCubic)
 				.AppendCallback(() => endCallback?.Invoke());
 		}
+
+		public void Execute(ChangeHeightConfig config)
+		{
+			if (_config == config)
+				return;
+
+			_config = config;
+			_playerBodyAbility.Collider.height = _config.BodyHeight;
+			_playerBodyAbility.Collider.center = new Vector3(0, _config.BodyCenter, 0);
+			_playerHeadAbility.HeadStaticAnchor.localPosition = new Vector3(0, _config.HeadHeight, 0);
+		}
 	}
 }
