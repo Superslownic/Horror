@@ -143,8 +143,8 @@ MonoBehaviour:
         m_RotationOrder: 4
       <DefaultValues>k__BackingField:
         <ClimbSpeed>k__BackingField: 1.5
-        <MountTimeMultiplier>k__BackingField: 1
-        <DismountTimeMultiplier>k__BackingField: 1
+        <MountTimeMultiplier>k__BackingField: 0.5
+        <DismountTimeMultiplier>k__BackingField: 0.8
         <MaxSmoothDelta>k__BackingField: 10
         <SmoothDeltaChangeTime>k__BackingField: 0.5
         <ShakeConfig>k__BackingField:
