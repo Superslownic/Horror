@@ -22,7 +22,6 @@ namespace Scripts.Core.Player
 
 		[SerializeField] private TriggerLink _triggerLink;
 		[SerializeField] private float _acceleration;
-		[SerializeField] private bool _autoDismount = true;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
@@ -94,14 +93,14 @@ namespace Scripts.Core.Player
 
 			float t = Vector3Extensions.InverseLerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, _playerBodyAbility.BodyTransform.position);
 
-			if ((_autoDismount && t <= 0) || Unit.GetAbility<CheckGroundAbility>().IsGrounded || _inputManager.Jump.WasPressedThisFrame())
+			if (t <= 0 || Unit.GetAbility<CheckGroundAbility>().IsGrounded || _inputManager.Jump.WasPressedThisFrame())
 			{
 				Dismount(Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, t));
 
 				if (_inputManager.Jump.WasPressedThisFrame())
 					_changeVelocityAbility.SetActualVelocity(_playerHeadAbility.HeadFloatingAnchor.forward * 5);
 			}
-			else if (_autoDismount && t >= 1)
+			else if (t >= 1)
 			{
 				Dismount(Ladder.TopDismountPoint.position);
 			}
