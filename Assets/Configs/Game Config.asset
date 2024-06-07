@@ -241,6 +241,10 @@ MonoBehaviour:
         BodyCenter: 1.7
         BodyHeight: 0.6
         HeadHeight: 1.7
+      LadderConfig:
+        BodyCenter: 0
+        BodyHeight: 0.6
+        HeadHeight: 0
       Duration: 1
   <Audio>k__BackingField:
     <Events>k__BackingField:

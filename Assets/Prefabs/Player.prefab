@@ -606,8 +606,8 @@ MonoBehaviour:
   _lookAnchor: {fileID: 1089791359679817450}
   _rigidbody: {fileID: 1089791360745151953}
   _acceleration: 5
-  _deceleration: 10
-  _airCorrectionMultiplier: 0.5
+  _deceleration: 20
+  _airCorrectionMultiplier: 5
   references:
     version: 2
     RefIds:
@@ -2437,6 +2437,7 @@ MonoBehaviour:
   _deactivationController:
     rid: -2
   _triggerLink: {fileID: 4023524320262694912}
+  _acceleration: 10
   references:
     version: 2
     RefIds:

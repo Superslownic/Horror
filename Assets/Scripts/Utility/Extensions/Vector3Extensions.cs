@@ -27,10 +27,31 @@ namespace Scripts.Utility.Extensions
 			if(mu > abMag) return new Vector3(bx, by, bz);
 			return new Vector3(ax + abx * mu, ay + aby * mu, az + abz * mu);
 		}
-		
+
 		public static Vector3 ClosestPointOnLine(Vector3 p, Vector3 a, Vector3 b)
 		{
 			return ClosestPointOnLine(p.x, p.y, p.z, a.x, a.y, a.z, b.x, b.y, b.z);
+		}
+
+		public static float InverseLerp(Vector3 a, Vector3 b, Vector3 target)
+		{
+			// Calculate the full vector from a to b
+			Vector3 AB = b - a;
+        
+			// Calculate the vector from a to the value
+			Vector3 AT = target - a;
+
+			// Project AV onto AB to get the length of the projection onto AB
+			float dotProduct = Vector3.Dot(AT, AB);
+			float lengthAB = Vector3.Dot(AB, AB);
+
+			// Calculate the interpolation parameter t
+			float t = dotProduct / lengthAB;
+
+			// Clamp t to the [0, 1] range if necessary
+			t = Mathf.Clamp01(t);
+
+			return t;
 		}
 		
 		public static Vector3 SetY(this Vector3 vector, float value)

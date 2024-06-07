@@ -9,6 +9,7 @@ namespace Scripts.Configs.Player
 		public ChangeHeightConfig StandConfig;
 		public ChangeHeightConfig CrouchConfig;
 		public ChangeHeightConfig SwimConfig;
+		public ChangeHeightConfig LadderConfig;
 		public float Duration;
 	}
 }

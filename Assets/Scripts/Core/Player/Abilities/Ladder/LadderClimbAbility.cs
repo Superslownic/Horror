@@ -21,6 +21,8 @@ namespace Scripts.Core.Player
 		[ShowInInspector] public LadderMarkerAbility Ladder { get; private set; }
 
 		[SerializeField] private TriggerLink _triggerLink;
+		[SerializeField] private float _acceleration;
+		[SerializeField] private bool _autoDismount = true;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
@@ -82,23 +84,26 @@ namespace Scripts.Core.Player
 
 			float verticalInput = _inputManager.Move.ReadValue<Vector2>().y;
 			Vector3 direction = Ladder.TopMountPoint.position - Ladder.BottomMountPoint.position;
-			Vector3 closestPoint = Vector3Extensions.ClosestPointOnLine(_playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
-			Vector3 stabDir = closestPoint - _playerHeadAbility.HeadDetachedAnchor.position;
+			Vector3 closestPoint = Vector3Extensions.ClosestPointOnLine(_playerBodyAbility.BodyTransform.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
+			Vector3 stabDir = closestPoint - _playerBodyAbility.BodyTransform.position;
 			_changeVelocityAbility.SetTargetVelocity(direction.normalized * (verticalInput * _values.ClimbSpeed) + stabDir * 5);
 			_rigidbodyAbility.Rigidbody.angularVelocity = Vector3.zero;
 
-			if(_canDismount)
+			if (!_canDismount)
+				return;
+
+			float t = Vector3Extensions.InverseLerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, _playerBodyAbility.BodyTransform.position);
+
+			if ((_autoDismount && t <= 0) || Unit.GetAbility<CheckGroundAbility>().IsGrounded || _inputManager.Jump.WasPressedThisFrame())
 			{
-				if (Vector3.Distance(Ladder.BottomMountPoint.position, _playerHeadAbility.HeadDetachedAnchor.position) >
-				    Vector3.Distance(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position))
-				{
-					Dismount(Ladder.TopDismountPoint.position);
-				}
-				else if (Vector3.Distance(Ladder.TopMountPoint.position, _playerHeadAbility.HeadDetachedAnchor.position) >
-				         Vector3.Distance(Ladder.BottomMountPoint.position.AddY(_gameConfig.Player.ChangeHeight.StandConfig.HeadHeight), Ladder.TopMountPoint.position))
-				{
-					Dismount(Ladder.BottomDismountPoint.position);
-				}
+				Dismount(Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, t));
+
+				if (_inputManager.Jump.WasPressedThisFrame())
+					_changeVelocityAbility.SetActualVelocity(_playerHeadAbility.HeadFloatingAnchor.forward * 5);
+			}
+			else if (_autoDismount && t >= 1)
+			{
+				Dismount(Ladder.TopDismountPoint.position);
 			}
 		}
 
@@ -113,23 +118,25 @@ namespace Scripts.Core.Player
 			_headBobAbility.ReplaceConfig(_values.ShakeConfig);
 			_leanAbility.AddDeactivator(this);
 			_changeVelocityAbility.AffectGravity = true;
+			_changeVelocityAbility.ChangeSpeed.Set(_acceleration);
 			_changeVelocityAbility.SetActualVelocity(Vector3.zero);
-			Unit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.SwimConfig);
+			Unit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.StandConfig, 1);
 
 			_smoothSpeed = 0;
 			IsClimbing = true;
 			_canDismount = false;
-			_targetPosition = Vector3Extensions.ClosestPointOnLine(_playerHeadAbility.HeadDetachedAnchor.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
-			
+
+			float t = Vector3Extensions.InverseLerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, _playerBodyAbility.BodyTransform.position);
+			t = Mathf.Clamp(t, 0.1f, 0.9f);
+			_targetPosition = Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, t);
+
 			DOTween.To(() => _smoothSpeed, value => _smoothSpeed = value, _values.MaxSmoothDelta, _values.SmoothDeltaChangeTime).SetEase(Ease.InFlash);
 
-			float distance = Vector3.Distance(_targetPosition, _playerHeadAbility.HeadDetachedAnchor.position);
+			float distance = Vector3.Distance(_targetPosition, _playerBodyAbility.BodyTransform.position);
 
 			_rigidbodyAbility.Rigidbody.interpolation = RigidbodyInterpolation.None;
 			DOTween.Sequence()
-				.Append(_playerBodyAbility.BodyTransform.DOMoveX(_targetPosition.x, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(_playerBodyAbility.BodyTransform.DOMoveZ(_targetPosition.z, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
-				.Join(_playerBodyAbility.BodyTransform.DOMoveY(_targetPosition.y - _gameConfig.Player.ChangeHeight.StandConfig.HeadHeight, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
+				.Append(_playerBodyAbility.BodyTransform.DOMove(_targetPosition, distance * _values.MountTimeMultiplier).SetEase(Ease.InOutFlash))
 				.Join(_playerHeadAbility.HeadFloatingAnchor.DORotateQuaternion(Quaternion.LookRotation(Ladder.RotationTransform.forward), distance * _values.MountTimeMultiplier).SetEase(Ease.InOutCubic))
 				.AppendCallback(() =>
 				{
@@ -156,7 +163,6 @@ namespace Scripts.Core.Player
 		{
 			_playerHeadAbility.HeadDetachedAnchor.SetParent(null);
 			_rigidbodyAbility.Rigidbody.gameObject.SetActive(false);
-			Unit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.StandConfig);
 			_playerBodyAbility.BodyTransform.position = targetPosition;
 			_rigidbodyAbility.Rigidbody.gameObject.SetActive(true);
 
