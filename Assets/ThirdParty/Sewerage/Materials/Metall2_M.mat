@@ -111,7 +111,7 @@ Material:
     - Tiling: 4
     - Vector1_1e75a7939e58499c950dcbdf88701d5c: 1
     - Vector1_846608e6a22840b5a0bb942d2e4d99ba: 0
-    - Vector1_940a393576d8410181df69732dc0c079: 0.6
+    - Vector1_940a393576d8410181df69732dc0c079: 0.276
     - Vector1_c020ff24cb25405286b0609a0b359414: 0
     - Vector1_d6275c7ea3974cb3a03d422e32d59c3c: 1
     - _AddPrecomputedVelocity: 0
@@ -183,11 +183,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_030647fa97a24f01b05ccfde176f9ccb: {r: 0.29245278, g: 0.26868638, b: 0.26072448,
+    - Color_030647fa97a24f01b05ccfde176f9ccb: {r: 0.29245275, g: 0.26868635, b: 0.26072446,
         a: 0}
     - Color_09bc71ca831e4e6bb0688fe3ac86a291: {r: 0.7075472, g: 0.7075472, b: 0.7075472,
         a: 0}
-    - Color_170cb2eaa2b941319b3ff4bb73d90690: {r: 0.62352943, g: 0.5803922, b: 0.4784314,
+    - Color_170cb2eaa2b941319b3ff4bb73d90690: {r: 0.62352943, g: 0.53057903, b: 0.47843137,
         a: 0}
     - Color_d4dbd54059e74ff482d1cd002ad14c4f: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

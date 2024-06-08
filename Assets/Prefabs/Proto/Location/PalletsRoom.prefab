@@ -4972,6 +4972,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6565249041236243330, guid: 299eafe8a658baa428fbc1883a4a9cd9,
+        type: 3}
+      propertyPath: _popupSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565249041236243330, guid: 299eafe8a658baa428fbc1883a4a9cd9,
+        type: 3}
+      propertyPath: _maxHeightAboveWater
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

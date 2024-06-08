@@ -40,6 +40,7 @@ namespace Scripts.Core.Player
 				return;
 
 			_config = config;
+			_tween?.Kill();
 			_playerBodyAbility.Collider.height = _config.BodyHeight;
 			_playerBodyAbility.Collider.center = new Vector3(0, _config.BodyCenter, 0);
 			_playerHeadAbility.HeadStaticAnchor.localPosition = new Vector3(0, _config.HeadHeight, 0);

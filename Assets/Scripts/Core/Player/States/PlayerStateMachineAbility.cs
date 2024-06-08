@@ -78,12 +78,10 @@ namespace Scripts.Core.Player.States
 			RegisterState<SwimSuperState>();
 			RegisterState<SwimIdleState>(transitions: new[] {
 				To<SwimWalkState>(when: () => isMovePressed),
-				To<StandIdleState>(when: () => !inWater),
 				To<StandIdleState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
 			});
 			RegisterState<SwimWalkState>(transitions: new [] {
 				To<SwimIdleState>(when: () => !isMovePressed),
-				To<StandWalkState>(when: () => !inWater),
 				To<StandWalkState>(when: () => canStandInWater, with: resizeToFitSurfaceAbility.Resize),
 				To<LadderWalkState>(when: () => !isUnderwater && isLadderNearby),
 			});
