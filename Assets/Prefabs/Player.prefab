@@ -2215,10 +2215,12 @@ MonoBehaviour:
     rid: 6296081953601880147
   _deactivationController:
     rid: -2
+  _rigidbody: {fileID: 1089791360745151953}
   _speed: 2
   _maxHeightAboveWater: 0.2
   _popupDepth: 0.5
   _popupSpeed: 1
+  _acceleration: 5
   references:
     version: 2
     RefIds:
