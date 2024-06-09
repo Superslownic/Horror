@@ -30,7 +30,7 @@ namespace Scripts.Core.Player
 			if (!AffectGravity)
 				_actualVelocity.y = _rigidbodyAbility.Rigidbody.linearVelocity.y;
 
-			_rigidbodyAbility.Rigidbody.linearVelocity = _actualVelocity;
+			//_rigidbodyAbility.Rigidbody.linearVelocity = _actualVelocity;
 		}
 
 		public void SetTargetVelocity(float x = float.NaN, float y = float.NaN, float z = float.NaN)

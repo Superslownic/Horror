@@ -1,37 +1,46 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Scripts.Configs;
 using Scripts.Configs.Player;
 using Scripts.Input;
 using Scripts.Units;
 using UnityEngine;
 using Zenject;
+using Scripts.Reactive;
 
 namespace Scripts.Core.Player
 {
 	public class GroundMoveAbility : Ability
 	{
+		[SerializeField] private CollisionLink _collisionLink;
 		[SerializeField] private Transform _lookAnchor;
 		[SerializeField] private Rigidbody _rigidbody;
 		[SerializeField] private float _acceleration;
 		[SerializeField] private float _deceleration;
 		[SerializeField] private float _airCorrectionMultiplier;
-		
+		[SerializeField] private float _maxSlopeAngle;
+
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
 
+		public bool IsGrounded => GroundContactCount > 0;
+		public int GroundContactCount { get; private set; }
+		public Vector3 ContactNormal { get; private set; }
 		public bool IsMoving { get; private set; }
 
-		private CheckGroundAbility _checkGroundAbility;
 		private PlayerMovementValues _values;
-		private TweenableFloat _speed = new();
+		private TweenableFloat _maxSpeed = new();
 		private ChangeVelocityAbility _changeVelocityAbility;
+		private Vector3 _velocity;
+		private float _inAirTimer;
 
 		protected override void OnInitialize()
 		{
-			_checkGroundAbility = Unit.GetAbility<CheckGroundAbility>();
+			_collisionLink.OnEnter.AddListener(HandleCollision).AddTo(Disposable);
+			_collisionLink.OnStay.AddListener(HandleCollision).AddTo(Disposable);
 			_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
 			_values = _gameConfig.Player.Movement.Walking;
-			_speed.Set(_values.Speed);
+			_maxSpeed.Set(_values.Speed);
 		}
 
 		protected override void OnDeactivate()
@@ -42,44 +51,68 @@ namespace Scripts.Core.Player
 		public void ReplaceConfig(PlayerMovementValues config)
 		{
 			_values = config;
-			_speed.Tween(_values.Speed, _gameConfig.Player.Movement.ChangeValuesDuration, Ease.InOutCubic);
+			_maxSpeed.Tween(_values.Speed, _gameConfig.Player.Movement.ChangeValuesDuration, Ease.InOutCubic);
 		}
 
-		protected override void OnUpdate()
+		protected override void OnFixedUpdate()
 		{
 			Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
-			Vector3 velocity = _changeVelocityAbility.TargetVelocity;
+			_velocity = _rigidbody.linearVelocity;
+
 			IsMoving = moveInput.sqrMagnitude > 0;
 
-			if (IsMoving)
+			if(IsGrounded)
 			{
-				Vector3 forwardInputMotion = Vector3.ProjectOnPlane(_lookAnchor.forward, Vector3.up).normalized * moveInput.y;
-				Vector3 sideInputMotion = Vector3.ProjectOnPlane(_lookAnchor.right, Vector3.up).normalized * moveInput.x;
-				Vector3 resultInputMotion = (forwardInputMotion + sideInputMotion) * _speed;
-				Vector3 clampedInputMotion = Vector3.ClampMagnitude(resultInputMotion, _speed);
-
-				if (_checkGroundAbility.IsGrounded)
+				if (IsMoving)
 				{
-					_changeVelocityAbility.ChangeSpeed.Set(_acceleration);
-					velocity = clampedInputMotion;
+					Vector3 projectedForward = Vector3.ProjectOnPlane(_lookAnchor.forward, Vector3.up).normalized;
+					Vector3 projectedRight = Vector3.ProjectOnPlane(_lookAnchor.right, Vector3.up).normalized;
+					Vector3 forwardInputMotion = Vector3.ProjectOnPlane(projectedForward, Vector3.ProjectOnPlane(ContactNormal, projectedRight)).normalized * moveInput.y;
+					Vector3 sideInputMotion = Vector3.ProjectOnPlane(projectedRight, Vector3.ProjectOnPlane(ContactNormal, projectedForward)).normalized * moveInput.x;
+					Vector3 resultInputMotion = (forwardInputMotion + sideInputMotion) * _maxSpeed;
+					Vector3 clampedInputMotion = Vector3.ClampMagnitude(resultInputMotion, _maxSpeed);
+					_velocity = clampedInputMotion;
 				}
 				else
 				{
-					velocity = _changeVelocityAbility.ActualVelocity + clampedInputMotion * (_airCorrectionMultiplier * Time.fixedDeltaTime);
-					velocity.y = 0;
-					velocity = Vector3.ClampMagnitude(velocity, _speed);
+					_velocity = IsGrounded ? Vector3.zero : _rigidbody.linearVelocity;
 				}
 			}
-			else
-			{
-				if(!_checkGroundAbility.IsGrounded)
-					return;
 
-				_changeVelocityAbility.ChangeSpeed.Set(_deceleration);
-				velocity = Vector3.zero;
+			_rigidbody.useGravity = !IsGrounded;
+
+			if (_inAirTimer > 0)
+			{
+				_inAirTimer -= Time.deltaTime;
 			}
 
-			_changeVelocityAbility.SetTargetVelocity(x: velocity.x, z: velocity.z);
+			if(!IsGrounded || _inAirTimer > 0)
+				_velocity.y = _rigidbody.linearVelocity.y;
+
+			_rigidbody.linearVelocity = _velocity;
+
+			GroundContactCount = 0;
+			ContactNormal = Vector3.up;
+		}
+
+		public void SetInAir()
+		{
+			_inAirTimer = 0.1f;
+		}
+
+		private void HandleCollision(Collision collision)
+		{
+			for (int i = 0; i < collision.contactCount; i++)
+			{
+				if(collision.GetContact(i).normal.y >= Mathf.Cos(_maxSlopeAngle * Mathf.Deg2Rad))
+				{
+					GroundContactCount++;
+					ContactNormal += collision.GetContact(i).normal;
+				}
+			}
+
+			if(GroundContactCount > 1)
+				ContactNormal.Normalize();
 		}
 	}
 }

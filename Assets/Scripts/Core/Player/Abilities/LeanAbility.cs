@@ -15,18 +15,16 @@ namespace Scripts.Core.Player
 
 		private GroundMoveAbility _groundMoveAbility;
 		private ChangeVelocityAbility _changeVelocityAbility;
-		private CheckGroundAbility _checkGroundAbility;
 
 		protected override void OnInitialize()
 		{
 			_groundMoveAbility = Unit.GetAbility<GroundMoveAbility>();
 			_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
-			_checkGroundAbility = Unit.GetAbility<CheckGroundAbility>();
 		}
 
 		protected override void OnUpdate()
 		{
-			if (_checkGroundAbility.IsGrounded && _groundMoveAbility.IsMoving)
+			if (_groundMoveAbility.IsGrounded && _groundMoveAbility.IsMoving)
 			{
 				float input = _inputManager.Move.ReadValue<Vector2>().x;
 				float targetAngle = -input * _changeVelocityAbility.ActualVelocity.normalized.magnitude * _gameConfig.Player.Lean.Angle;

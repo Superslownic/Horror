@@ -17,7 +17,6 @@ namespace Scripts.Core.Player
 
 		private GroundMoveAbility _groundMoveAbility;
 		private ChangeVelocityAbility _changeVelocityAbility;
-		private CheckGroundAbility _checkGroundAbility;
 		private ShakeHeadAbility _shakeHeadAbility;
 		private ShakerProcessor _shakerProcessor;
 		private HeadBobShakeVariant _shakerVariant;
@@ -30,7 +29,6 @@ namespace Scripts.Core.Player
 		{
 			_groundMoveAbility = Unit.GetAbility<GroundMoveAbility>();
 			_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
-			_checkGroundAbility = Unit.GetAbility<CheckGroundAbility>();
 			_shakeHeadAbility = Unit.GetAbility<ShakeHeadAbility>();
 			_shakerVariant = new HeadBobShakeVariant();
 			_shakerProcessor = new ShakerProcessor
@@ -55,7 +53,7 @@ namespace Scripts.Core.Player
 
 		protected override void OnUpdate()
 		{
-			_shakerVariant.Magnitude = _checkGroundAbility.IsGrounded && _groundMoveAbility.IsMoving
+			_shakerVariant.Magnitude = _groundMoveAbility.IsGrounded && _groundMoveAbility.IsMoving
 				? _changeVelocityAbility.ActualVelocity.normalized.magnitude
 				: Mathf.Lerp(_shakerVariant.Magnitude, 0, Time.deltaTime);
 

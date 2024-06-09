@@ -93,7 +93,7 @@ namespace Scripts.Core.Player
 
 			float t = Vector3Extensions.InverseLerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, _playerBodyAbility.BodyTransform.position);
 
-			if (t <= 0 || Unit.GetAbility<CheckGroundAbility>().IsGrounded || _inputManager.Jump.WasPressedThisFrame())
+			if (t <= 0 || Unit.GetAbility<GroundMoveAbility>().IsGrounded || _inputManager.Jump.WasPressedThisFrame())
 			{
 				Dismount(Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, t));
 
