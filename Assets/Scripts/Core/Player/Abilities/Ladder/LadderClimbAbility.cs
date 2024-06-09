@@ -34,10 +34,10 @@ namespace Scripts.Core.Player
 		private LookAbility _lookAbility;
 		private HeadBobAbility _headBobAbility;
 		private LeanAbility _leanAbility;
-		private ChangeVelocityAbility _changeVelocityAbility;
 		private LadderValuesConfig _values;
 		private float _smoothSpeed;
 		private Vector3 _targetPosition;
+		private Vector3 _velocity;
 		private float _dismountTime;
 		private float _dismountTimer;
 		private bool _canDismount;
@@ -52,7 +52,6 @@ namespace Scripts.Core.Player
 			_lookAbility = Unit.GetAbility<LookAbility>();
 			_headBobAbility = Unit.GetAbility<HeadBobAbility>();
 			_leanAbility = Unit.GetAbility<LeanAbility>();
-			_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
 
 			_triggerLink.OnEnter.AddListener(HandleTriggerEnter).AddTo(Disposable);
 			_triggerLink.OnExit.AddListener(HandleTriggerExit).AddTo(Disposable);
@@ -76,7 +75,7 @@ namespace Scripts.Core.Player
 				Ladder = null;
 		}
 
-		protected override void OnUpdate()
+		protected override void OnFixedUpdate()
 		{
 			if (!IsClimbing)
 				return;
@@ -85,7 +84,8 @@ namespace Scripts.Core.Player
 			Vector3 direction = Ladder.TopMountPoint.position - Ladder.BottomMountPoint.position;
 			Vector3 closestPoint = Vector3Extensions.ClosestPointOnLine(_playerBodyAbility.BodyTransform.position, Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position);
 			Vector3 stabDir = closestPoint - _playerBodyAbility.BodyTransform.position;
-			_changeVelocityAbility.SetTargetVelocity(direction.normalized * (verticalInput * _values.ClimbSpeed) + stabDir * 5);
+			_velocity = Vector3.Lerp(_velocity, direction.normalized * (verticalInput * _values.ClimbSpeed) + stabDir * 5, _acceleration * Time.deltaTime);
+			_rigidbodyAbility.Rigidbody.linearVelocity = _velocity;
 			_rigidbodyAbility.Rigidbody.angularVelocity = Vector3.zero;
 
 			if (!_canDismount)
@@ -98,7 +98,7 @@ namespace Scripts.Core.Player
 				Dismount(Vector3.Lerp(Ladder.BottomMountPoint.position, Ladder.TopMountPoint.position, t));
 
 				if (_inputManager.Jump.WasPressedThisFrame())
-					_changeVelocityAbility.SetActualVelocity(_playerHeadAbility.HeadFloatingAnchor.forward * 5);
+					_rigidbodyAbility.Rigidbody.linearVelocity = _playerHeadAbility.HeadFloatingAnchor.forward * 5;
 			}
 			else if (t >= 1)
 			{
@@ -116,9 +116,7 @@ namespace Scripts.Core.Player
 			_attachHeadAbility.AddDeactivator(this);
 			_headBobAbility.ReplaceConfig(_values.ShakeConfig);
 			_leanAbility.AddDeactivator(this);
-			_changeVelocityAbility.AffectGravity = true;
-			_changeVelocityAbility.ChangeSpeed.Set(_acceleration);
-			_changeVelocityAbility.SetActualVelocity(Vector3.zero);
+			_rigidbodyAbility.Rigidbody.linearVelocity = Vector3.zero;
 			Unit.GetAbility<ChangeHeightAbility>().Execute(_gameConfig.Player.ChangeHeight.StandConfig, 1);
 
 			_smoothSpeed = 0;
@@ -149,7 +147,6 @@ namespace Scripts.Core.Player
 
 		public void Dismount()
 		{
-			_changeVelocityAbility.AffectGravity = false;
 			_groundMoveAbility.RemoveDeactivator(this);
 			Unit.GetAbility<JumpAbility>().RemoveDeactivator(this);
 			_leanAbility.RemoveDeactivator(this);

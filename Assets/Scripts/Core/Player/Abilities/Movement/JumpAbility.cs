@@ -12,14 +12,12 @@ namespace Scripts.Core.Player
 
 		[Inject] private readonly InputManager _inputManager;
 
-		//private ChangeVelocityAbility _changeVelocityAbility;
 		private GroundMoveAbility _groundMoveAbility;
 		private RigidbodyAbility _rigidbodyAbility;
 
 		protected override void OnInitialize()
 		{
 			base.OnInitialize();
-			//_changeVelocityAbility = Unit.GetAbility<ChangeVelocityAbility>();
 			_rigidbodyAbility = Unit.GetAbility<RigidbodyAbility>();
 			_groundMoveAbility = Unit.GetAbility<GroundMoveAbility>();
 		}
@@ -28,12 +26,10 @@ namespace Scripts.Core.Player
 		{
 			base.OnUpdate();
 
-			if (_inputManager.Jump.WasPressedThisFrame() && _groundMoveAbility.IsGrounded)
+			/*if (_inputManager.Jump.WasPressedThisFrame() && _groundMoveAbility.IsGrounded)
 			{
-				//_changeVelocityAbility.SetActualVelocity(y: _force);
-				_groundMoveAbility.SetInAir();
 				_rigidbodyAbility.Rigidbody.linearVelocity = _rigidbodyAbility.Rigidbody.linearVelocity.SetY(_force);
-			}
+			}*/
 		}
 	}
 }
