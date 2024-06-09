@@ -6,7 +6,6 @@ using Scripts.Units;
 using UnityEngine;
 using Zenject;
 using Scripts.Reactive;
-using Scripts.Utility.Extensions;
 
 namespace Scripts.Core.Player
 {
@@ -21,21 +20,24 @@ namespace Scripts.Core.Player
 		[SerializeField] private float _maxSlopeAngle;
 		[SerializeField] private float _jumpHeight;
 		[SerializeField] private float _groundStickPreventionDelay;
-		[SerializeField] private float _airJumpDelay;
+		[SerializeField] private float _airJumpTime;
+		[SerializeField] private float _allowedJumpCount;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
 
-		public int GroundContactCount { get; private set; }
-		public Vector3 ContactNormal { get; private set; }
-		public bool IsGrounded => GroundContactCount > 0;
+		public bool IsGrounded => _groundContactCount > 0;
 		public bool IsMoving { get; private set; }
 
 		private PlayerMovementValues _values;
 		private TweenableFloat _maxSpeed = new();
+		private int _groundContactCount;
+		private Vector3 _contactNormal;
 		private Vector3 _velocity;
+		private bool _isGroundedLastFrame;
 		private float _lastJumpTime;
 		private float _lastUngroundedTime;
+		private float _jumpCount;
 
 		protected override void OnInitialize()
 		{
@@ -58,6 +60,12 @@ namespace Scripts.Core.Player
 
 		protected override void OnFixedUpdate()
 		{
+			if (IsGrounded && !_isGroundedLastFrame)
+				OnLanded();
+
+			if (!IsGrounded && _isGroundedLastFrame)
+				OnTookOff();
+
 			_velocity = _rigidbody.linearVelocity;
 
 			CalculateDesiredVelocity();
@@ -67,9 +75,10 @@ namespace Scripts.Core.Player
 			ApplyAirCorrection();
 
 			_rigidbody.linearVelocity = _velocity;
+			_isGroundedLastFrame = IsGrounded;
 
-			GroundContactCount = 0;
-			ContactNormal = Vector3.zero;
+			_groundContactCount = 0;
+			_contactNormal = Vector3.zero;
 		}
 
 		private void HandleCollision(Collision collision)
@@ -81,11 +90,21 @@ namespace Scripts.Core.Player
 				if(normal.y < Mathf.Cos(_maxSlopeAngle * Mathf.Deg2Rad))
 					continue;
 
-				GroundContactCount++;
-				ContactNormal += normal;
+				_groundContactCount++;
+				_contactNormal += normal;
 			}
 
-			ContactNormal = ContactNormal.normalized;
+			_contactNormal = _contactNormal.normalized;
+		}
+
+		private void OnLanded()
+		{
+			_jumpCount = 0;
+		}
+
+		private void OnTookOff()
+		{
+			_lastUngroundedTime = Time.time;
 		}
 
 		private Vector3 CalculateDesiredVelocity()
@@ -93,8 +112,8 @@ namespace Scripts.Core.Player
 			Vector2 moveInput = _inputManager.Move.ReadValue<Vector2>();
 			Vector3 projectedForward = Vector3.ProjectOnPlane(_lookAnchor.forward, Vector3.up).normalized;
 			Vector3 projectedRight = Vector3.ProjectOnPlane(_lookAnchor.right, Vector3.up).normalized;
-			Vector3 forwardInputMotion = Vector3.ProjectOnPlane(projectedForward, Vector3.ProjectOnPlane(ContactNormal, projectedRight)).normalized * moveInput.y;
-			Vector3 sideInputMotion = Vector3.ProjectOnPlane(projectedRight, Vector3.ProjectOnPlane(ContactNormal, projectedForward)).normalized * moveInput.x;
+			Vector3 forwardInputMotion = Vector3.ProjectOnPlane(projectedForward, Vector3.ProjectOnPlane(_contactNormal, projectedRight)).normalized * moveInput.y;
+			Vector3 sideInputMotion = Vector3.ProjectOnPlane(projectedRight, Vector3.ProjectOnPlane(_contactNormal, projectedForward)).normalized * moveInput.x;
 			Vector3 resultInputMotion = (forwardInputMotion + sideInputMotion) * _maxSpeed;
 			return Vector3.ClampMagnitude(resultInputMotion, _maxSpeed);
 		}
@@ -122,11 +141,15 @@ namespace Scripts.Core.Player
 
 		private void ApplyJump()
 		{
-			if (!IsGrounded || !_inputManager.Jump.WasPressedThisFrame())
+			if (!IsGrounded && (Time.time - _lastUngroundedTime > _airJumpTime || _jumpCount >= _allowedJumpCount))
+				return;
+
+			if(!_inputManager.Jump.WasPressedThisFrame())
 				return;
 
 			_lastJumpTime = Time.time;
 			_velocity.y = Mathf.Sqrt(-2f * Physics.gravity.y * _jumpHeight);
+			_jumpCount++;
 		}
 
 		private void ApplyAirCorrection()

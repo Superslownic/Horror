@@ -612,7 +612,8 @@ MonoBehaviour:
   _maxSlopeAngle: 45
   _jumpHeight: 1
   _groundStickPreventionDelay: 0.1
-  _airJumpDelay: 0
+  _airJumpTime: 0.2
+  _allowedJumpCount: 1
   references:
     version: 2
     RefIds:
