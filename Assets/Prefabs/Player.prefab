@@ -608,10 +608,11 @@ MonoBehaviour:
   _rigidbody: {fileID: 1089791360745151953}
   _acceleration: 7
   _deceleration: 20
-  _airCorrectionMultiplier: 0.2
+  _airCorrectionMultiplier: 0.6
   _maxSlopeAngle: 45
   _jumpHeight: 1
   _groundStickPreventionDelay: 0.1
+  _airJumpDelay: 0
   references:
     version: 2
     RefIds:
@@ -1828,7 +1829,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112

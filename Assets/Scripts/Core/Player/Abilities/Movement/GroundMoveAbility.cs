@@ -21,6 +21,7 @@ namespace Scripts.Core.Player
 		[SerializeField] private float _maxSlopeAngle;
 		[SerializeField] private float _jumpHeight;
 		[SerializeField] private float _groundStickPreventionDelay;
+		[SerializeField] private float _airJumpDelay;
 
 		[Inject] private readonly InputManager _inputManager;
 		[Inject] private readonly GameConfig _gameConfig;
@@ -33,8 +34,8 @@ namespace Scripts.Core.Player
 		private PlayerMovementValues _values;
 		private TweenableFloat _maxSpeed = new();
 		private Vector3 _velocity;
-		private Vector3 _initialAirVelocity;
 		private float _lastJumpTime;
+		private float _lastUngroundedTime;
 
 		protected override void OnInitialize()
 		{
@@ -59,16 +60,16 @@ namespace Scripts.Core.Player
 		{
 			_velocity = _rigidbody.linearVelocity;
 
+			CalculateDesiredVelocity();
 			ApplyMove();
 			ApplyGravity();
 			ApplyJump();
 			ApplyAirCorrection();
 
-			_rigidbody.useGravity = !IsGrounded;
 			_rigidbody.linearVelocity = _velocity;
 
 			GroundContactCount = 0;
-			ContactNormal = Vector3.up;
+			ContactNormal = Vector3.zero;
 		}
 
 		private void HandleCollision(Collision collision)
@@ -84,8 +85,7 @@ namespace Scripts.Core.Player
 				ContactNormal += normal;
 			}
 
-			if(GroundContactCount > 1)
-				ContactNormal = ContactNormal.normalized;
+			ContactNormal = ContactNormal.normalized;
 		}
 
 		private Vector3 CalculateDesiredVelocity()
@@ -113,6 +113,9 @@ namespace Scripts.Core.Player
 
 		private void ApplyGravity()
 		{
+			if(!IsGrounded)
+				_rigidbody.AddForce(Physics.gravity);
+
 			if(!IsGrounded || Time.time - _lastJumpTime < _groundStickPreventionDelay)
 				_velocity.y = _rigidbody.linearVelocity.y;
 		}
@@ -129,14 +132,10 @@ namespace Scripts.Core.Player
 		private void ApplyAirCorrection()
 		{
 			if (IsGrounded)
-			{
-				_initialAirVelocity = _rigidbody.linearVelocity.SetY(0);
-			}
-			else
-			{
-				Vector3 airControlVelocity = _initialAirVelocity + CalculateDesiredVelocity() * _airCorrectionMultiplier;
-				_velocity = new Vector3(airControlVelocity.x, _rigidbody.linearVelocity.y, airControlVelocity.z);
-			}
+				return;
+
+			Vector3 airControlVelocity = CalculateDesiredVelocity() * _airCorrectionMultiplier;
+			_rigidbody.AddForce(airControlVelocity);
 		}
 	}
 }

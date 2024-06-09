@@ -11,13 +11,11 @@ namespace Scripts.Core.Player.States
 		public override void OnEnter()
 		{
 			_playerUnit.GetAbility<LadderClimbAbility>().Mount();
-			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = false;
 			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = 5;
 		}
 
 		public override void OnExit()
 		{
-			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.useGravity = true;
 			_playerUnit.GetAbility<RigidbodyAbility>().Rigidbody.linearDamping = 0;
 		}
 	}
